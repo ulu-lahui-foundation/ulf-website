@@ -1,0 +1,77 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+
+const tabs = [
+  { label: "Initiatives Overview", href: "/initiatives/" },
+  { label: "PLACES Education", href: "/initiatives/places-education/" },
+  { label: "Kumu Connect", href: "/initiatives/kumu-connect/" },
+  { label: "AI for Hawaiʻi", href: "/initiatives/ai-for-hawaii/" },
+  { label: "Community & Workforce", href: "/initiatives/community-workforce/" },
+];
+
+const areas = [
+  {
+    title: "Workforce pathways",
+    text: "Training, work-based learning, and internships into AI, computing, data, digital infrastructure, and AgTech: DHHL Data & AI workforce programs, digital and AI literacy, ʻĀina Intelligence Lab internships, and Tinker with Tech.",
+  },
+  {
+    title: "ʻĀina-based learning",
+    text: "Technology that supports the people whose knowledge and work sustain Hawaiʻi: loko iʻa and loʻi sensing, environmental monitoring, and place-based sensing systems for farmers, fishers, and land stewards.",
+  },
+  {
+    title: "Wellness through culture",
+    text: "Kaona, a tabletop RPG developed with the Waiʻanae Coast Comprehensive Health Center, engages Native Hawaiian and Pacific Islander youth in restorative Hawaiian futurism.",
+  },
+];
+---
+<Base title="Community & Workforce — Ulu Lāhui Foundation" description="ʻĀina-based learning and workforce pathways that build Native Hawaiian technical capacity.">
+  <PageHead
+    eyebrow="Initiatives · Community & Workforce"
+    title="Community & Workforce"
+    lede="The ʻāina-based and workforce work that grounds the mission's promise of economic opportunity for Native Hawaiian communities."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/initiatives/community-workforce/" />
+  </div>
+
+  <StitchedBand leftHue="kai" rightHue="ulu" flip>
+    <div class="p-kai" style="padding:44px 46px; color:white;">
+      <div style="max-width:58ch;">
+        <div class="eyebrow" style="color:var(--kai-light);">Why this pillar matters</div>
+        <h2 style="margin-top:6px; color:white;">Pathways to build, operate, and lead</h2>
+        <p style="margin-top:14px; color:rgba(255,255,255,0.9);">
+          Our goal is not only to prepare Hawaiian people for jobs created elsewhere. It is to develop
+          the technical capacity and leadership needed for new companies, systems, and industries to
+          be built in Hawaiʻi, by people who understand this place. Technical capacity grows through
+          doing: real projects, mentorship, and work experience.
+        </p>
+      </div>
+    </div>
+  </StitchedBand>
+
+  <div class="seam-thick"></div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="band-label">
+        <div class="eyebrow">Current work</div>
+        <h2 style="margin-top:8px;">Three threads</h2>
+      </div>
+      <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:24px;">
+        {areas.map((a, i) => (
+          <div class={`patch ${i === 0 ? "p-moana-l" : i === 1 ? "p-ulu-l tilt-b" : "p-lehua-l"}`} style="padding:26px 24px;">
+            <h3 class:list={i === 0 ? "head-moana" : i === 1 ? "head-ulu-dark" : "head-lehua"} style="font-size:17px;">{a.title}</h3>
+            <p style="font-size:13.5px; margin-top:8px;">{a.text}</p>
+          </div>
+        ))}
+      </div>
+      <p style="font-size:12.5px; color:var(--muted); margin-top:22px;">
+        This page is an honest inventory as the work takes shape; entries will be updated as programs
+        mature and new ones begin.
+      </p>
+    </div>
+  </div>
+</Base>

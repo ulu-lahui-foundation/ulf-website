@@ -1,0 +1,211 @@
+---
+import Base from "../layouts/Base.astro";
+import StitchedBand from "../components/StitchedBand.astro";
+import { stats } from "../data/stats";
+
+const initiatives = [
+  {
+    title: "PLACES Education",
+    href: "/initiatives/places-education/",
+    line: "Place-based and culturally revitalizing CS and STEM curricula, co-designed with kumu and kūpuna.",
+    cls: "p-ulu-l tilt-slight",
+    head: "head-ulu-dark",
+    text: "color:var(--ink)",
+  },
+  {
+    title: "Kumu Connect",
+    href: "/initiatives/kumu-connect/",
+    line: "Culturally grounded AI that helps Kaiapuni teachers plan lessons and cover substitutes.",
+    cls: "p-alaea tilt-b",
+    head: "text-white",
+    text: "color:#f7e2d5",
+  },
+  {
+    title: "AI for Hawaiʻi",
+    href: "/initiatives/ai-for-hawaii/",
+    line: "Workshops that put AI literacy, data sovereignty, and language tools in the hands of educators.",
+    cls: "p-moana-l",
+    head: "head-moana",
+    text: "color:var(--ink)",
+  },
+];
+
+const proof = [
+  "National Science Foundation",
+  "Google Research",
+  "Hawaiʻi Department of Education",
+  "Georgia Tech — Ka Moamoa Lab",
+  "University of Hawaiʻi at Mānoa",
+  "Purple Maiʻa Foundation",
+];
+---
+<Base
+  title="Ulu Lāhui Foundation"
+  description="Ulu Lāhui Foundation builds Native Hawaiian capacity to create, use, and govern technology through education, workforce development, applied research, and community-led innovation."
+>
+  <!-- Full-width looping video hero -->
+  <section class="video-hero" aria-label="Growing the Nation — Kōolaupoko mountains">
+    <video
+      poster="/media/koolaupoko-poster.jpg"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+      fetchpriority="high"
+      disableremoteplayback
+    >
+      <source media="(max-width: 760px)" src="/media/koolaupoko-mobile.mp4" type="video/mp4" />
+      <source src="/media/koolaupoko.mp4" type="video/mp4" />
+    </video>
+    <div class="scrim" aria-hidden="true"></div>
+    <div class="hero-copy">
+      <svg class="hero-mark" viewBox="0 0 200 189" aria-hidden="true"><use href="#uluLeaf" class="leaf" /></svg>
+      <div class="eyebrow" style="margin-top:14px;">Ulu Lāhui Foundation</div>
+      <h1>Growing the Nation</h1>
+      <p class="hero-sub">Kōolaupoko · mālama ʻāina · technology</p>
+    </div>
+  </section>
+
+  <!-- Hero — the pieced "three containers" stitched layout -->
+  <StitchedBand leftHue="ulu" rightHue="kai" flip={false}>
+    <div class="hero-grid">
+      <div class="pb p-alaea hero-main">
+        <div class="eyebrow" style="color:var(--olena-light); margin-bottom:14px;">Ulu Lāhui Foundation</div>
+        <h1>We build Native Hawaiian capacity to create, use, and govern technology.</h1>
+        <p>
+          Through education, workforce development, applied research, and community-led
+          innovation rooted in the knowledge, needs, and possibilities of Hawaiʻi.
+        </p>
+        <div class="hero-cta-row">
+          <a class="btn btn-primary" style="--tone:var(--olena); --tone-deep:var(--olena-deep); --tone-ink:var(--ink);" href="/support/donate/">Support the work</a>
+          <a class="btn btn-secondary btn-on-vivid" href="/impact/">See our impact</a>
+        </div>
+      </div>
+      <div class="p-moana-l hero-stat">
+        <div class="num" style="color:var(--moana); font-family:'K2D',sans-serif; font-weight:700; font-size:40px; line-height:1.05;">450+</div>
+        <div class="lbl" style="color:var(--moana); font-weight:700; font-size:11px; letter-spacing:0.05em; text-transform:uppercase; margin-top:4px;">Students reached</div>
+        <p style="font-size:12.5px; color:var(--ink); margin-top:10px;">Source: AI4HI 2026 Impact Report and program reporting.</p>
+      </div>
+      <div class="p-kai-l hero-email">
+        <div class="label" style="color:var(--kai-deep); margin-bottom:6px;">Get project updates</div>
+        <div class="stitch-input">
+          <svg viewBox="0 0 200 189"><use href="#uluLeaf" class="leaf-outline" /></svg>
+          <input type="email" placeholder="Your email" aria-label="Email address" />
+        </div>
+      </div>
+    </div>
+  </StitchedBand>
+
+  <div class="seam-thick"></div>
+
+  <!-- Initiatives — three loose patches on the table -->
+  <div class="table">
+    <div class="content-col">
+      <div class="band-label">
+        <div class="eyebrow">Our initiatives</div>
+        <h2 style="margin-top:8px;">Three ways we work</h2>
+      </div>
+      <div class="init-row">
+        {initiatives.map((init) => (
+          <a class="card-link" href={init.href}>
+            <div class={`init-card patch ${init.cls}`}>
+              <svg class="icon" viewBox="0 0 200 189"><use href="#uluLeaf" class="leaf-outline" /></svg>
+              <h3 class={init.head}>{init.title}</h3>
+              <p style={init.text}>{init.line}</p>
+              <span class="btn btn-tertiary" style="--tone:var(--alaea); padding-left:0;">Learn more</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <!-- ULF at a glance — pieced stat row -->
+  <StitchedBand leftHue="ulu-l" rightHue="alaea" flip>
+    <div class="band-label" style="text-align:left; margin-bottom:18px;">
+      <div class="eyebrow">ULF at a glance</div>
+    </div>
+    <div class="stat-bar">
+      {stats.map((s) => (
+        <div class={`block p-${s.tone === "olena" ? "olena-l" : `${s.tone}-l`}`}>
+          <div class="num" class:list={s.tone === "olena" ? "head-olena-dark" : s.tone === "ulu" ? "head-ulu-dark" : `head-${s.tone}`}>{s.num}</div>
+          <div class="lbl" class:list={s.tone === "olena" ? "head-olena-dark" : s.tone === "ulu" ? "head-ulu-dark" : `head-${s.tone}`}>{s.label}</div>
+        </div>
+      ))}
+    </div>
+  </StitchedBand>
+
+  <div class="seam-thick"></div>
+
+  <!-- Proof strip — trusted collaborators -->
+  <div class="table">
+    <div class="content-col">
+      <div class="band-label">
+        <div class="eyebrow">Funders and collaborators</div>
+        <h2 style="margin-top:8px;">The people behind the work</h2>
+        <p class="lede" style="margin-top:10px; font-size:15px;">
+          Organizations we work with, listed by name until logo usage is approved.
+        </p>
+      </div>
+      <div class="proof-strip">
+        {proof.map((org) => <span class="proof-item">{org}</span>)}
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <!-- Featured research callout -->
+  <StitchedBand leftHue="olena" rightHue="moana" flip>
+    <div class="callout p-lehua">
+      <svg class="callout-bg" viewBox="0 0 200 200" style="color:white;"><use href="#uluQuiltA" class="leaf" /></svg>
+      <div class="content">
+        <div class="eyebrow" style="color:var(--lehua-light);">Featured research</div>
+        <h3>Kumu Connect, built with kumu and evaluated by educators</h3>
+        <p>
+          36 educators across 3 Kaiapuni schools measured cultural accuracy at 4.20 out of 5 and
+          pedagogical usefulness at 4.45 out of 5. The numbers come from real classroom use, not a demo.
+        </p>
+        <a class="btn" style="background:var(--olena); color:var(--ink); border:1px dashed var(--olena-deep);" href="/research/kumu-connect-rd/">Read the research</a>
+      </div>
+    </div>
+  </StitchedBand>
+
+  <div class="seam-thick"></div>
+
+  <!-- Testimonial -->
+  <div class="table">
+    <div class="content-col" style="display:flex; justify-content:center;">
+      <div class="scatter" style="top:-24px; left:calc(50% - 340px); width:150px; height:90px; background:var(--moana-light); transform:rotate(-5deg); opacity:0.55;"></div>
+      <div class="scatter" style="bottom:-24px; left:calc(50% + 180px); width:150px; height:90px; background:var(--kai); transform:rotate(5deg); opacity:0.45;"></div>
+      <div class="quote-patch patch p-alaea-l">
+        <svg class="leaf-mark" viewBox="0 0 200 189"><use href="#uluLeaf" class="leaf" /></svg>
+        <blockquote>
+          <p>“I learned a lot of new AI terminology and the importance of all the different layers of AI to safeguard our way of life as Hawaiian people when using technology.”</p>
+        </blockquote>
+        <div class="attrib">Workshop participant, AI for Hawaiʻi</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <!-- Newsletter — stitched email band -->
+  <StitchedBand leftHue="kai" rightHue="lehua" flip>
+    <div class="p-kai-l" style="padding:32px 26px;">
+      <div class="label" style="color:var(--kai-deep); margin-bottom:8px;">Monthly field notes</div>
+      <h2 style="font-size:24px; margin-bottom:6px;">Hear what we are building and learning</h2>
+      <p style="font-size:14px; margin-bottom:18px;">
+        One email a month. Program updates, research findings, and ways to get involved.
+      </p>
+      <div class="stitch-input">
+        <svg viewBox="0 0 200 189"><use href="#uluLeaf" class="leaf-outline" /></svg>
+        <input type="email" placeholder="Your email" aria-label="Email address" />
+        <a class="btn btn-primary" style="--tone:var(--kai); --tone-deep:var(--kai-deep);" href="/news/newsletter/">Sign up</a>
+      </div>
+    </div>
+  </StitchedBand>
+</Base>

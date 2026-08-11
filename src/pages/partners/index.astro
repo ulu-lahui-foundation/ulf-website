@@ -1,0 +1,67 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+import { partnerGroups } from "../../data/partners";
+
+const tabs = [
+  { label: "Overview", href: "/partners/" },
+  { label: "Funders", href: "/partners/funders/" },
+  { label: "Schools & Communities", href: "/partners/schools-communities/" },
+  { label: "Become a Partner", href: "/partners/become-a-partner/" },
+];
+
+const groupTones = ["p-alaea", "p-moana", "p-ulu", "p-kai", "p-lehua", "p-olena"];
+const headTones = ["text-white", "text-white", "text-white", "text-white", "text-white", "text-white"];
+const textTones = ["color:#f7e2d5", "color:#e2eefa", "color:#eef1d5", "color:#dceeea", "color:#f6e0ea", "color:#f7e7c4"];
+const chipTones = ["chip-alaea", "chip-moana", "chip-ulu", "chip-kai", "chip-lehua", "chip-olena"];
+---
+<Base title="Partners — Ulu Lāhui Foundation" description="Our funders, collaborators, schools, and communities, grouped by relationship type.">
+  <PageHead
+    eyebrow="Partners"
+    title="Partners & funders, by relationship type"
+    lede="A flat, undifferentiated partner list invites wrong assumptions. Every organization on this page is in a specific category, and the categories mean different things."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/partners/" />
+  </div>
+
+  <div class="seam-thick"></div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="band-label" style="text-align:left;">
+        <p style="font-size:13px; color:var(--muted); max-width:64ch;">
+          Organizations appear by name until logo usage is explicitly approved. Only an organization
+          we are confident would describe the relationship the same way is labeled a partner.
+        </p>
+      </div>
+      <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px;">
+        {partnerGroups.map((g, i) => (
+          <div class={`patch ${groupTones[i % groupTones.length]}`} style="padding:26px 24px;">
+            <div class="eyebrow" style={i % 2 === 0 ? "color:rgba(255,255,255,0.75);" : "color:rgba(255,255,255,0.75);"}>{g.group}</div>
+            <ul style="list-style:none; margin-top:10px;">
+              {g.partners.map((p) => (
+                <li style={`font-size:13.5px; font-weight:600; margin-bottom:8px; ${textTones[i % textTones.length]}`}>{p}</li>
+              ))}
+            </ul>
+            {g.note && <p style="font-size:12.5px; color:rgba(255,255,255,0.8); margin-top:10px;">{g.note}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <StitchedBand leftHue="ulu" rightHue="alaea" flip>
+    <div class="qb q-kai-l" style="padding:36px 42px;">
+      <p style="font-size:15px; max-width:56ch;">
+        Past collaborators are not quietly dropped: when a program winds down, the organization moves
+        to a past collaborators category rather than leaving a stale claim in place.
+      </p>
+      <a class="btn btn-primary" style="--tone:var(--kai); --tone-deep:var(--kai-deep); margin-top:16px;" href="/partners/become-a-partner/">Become a partner</a>
+    </div>
+  </StitchedBand>
+</Base>

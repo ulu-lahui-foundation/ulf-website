@@ -1,0 +1,88 @@
+---
+import { site } from "../data/site";
+const year = new Date().getFullYear();
+const cols = [
+  {
+    title: "About",
+    links: [
+      { label: "About", href: "/about/" },
+      { label: "Mission & Vision", href: "/about/#mission" },
+      { label: "Story", href: "/about/#story" },
+      { label: "Leadership & Staff", href: "/about/#team" },
+      { label: "Board", href: "/about/#board" },
+      { label: "Governance & Values", href: "/about/#governance" },
+    ],
+  },
+  {
+    title: "Programs",
+    links: [
+      { label: "Initiatives", href: "/initiatives/" },
+      { label: "PLACES Education", href: "/initiatives/places-education/" },
+      { label: "Kumu Connect", href: "/initiatives/kumu-connect/" },
+      { label: "AI for Hawaiʻi", href: "/initiatives/ai-for-hawaii/" },
+      { label: "Community & Workforce", href: "/initiatives/community-workforce/" },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      { label: "Impact", href: "/impact/" },
+      { label: "Research", href: "/research/" },
+      { label: "Publications", href: "/research/publications/" },
+      { label: "Partners", href: "/partners/" },
+      { label: "News", href: "/news/" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { label: "Donate", href: "/support/donate/" },
+      { label: "Corporate Partnership", href: "/support/corporate-partnership/" },
+      { label: "Foundation Grants", href: "/support/foundation-grant-partnership/" },
+      { label: "Volunteer", href: "/support/volunteer/" },
+      { label: "Contact", href: "/support/contact/" },
+    ],
+  },
+];
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-cols">
+      <div>
+        <div class="footer-brand">
+          <svg viewBox="0 0 200 189" aria-hidden="true"><use href="#uluLeaf" class="leaf" /></svg>
+          Ulu Lāhui Foundation
+        </div>
+        <p class="footer-blurb">
+          We build Native Hawaiian capacity to create, use, and govern technology, through education,
+          workforce development, applied research, and community-led innovation.
+        </p>
+        <div class="footer-meta">
+          {site.name} is a 501(c)(3) nonprofit, EIN {site.ein}. Founded {site.founded}.
+        </div>
+        <div class="footer-trust">
+          <a aria-label="Ulu Lahui Foundation" href={site.candigProfile} target="_blank" rel="noopener">
+            <img alt="Candid 2026 Platinum Seal of Transparency — Ulu Lāhui Foundation earned Candid's highest level of transparency recognition by publicly sharing information about our leadership, finances, programs, goals, and measurable impact." src={site.candidSeal} width="120" height="120" loading="lazy" />
+          </a>
+        </div>
+      </div>
+      {cols.map((col) => (
+        <div>
+          <h5>{col.title}</h5>
+          <ul>
+            {col.links.map((link) => (
+              <li><a href={link.href}>{link.label}</a></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div class="footer-bottom">
+      <div>© {year} {site.name}. All rights reserved.</div>
+      <div class="legal">
+        <a href="/accessibility/">Accessibility</a>
+        <a href="/privacy-policy/">Privacy</a>
+      </div>
+    </div>
+  </div>
+</footer>

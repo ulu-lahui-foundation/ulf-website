@@ -1,0 +1,97 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+
+const tabs = [
+  { label: "Initiatives Overview", href: "/initiatives/" },
+  { label: "PLACES Education", href: "/initiatives/places-education/" },
+  { label: "Kumu Connect", href: "/initiatives/kumu-connect/" },
+  { label: "AI for Hawaiʻi", href: "/initiatives/ai-for-hawaii/" },
+  { label: "Community & Workforce", href: "/initiatives/community-workforce/" },
+];
+
+const cards = [
+  {
+    title: "PLACES Education",
+    sub: "Place-based CS curricula and professional development",
+    href: "/initiatives/places-education/",
+    hue: "p-ulu-l", head: "head-ulu-dark",
+  },
+  {
+    title: "Kumu Connect",
+    sub: "Culturally grounded AI for Kaiapuni teachers",
+    href: "/initiatives/kumu-connect/",
+    hue: "p-alaea", head: "text-white", subCls: "opacity:0.85;",
+  },
+  {
+    title: "AI for Hawaiʻi",
+    sub: "AI literacy workshops, evaluated at 33 schools",
+    href: "/initiatives/ai-for-hawaii/",
+    hue: "p-moana-l", head: "head-moana",
+  },
+  {
+    title: "Community & Workforce",
+    sub: "ʻĀina-based learning and workforce pathways",
+    href: "/initiatives/community-workforce/",
+    hue: "p-kai-l", head: "head-kai",
+  },
+];
+---
+<Base title="Initiatives — Ulu Lāhui Foundation" description="Our initiatives: PLACES Education, Kumu Connect, AI for Hawaiʻi, and community and workforce programs.">
+  <PageHead
+    eyebrow="Initiatives"
+    title="One strategy, four programs"
+    lede="Every program serves one of our pillars: education and learning technology, technology and research, or community sovereignty. Read together, they are a strategy, not three unrelated projects."
+  />
+
+  <StitchedBand leftHue="ulu-l" rightHue="alaea" flip>
+    <div class="p-moana-l" style="padding:40px 44px;">
+      <div style="max-width:62ch;">
+        <div class="eyebrow" style="color:var(--moana);">The frame</div>
+        <p style="margin-top:12px; font-size:15.5px;">
+          <strong>Education</strong> prepares learners and educators to be creators of technology.
+          <strong>Technology &amp; research</strong> invents systems that could only emerge from
+          Hawaiian knowledge, language, and conditions. <strong>Community sovereignty</strong> keeps
+          the authority over both with the communities they serve. Each program below carries at
+          least two of those pillars at once.
+        </p>
+      </div>
+    </div>
+  </StitchedBand>
+
+  <div class="seam-thick"></div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="gallery">
+        {cards.map((c, i) => (
+          <a class="card-link" href={c.href}>
+            <div class={`cell patch ${c.hue} ${i % 3 === 1 ? "tilt-b" : ""}`}>
+              <div class="lbl" class:list={c.head}>{c.title}</div>
+              <div class="sub-lbl" style={c.subCls}>{c.sub}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <StitchedBand leftHue="kai" rightHue="lehua" flip>
+    <div class="p-kai" style="padding:44px 46px; color:white;">
+      <div style="max-width:56ch;">
+        <div class="eyebrow" style="color:var(--kai-light);">How programs get chosen</div>
+        <h2 style="margin-top:6px; color:white;">Built with communities, measured against evidence</h2>
+        <p style="margin-top:14px; color:rgba(255,255,255,0.9);">
+          We do not run programs because they are fundable. We run them because educators, kumu,
+          practitioners, and communities tell us the gap is real, and we keep the ones the evidence
+          says work. The most important thing right now is turning successful projects into durable
+          programs, with clear ownership, repeatable delivery models, and measurable outcomes.
+        </p>
+      </div>
+    </div>
+  </StitchedBand>
+</Base>

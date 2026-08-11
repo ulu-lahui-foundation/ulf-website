@@ -1,0 +1,518 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+import { staff, consultants, board } from "../../data/people";
+
+const chips = [
+  { label: "Mission & Vision", href: "#mission" },
+  { label: "Story", href: "#story" },
+  { label: "Leadership & Staff", href: "#team" },
+  { label: "Board", href: "#board" },
+  { label: "Governance & Values", href: "#governance" },
+];
+
+const milestones = [
+  {
+    year: "2020",
+    title: "The foundation is founded",
+    text: "Ulu Lāhui Foundation is incorporated as a 501(c)(3) to advance Native Hawaiian communities through education, workforce development, and sustainability.",
+    hue: "p-olena-l", head: "head-olena-dark",
+  },
+  {
+    year: "2021–2023",
+    title: "Mālama ʻĀina through Micro:bits",
+    text: "Place-based CS takes shape at Waikalua Loko Iʻa fishpond with Puʻōhala School and the Pacific American Foundation: students build solar-powered micro:bit water-quality sensors to care for the fishpond.",
+    hue: "p-ulu-l", head: "head-ulu-dark",
+  },
+  {
+    year: "2023",
+    title: "PLACES Education",
+    text: "The micro:bit work becomes a program: place-based, culturally revitalizing CS curricula and professional development, supported by a five-year NSF award with the University of Hawaiʻi at Mānoa and Georgia Tech.",
+    hue: "p-moana-l", head: "head-moana",
+  },
+  {
+    year: "2024",
+    title: "Kumu Connect begins as research",
+    text: "Assets-based design research with kumu surfaces the real need: substitute coverage and culturally authentic lesson planning for Kaiapuni classrooms. The design requirements become a system.",
+    hue: "p-alaea-l", head: "head-alaea",
+  },
+  {
+    year: "2025",
+    title: "Kumu Connect, evaluated",
+    text: "A one-year co-design case study with 13 educators earns a System Usability Scale score of 87. A full evaluation follows with 36 educators across 3 schools.",
+    hue: "p-lehua-l", head: "head-lehua",
+  },
+  {
+    year: "2025–2026",
+    title: "AI for Hawaiʻi",
+    text: "Six workshops reach 33 schools and 6 complex areas, with a 97% average increase in AI understanding. What began as sensing projects is now a body of research and programs.",
+    hue: "p-kai-l", head: "head-kai",
+  },
+];
+
+const proverbs = [
+  {
+    noeau: "ʻAʻohe pau ka ʻike i ka hālau hoʻokahi",
+    gloss: "All knowledge is not taught in the same school. One can learn from many sources.",
+    pillar: "Education & Learning Technology",
+    hue: "p-ulu-l", head: "head-ulu-dark",
+  },
+  {
+    noeau: "Ma ka hana ka ʻike",
+    gloss: "In working, one learns.",
+    pillar: "Workforce & Economic Opportunity",
+    hue: "p-moana-l", head: "head-moana",
+  },
+  {
+    noeau: "He aliʻi ka ʻāina; he kauwā ke kanaka",
+    gloss: "The land is chief; people are its servants.",
+    pillar: "ʻĀina & Resilience",
+    hue: "p-alaea-l", head: "head-alaea",
+  },
+  {
+    noeau: "Ua lehulehu a manomano ka ʻikena a ka Hawaiʻi",
+    gloss: "Great and numerous is the knowledge of the Hawaiians.",
+    pillar: "Research & Technology",
+    hue: "p-lehua-l", head: "head-lehua",
+  },
+];
+
+const commitments = [
+  { title: "Hawaiian leadership", text: "Native Hawaiian communities help determine the questions, priorities, technologies, and measures of success." },
+  { title: "Place creates knowledge", text: "Our people, culture, ecosystems, history, and constraints shape what we build." },
+  { title: "Knowledge has many sources", text: "Academic and technical knowledge sit alongside ʻike Hawaiʻi, ʻŌlelo Hawaiʻi, and lived experience." },
+  { title: "Learning through doing", text: "We create opportunities to gain capability by building, experimenting, and solving real problems." },
+  { title: "Community co-design", text: "We build with educators, practitioners, learners, and communities from the beginning, as experts and creators." },
+  { title: "Culture and language throughout", text: "ʻŌlelo Hawaiʻi, ʻike Hawaiʻi, place, and cultural context shape how problems are understood." },
+  { title: "Kuleana to ʻāina", text: "Technology should strengthen relationships among people, place, and future generations." },
+  { title: "Community control of data and technology", text: "We design for responsible data governance, local ownership, and Indigenous data sovereignty." },
+  { title: "Bring resources home", text: "We connect Hawaiʻi with research, technology, capital, and partnerships, keeping capacity in Hawaiʻi." },
+  { title: "Evidence and accountability", text: "We evaluate programs, publish findings, measure outcomes, and change course when evidence says so." },
+  { title: "Build lasting capacity", text: "A successful project leaves people, skills, tools, infrastructure, knowledge, and relationships in place." },
+];
+
+const toneBg: Record<string, string> = { alaea: "var(--alaea)", moana: "var(--moana)", olena: "var(--olena)", ulu: "var(--ulu)", lehua: "var(--lehua)", kai: "var(--kai)" };
+const lightField: Record<string, string> = { alaea: "p-alaea-l", moana: "p-moana-l", olena: "p-olena-l", ulu: "p-ulu-l", lehua: "p-lehua-l", kai: "p-kai-l" };
+const headCls: Record<string, string> = {
+  alaea: "head-alaea", moana: "head-moana", olena: "head-olena-dark", ulu: "head-ulu-dark", lehua: "head-lehua", kai: "head-kai",
+};
+const boardToneBg: Record<string, string> = { alaea: "var(--alaea)", moana: "var(--moana)", kai: "var(--kai)" };
+const boardField: Record<string, string> = { alaea: "p-alaea-l", moana: "p-moana-l", kai: "p-kai-l" };
+const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-moana", kai: "head-kai" };
+---
+<Base title="About — Ulu Lāhui Foundation" description="Ulu Lāhui Foundation is a Native Hawaiian-led 501(c)(3) building capacity to create, use, and govern technology. Our mission, story, team, board, and values, on one page.">
+  <PageHead
+    eyebrow="About"
+    title="A foundation for a technological future, led from Hawaiʻi"
+    lede="Ulu Lāhui Foundation exists to ensure Native Hawaiian communities have the knowledge, tools, infrastructure, and authority to determine and create the technologies that shape thriving education, work, ʻāina, community life, and a sovereign people."
+  />
+
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={chips} />
+  </div>
+
+  <StitchedBand leftHue="ulu" rightHue="alaea" flip>
+    <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:0;" class="about-pair">
+      <div class="block pb p-moana-l">
+        <div class="eyebrow" style="color:var(--moana);">Why we exist</div>
+        <h3 style="color:var(--moana); margin-top:8px;">Hawaiʻi has always been a place of invention</h3>
+        <p style="margin-top:10px;">
+          Hawaiian communities developed sophisticated systems for navigation, agriculture, aquaculture,
+          resource management, language, and collective stewardship in response to the opportunities and
+          constraints of these islands. We believe that tradition of innovation should shape the technologies
+          of the future.
+        </p>
+      </div>
+      <div class="block pb p-alaea">
+        <div class="eyebrow" style="color:var(--olena-light);">Who we are</div>
+        <h3 style="color:white; margin-top:8px;">Founded in 2020, earning trust ever since</h3>
+        <p style="color:#f7e2d5; margin-top:10px;">
+          We join education, workforce development, applied research, and community-led innovation into
+          one body of work, so that projects become durable programs with lasting capacity in Hawaiʻi.
+        </p>
+        <a class="btn btn-primary" style="--tone:var(--olena); --tone-deep:var(--olena-deep); --tone-ink:var(--ink); margin-top:16px;" href="#story">Read our story</a>
+      </div>
+    </div>
+  </StitchedBand>
+
+  <div class="seam-thick"></div>
+
+  <!-- ============ 01 · Mission & Vision ============ -->
+  <section id="mission" style="scroll-margin-top:24px;">
+    <div class="table">
+      <div class="content-col">
+        <div class="band-label">
+          <div class="eyebrow">01 · Mission &amp; Vision</div>
+          <h2 style="margin-top:8px;">Why we exist, and what we are working toward</h2>
+        </div>
+      </div>
+    </div>
+
+    <StitchedBand leftHue="moana" rightHue="kai" flip>
+      <div class="piece-row">
+        <div class="block pb p-moana-l">
+          <div class="eyebrow" style="color:var(--moana);">Mission</div>
+          <h3 style="color:var(--moana); margin-top:8px;">Why we exist</h3>
+          <blockquote style="margin-top:14px; font-size:16px; font-weight:600; color:var(--ink);">
+            To promote and support the socio-economic advancement of the Native Hawaiian community in the
+            Hawaiian Islands and abroad through educational programming, workforce development, and
+            sustainability initiatives.
+          </blockquote>
+        </div>
+        <div class="block pb p-kai-l">
+          <div class="eyebrow" style="color:var(--kai);">Vision</div>
+          <h3 style="color:var(--kai); margin-top:8px;">What we are working toward</h3>
+          <blockquote style="margin-top:14px; font-size:15px; font-weight:600; color:var(--ink);">
+            To provide IT/STEM educational programs and support for schools, teachers, community centers,
+            and other non-profit organizations in the state of Hawaiʻi, with a focus on underserved,
+            economically and socially disadvantaged Native Hawaiian communities, while welcoming all
+            children, teachers, and communities who want to increase access to IT/STEM fields.
+          </blockquote>
+        </div>
+      </div>
+    </StitchedBand>
+
+    <div class="table" style="margin-top:34px;">
+      <div class="content-col">
+        <div class="band-label">
+          <div class="eyebrow">The ʻōlelo noʻeau we work by</div>
+          <h2 style="margin-top:8px;">Four proverbs, four pillars</h2>
+          <p class="lede" style="margin-top:10px; font-size:15px;">
+            From Mary Kawena Pukui, ʻŌlelo Noʻeau: Hawaiian Proverbs &amp; Poetical Sayings (Bishop Museum
+            Press, 1983).
+          </p>
+        </div>
+        <div class="gallery">
+          {proverbs.map((p, i) => (
+            <div class={`cell patch ${p.hue} ${i % 3 === 1 ? "tilt-b" : ""}`}>
+              <div class="lbl" class:list={p.head} style="font-size:16px;">{p.noeau}</div>
+              <div class="sub-lbl" style="font-weight:400; text-transform:none; letter-spacing:0; opacity:1; margin-top:8px;">{p.gloss}</div>
+              <div class="sub-lbl" style="margin-top:10px;">{p.pillar}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="seam-thin"></div>
+
+    <StitchedBand leftHue="ulu-l" rightHue="lehua" flip>
+      <div class="qb q-olena-l" style="padding:40px 44px;">
+        <div class="container-narrow" style="padding:0;">
+          <div class="eyebrow" style="color:var(--olena-deep);">Why this mission exists</div>
+          <div class="prose" style="max-width:none;">
+            <h2 style="color:var(--olena-dark); margin-top:6px;">Three pillars, one purpose</h2>
+            <p>
+              Our mission exists because a gap is real and measurable. Kaiapuni, the Hawaiian language
+              immersion strand of public education, serves the state's most committed learners of ʻŌlelo
+              Hawaiʻi, yet it faces chronic shortages of substitute teachers and curricula that reflect
+              Hawaiian language and place. Technology built elsewhere rarely fits a classroom where the
+              medium of instruction is an Indigenous language with limited digital resources.
+            </p>
+            <p>
+              At the same time, the dominant AI industry is built on assumptions that rarely center
+              Indigenous communities: large-scale data collection, English-first defaults, and models
+              trained on little Hawaiian language. Our research has documented the consequence: educators
+              report they would not trust systems built this way for their students.
+            </p>
+            <p>
+              So the work is organized around three pillars. <strong>Education &amp; learning
+              technology</strong> builds curricula and tools rooted in Hawaiian language and place.
+              <strong>Technology &amp; research</strong> develops AI and computing systems that treat
+              Indigenous data sovereignty as a design requirement, not a policy afterthought.
+              <strong>Community sovereignty</strong> keeps decision-making with the communities the work
+              serves, through co-design and local ownership.
+            </p>
+          </div>
+        </div>
+      </div>
+    </StitchedBand>
+
+    <div class="section container-narrow">
+      <div class="qb q-kai-l" style="padding:32px 36px; margin-top:8px;">
+        <div class="eyebrow" style="color:var(--kai);">Ka Mākia me ka Nuʻukia</div>
+        <p style="margin-top:10px; font-size:15px;">
+          The ʻŌlelo Hawaiʻi versions of our mission and vision, Ka Mākia and Ka Nuʻukia, are reviewed,
+          written content from the AI4HI 2026 Impact Report. They will be published here alongside the
+          Hawaiian-language routes of this site once that review is complete. We never machine-translate
+          ʻŌlelo Hawaiʻi for this site; we publish only text that a fluent reviewer has supplied or
+          approved.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-thick"></div>
+
+  <!-- ============ 02 · Story ============ -->
+  <section id="story" style="scroll-margin-top:24px;">
+    <div class="table">
+      <div class="content-col">
+        <div class="band-label">
+          <div class="eyebrow">02 · Story</div>
+          <h2 style="margin-top:8px;">A track record, not just programs</h2>
+          <p class="lede" style="margin-top:10px; font-size:15px;">
+            How ULF grew from micro:bits at a fishpond into curricula, an AI system for teachers, and
+            workshops across six complex areas.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <StitchedBand leftHue="ulu" rightHue="olena" flip>
+      <div class="p-ulu-l" style="padding:42px 44px;">
+        <div style="max-width:68ch;">
+          <div class="eyebrow" style="color:var(--ulu-dark);">The throughline</div>
+          <h2 style="color:var(--ulu-dark); margin-top:6px;">One question, answered repeatedly: what does technology look like when it grows from this place?</h2>
+          <p style="margin-top:14px; font-size:15px;">
+            Our work did not begin as a list of initiatives. It began with students at Waikalua Loko Iʻa,
+            building sensors to watch over the fishpond their school was restoring. That project raised a
+            question we have been answering ever since, in classrooms, in research papers, and in
+            workshops: Hawaiian communities should not have to fit into technologies designed elsewhere.
+            The tools belong in a conversation with ʻāina, language, and the people who hold both.
+          </p>
+        </div>
+      </div>
+    </StitchedBand>
+
+    <div class="table" style="margin-top:34px;">
+      <div class="content-col">
+        <div class="band-label">
+          <div class="eyebrow">The milestones</div>
+          <h2 style="margin-top:8px;">From 2020 to today</h2>
+        </div>
+        <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px;">
+          {milestones.map((m, i) => (
+            <div class={`patch ${m.hue}`} style={`padding:26px 24px; ${i % 3 === 1 ? "transform:rotate(-1.2deg);" : ""} ${i % 4 === 2 ? "transform:rotate(1deg);" : ""}`}>
+              <div class="num" class:list={m.head} style="font-size:24px;">{m.year}</div>
+              <h3 class={m.head} style="margin-top:8px;">{m.title}</h3>
+              <p style="font-size:13.5px; margin-top:8px;">{m.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="seam-thin"></div>
+
+    <StitchedBand leftHue="moana-l" rightHue="kai" flip>
+      <div class="qb q-alaea-l" style="padding:40px 44px;">
+        <div class="eyebrow" style="color:var(--alaea-deep);">Where it is headed</div>
+        <h2 style="color:var(--alaea-deep); margin-top:6px;">From projects to programs</h2>
+        <p style="margin-top:14px; font-size:15px; max-width:56ch;">
+          The most important thing right now is turning successful projects into durable programs:
+          clear ownership, repeatable delivery models, measurable outcomes, multi-year funding, and the
+          operational capacity to grow without becoming a collection of unrelated grants. A successful
+          project leaves people, skills, tools, infrastructure, knowledge, and relationships in place
+          after the grant ends. That is the standard we hold our work to.
+        </p>
+      </div>
+    </StitchedBand>
+  </section>
+
+  <div class="seam-thick"></div>
+
+  <!-- ============ 03 · Leadership & Staff ============ -->
+  <section id="team" style="scroll-margin-top:24px;">
+    <div class="table">
+      <div class="content-col">
+        <div class="band-label">
+          <div class="eyebrow">03 · Leadership &amp; Staff</div>
+          <h2 style="margin-top:8px;">The people building, teaching, and researching</h2>
+          <p class="lede" style="margin-top:10px; font-size:15px;">
+            Researchers, technologists, educators, and cultural practitioners with deep experience in
+            Hawaiian education, Indigenous technology development, Indigenous data sovereignty, and
+            culturally revitalizing educational technology.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <StitchedBand leftHue="moana" rightHue="alaea" flip>
+      <div class="piece-row">
+        {staff.map((p) => (
+          <div class={`block ${lightField[p.tone]}`} style="padding:30px 26px;">
+            <div class="avatar" style={`background:${toneBg[p.tone]}; color:${p.tone === "olena" || p.tone === "ulu" ? "var(--ink)" : "white"};`}>{p.initials}</div>
+            <div class="pname" style="text-align:center; font-family:'K2D',sans-serif; font-weight:600; font-size:15px;" class:list={headCls[p.tone]}>{p.name}</div>
+            <div class="lbl" style="text-align:center; color:var(--muted); margin:4px 0 10px;">{p.role}</div>
+            <p style="font-size:12.5px; text-align:left;">{p.bio}</p>
+          </div>
+        ))}
+      </div>
+    </StitchedBand>
+
+    <div class="section container-narrow">
+      <div class="qb q-kai-l" style="padding:28px 34px;">
+        <p style="font-size:14px;">
+          <strong>Josiah also directs Georgia Tech's Ka Moamoa Lab</strong>, ULF's ongoing research
+          collaborator. This is a research collaboration between ULF and the lab; several staff and
+          consultants are co-authors on the papers in our <a href="/research/publications/" style="text-decoration:underline; text-decoration-style:dashed;">publications list</a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="table" style="margin-top:34px;">
+      <div class="content-col">
+        <div class="band-label" style="text-align:left;">
+          <div class="eyebrow">Contributors &amp; consultants</div>
+          <h2 style="margin-top:8px;">The extended team</h2>
+        </div>
+        <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:24px;">
+          {consultants.map((c, i) => (
+            <div class={`patch ${lightField[c.tone]}`} style={`padding:24px 18px; text-align:center; ${i % 4 === 1 ? "transform:rotate(1deg);" : ""}`}>
+              <div class="avatar" style={`background:${toneBg[c.tone]}; color:${c.tone === "olena" || c.tone === "ulu" ? "var(--ink)" : "white"}; width:64px; height:64px; font-size:16px;`}>{c.initials}</div>
+              <div class="pname" style="font-size:13.5px;" class:list={headCls[c.tone]}>{c.name}</div>
+              <div class="prole" style="margin-top:4px;">{c.role}</div>
+              {c.bio && <p style="font-size:12px; margin-top:10px;">{c.bio}</p>}
+            </div>
+          ))}
+        </div>
+        <p style="font-size:12.5px; color:var(--muted); margin-top:20px;">
+          Bios for several contributors are pending; this list will grow as entries are confirmed.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-thick"></div>
+
+  <!-- ============ 04 · Board ============ -->
+  <section id="board" style="scroll-margin-top:24px;">
+    <div class="table">
+      <div class="content-col">
+        <div class="band-label">
+          <div class="eyebrow">04 · Board</div>
+          <h2 style="margin-top:8px;">The governance behind the mission</h2>
+          <p class="lede" style="margin-top:10px; font-size:15px;">
+            The board guards the mission and governance of the foundation, and each member brings an
+            outside professional affiliation that itself signals credibility.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <StitchedBand leftHue="moana-l" rightHue="olena" flip>
+      <div class="piece-row">
+        {board.map((p) => (
+          <div class={`block ${boardField[p.tone]}`} style="padding:30px 26px; align-items:center; text-align:center;">
+            <div class="avatar" style={`background:${boardToneBg[p.tone]}; color:white;`}>{p.initials}</div>
+            <div class="pname" style="font-family:'K2D',sans-serif; font-weight:600; font-size:15px;" class:list={boardHead[p.tone]}>{p.name}</div>
+            <div class="lbl" style="color:var(--muted); margin:4px 0 8px;">{p.role}</div>
+            <p style="font-size:12.5px; max-width:36ch;">{p.affiliation}</p>
+          </div>
+        ))}
+      </div>
+    </StitchedBand>
+
+    <div class="section container-narrow">
+      <p style="margin-bottom:14px;">
+        Board service is volunteer governance. Directors serve the foundation's mission and oversee its
+        finances, compliance, and leadership.
+      </p>
+      <div class="qb q-kai-l" style="padding:26px 32px;">
+        <p style="font-size:14px;">
+          <strong>Separation of roles.</strong> Some individuals hold roles at more than one of the
+          organizations in ULF's orbit (for example, board chair Haliʻa Hester also co-founded Ulu
+          HI-Tech). That is a personal affiliation, not a sign of shared ownership or governance between
+          the organizations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="seam-thick"></div>
+
+  <!-- ============ 05 · Governance & Values ============ -->
+  <section id="governance" style="scroll-margin-top:24px;">
+    <div class="table">
+      <div class="content-col">
+        <div class="band-label">
+          <div class="eyebrow">05 · Governance &amp; Values</div>
+          <h2 style="margin-top:8px;">Native Hawaiian led, community accountable</h2>
+          <p class="lede" style="margin-top:10px; font-size:15px;">
+            Culturally grounded. Rigorous. Transparent.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <StitchedBand leftHue="ulu" rightHue="lehua" flip>
+      <div class="piece-row">
+        <div class="block pb p-ulu-l">
+          <div class="eyebrow" style="color:var(--ulu-dark);">How we are governed</div>
+          <h3 style="color:var(--ulu-dark); margin-top:8px;">Led and governed by Native Hawaiian people</h3>
+          <p style="margin-top:10px;">
+            ULF is a Native Hawaiian-led and governed nonprofit. We say "led and governed" rather than
+            "owned" because a nonprofit has no owners in the ordinary corporate sense, and the phrase
+            captures the claim that matters: the people who make decisions for this organization are
+            the people the work serves.
+          </p>
+        </div>
+        <div class="block pb p-lehua-l">
+          <div class="eyebrow" style="color:var(--lehua);">Community sovereignty as a pillar</div>
+          <h3 style="color:var(--lehua); margin-top:8px;">Decision-making stays in community hands</h3>
+          <p style="margin-top:10px;">
+            Our research posture is a values posture. We use assets-based design "talk story" over formal
+            interviews, and community advisory structures over expert panels. Community sovereignty is one
+            of our three organizational pillars, alongside education and technology &amp; research.
+          </p>
+        </div>
+      </div>
+    </StitchedBand>
+
+    <div class="table" style="margin-top:34px;">
+      <div class="content-col">
+        <div class="band-label">
+          <div class="eyebrow">How we work</div>
+          <h2 style="margin-top:8px;">Eleven commitments</h2>
+        </div>
+        <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px;">
+          {commitments.map((c, i) => (
+            <div class={`patch ${i % 3 === 0 ? "p-alaea-l" : i % 3 === 1 ? "p-moana-l" : "p-kai-l"}`} style={`padding:22px 20px; ${i % 5 === 2 ? "transform:rotate(0.8deg);" : ""}`}>
+              <h3 class:list={i % 3 === 0 ? "head-alaea" : i % 3 === 1 ? "head-moana" : "head-kai"} style="font-size:16px;">{c.title}</h3>
+              <p style="font-size:13px; margin-top:6px;">{c.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <div class="seam-thin"></div>
+
+    <StitchedBand leftHue="kai-l" rightHue="olena" flip>
+      <div class="qb q-moana-l" style="padding:40px 44px;">
+        <div class="eyebrow" style="color:var(--moana);">Our stance on data</div>
+        <h2 style="color:var(--moana); margin-top:6px;">Indigenous data sovereignty is a design requirement</h2>
+        <p style="margin-top:14px; max-width:56ch;">
+          We design for responsible data governance, local ownership, maintainability, technological
+          sovereignty, and Indigenous data sovereignty. For the AI systems we build, this is not a policy
+          afterthought: it is a usability principle and a technical constraint, explained in our
+          <a href="/research/indigenous-data-sovereignty/" style="text-decoration:underline; text-decoration-style:dashed;">position on Indigenous data sovereignty and AI</a>.
+        </p>
+      </div>
+    </StitchedBand>
+
+    <div class="section container-narrow">
+      <div class="qb q-olena-l" style="padding:32px 36px;">
+        <div class="eyebrow" style="color:var(--olena-dark);">Theory of change</div>
+        <h3 style="color:var(--olena-dark); margin-top:6px;">Four proverbs, one approach</h3>
+        <p style="margin-top:10px; font-size:14.5px;">
+          The four ʻōlelo noʻeau we work by also describe how ULF approaches its work. We recognize many
+          sources of knowledge. We develop capability through practice. We exercise that capability with
+          responsibility to ʻāina. And we recognize Hawaiian knowledge as a foundation for new research,
+          technologies, and possibilities. Together they describe an approach in which Hawaiian people are
+          not just users, workers, research participants, or beneficiaries: we are teachers, builders,
+          stewards, researchers, inventors, and owners of our technological future.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    @media (max-width: 760px) {
+      .about-pair { grid-template-columns: 1fr; }
+    }
+  </style>
+</Base>

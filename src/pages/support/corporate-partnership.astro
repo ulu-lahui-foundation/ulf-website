@@ -1,0 +1,79 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+import { site } from "../../data/site";
+
+const tabs = [
+  { label: "Donate", href: "/support/donate/" },
+  { label: "Corporate Partnership", href: "/support/corporate-partnership/" },
+  { label: "Foundation Grants", href: "/support/foundation-grant-partnership/" },
+  { label: "Volunteer", href: "/support/volunteer/" },
+  { label: "Contact", href: "/support/contact/" },
+];
+
+const tiers = [
+  { title: "Sponsor a workshop", text: "Fund an AI for Hawaiʻi session for a complex area, including kumu stipends and materials." },
+  { title: "In-kind: devices and equipment", text: "Some teachers still lack computers. Used laptops, tablets, and classroom sensors go straight to kumu and students." },
+  { title: "Corporate volunteers", text: "Send engineers as workshop assistants and mentors, supervised by our program team." },
+  { title: "Match your employees' gifts", text: "A corporate matching program doubles every dollar your team gives." },
+];
+---
+<Base title="Corporate Partnership — Ulu Lāhui Foundation" description="Sponsorship, in-kind support, and volunteer programs for companies.">
+  <PageHead
+    eyebrow="Support · Corporate Partnership"
+    title="Corporate partnership"
+    lede="Ways for companies to back Native Hawaiian capacity building with funding, devices, and people."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/support/corporate-partnership/" />
+  </div>
+
+  <StitchedBand leftHue="moana" rightHue="ulu" flip>
+    <div class="p-moana-l" style="padding:44px 46px;">
+      <div style="max-width:58ch;">
+        <div class="eyebrow" style="color:var(--moana);">What partnership means here</div>
+        <h2 style="color:var(--moana); margin-top:6px;">More than logos on a page</h2>
+        <p style="margin-top:14px; font-size:15px;">
+          We keep partnership honest: a corporate partner is a funder, an in-kind donor, or a
+          volunteer source, named in the category that matches. Logo placement waits until both sides
+          agree on what the relationship actually is.
+        </p>
+      </div>
+    </div>
+  </StitchedBand>
+
+  <div class="seam-thick"></div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="band-label">
+        <div class="eyebrow">Ways in</div>
+        <h2 style="margin-top:8px;">Four on-ramps</h2>
+      </div>
+      <div class="gallery">
+        {tiers.map((t, i) => (
+          <div class={`cell patch ${i % 2 === 0 ? "p-kai-l" : "p-olena-l"}`} style="aspect-ratio:auto; min-height:170px;">
+            <div class="lbl" style={i % 2 === 0 ? "color:var(--kai);" : "color:var(--olena-dark);"}>{t.title}</div>
+            <div class="sub-lbl" style="font-weight:400; text-transform:none; letter-spacing:0; opacity:1; margin-top:6px;">{t.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <StitchedBand leftHue="kai" rightHue="olena" flip>
+    <div class="p-kai" style="padding:40px 44px; color:white;">
+      <div style="max-width:52ch;">
+        <h2 style="color:white;">Start the conversation</h2>
+        <p style="margin-top:14px; color:rgba(255,255,255,0.9);">
+          Write to <a href={`mailto:${site.email}?subject=Corporate partnership`} style="color:var(--kai-light); font-weight:700;">{site.email}</a>
+          and tell us what your company wants to put behind, in cash, devices, or people.
+        </p>
+      </div>
+    </div>
+  </StitchedBand>
+</Base>

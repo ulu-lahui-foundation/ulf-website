@@ -1,0 +1,23 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Page not found" description="">
+  <div class="table" style="padding:96px 24px;">
+    <div class="content-col" style="display:flex; justify-content:center;">
+      <div class="scatter" style="top:-30px; left:calc(50% - 380px); width:180px; height:110px; background:var(--kai-light); transform:rotate(-5deg); opacity:0.6;"></div>
+      <div class="scatter" style="bottom:-30px; left:calc(50% + 200px); width:180px; height:110px; background:var(--lehua); transform:rotate(4deg); opacity:0.5;"></div>
+      <div class="patch p-alaea-l" style="padding:48px 52px; text-align:center; max-width:480px;">
+        <svg viewBox="0 0 200 189" style="width:52px; height:49px; color:var(--alaea); margin-bottom:16px;"><use href="#uluLeaf" class="leaf-outline" /></svg>
+        <h1 style="font-size:34px; color:var(--alaea-deep);">This patch is missing</h1>
+        <p style="margin-top:12px; font-size:14.5px;">
+          The page you are looking for has been cut from the quilt. It may have moved, or never
+          existed under that name.
+        </p>
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:22px;">
+          <a class="btn btn-primary" style="--tone:var(--alaea); --tone-deep:var(--alaea-deep);" href="/">Back home</a>
+          <a class="btn btn-secondary" style="--tone:var(--alaea); --tone-light:var(--alaea-light);" href="/support/contact/">Report a broken link</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>

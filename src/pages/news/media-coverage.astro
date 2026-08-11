@@ -1,0 +1,66 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+
+const tabs = [
+  { label: "News", href: "/news/" },
+  { label: "Press Releases", href: "/news/press-releases/" },
+  { label: "Media Coverage", href: "/news/media-coverage/" },
+  { label: "Newsletter", href: "/news/newsletter/" },
+];
+
+const coverage = [
+  {
+    where: "AI4HI 2026 Impact Report",
+    title: "Workshop outcomes and educator voices",
+    text: "The primary published record of the AI for Hawaiʻi season: outcomes, testimonies, and methodology. Cited across the Impact and Initiatives pages of this site.",
+    href: "/impact/stories/",
+  },
+  {
+    where: "The NSF award, as covered",
+    title: "Broadening participation in computing",
+    text: "Coverage of the collaborative University of Hawaiʻi at Mānoa and Georgia Tech award names ULF among the project partners. We describe our role within it accurately wherever we appear.",
+    href: "/news/press-releases/",
+  },
+];
+---
+<Base title="Media Coverage — Ulu Lāhui Foundation" description="Media and published coverage mentioning Ulu Lāhui Foundation.">
+  <PageHead
+    eyebrow="News · Media Coverage"
+    title="Media coverage"
+    lede="Where our work has been written about, with links added as reports appear."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/news/media-coverage/" />
+  </div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:24px;">
+        {coverage.map((c, i) => (
+          <div class={`patch ${i === 0 ? "p-kai-l" : "p-lehua-l"}`} style="padding:28px 30px;">
+            <div class="label" style={i === 0 ? "color:var(--kai);" : "color:var(--lehua);"}>{c.where}</div>
+            <h3 style={i === 0 ? "color:var(--kai); margin-top:8px; font-size:17px;" : "color:var(--lehua); margin-top:8px; font-size:17px;"}>{c.title}</h3>
+            <p style="font-size:13.5px; margin-top:10px;">{c.text}</p>
+          </div>
+        ))}
+      </div>
+      <p style="font-size:13px; color:var(--muted); margin-top:20px;">
+        As press mentions arrive, they are added here with links. Older items are kept, not replaced.
+      </p>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <StitchedBand leftHue="moana-l" rightHue="ulu" flip>
+    <div class="qb q-ulu-l" style="padding:32px 40px;">
+      <p style="font-size:14.5px;">
+        Reporters and program officers seeking context beyond press items will find the fuller record
+        on our <a href="/research/publications/" style="text-decoration:underline; text-decoration-style:dashed;">publications page</a>.
+      </p>
+    </div>
+  </StitchedBand>
+</Base>

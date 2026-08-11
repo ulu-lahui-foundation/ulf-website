@@ -1,0 +1,91 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+
+const tabs = [
+  { label: "Overview", href: "/research/" },
+  { label: "Publications", href: "/research/publications/" },
+  { label: "Kumu Connect R&D", href: "/research/kumu-connect-rd/" },
+  { label: "Data Sovereignty & AI", href: "/research/indigenous-data-sovereignty/" },
+  { label: "Collaborators", href: "/research/collaborators/" },
+];
+
+const positions = [
+  {
+    title: "Assets over deficits",
+    text: "Hawaiian knowledge is more than cultural context to add to research developed elsewhere. It is a source of questions, methods, designs, and inventions. We build from what communities hold, not from what they lack.",
+  },
+  {
+    title: "Skepticism of Western defaults is a finding, not a stance",
+    text: "Our own research documented it: educators told us they would never trust systems built on assumptions that exclude them. We treat that skepticism as evidence about what good design requires.",
+  },
+  {
+    title: "Data is not a resource to extract",
+    text: "Language data, classroom data, and community data are living inheritances. Indigenous data sovereignty means communities govern what is collected, what is retained, and what is built from it.",
+  },
+  {
+    title: "Co-design is a method and a commitment",
+    text: "'Talk story' over formal interviews, community advisory boards, and evaluation with educators at every stage. The people affected by a system help decide what it is and how it is measured.",
+  },
+];
+---
+<Base title="Indigenous Data Sovereignty & AI — Ulu Lāhui Foundation" description="Position: how we believe AI should be built for and with Indigenous communities.">
+  <PageHead
+    eyebrow="Research · Position"
+    title="Indigenous data sovereignty & AI"
+    lede="The recurring theme of our research, stated as a public position: how ULF believes AI should be built for Indigenous communities."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/research/indigenous-data-sovereignty/" />
+  </div>
+
+  <StitchedBand leftHue="moana" rightHue="alaea" flip>
+    <div class="qb q-moana-l" style="padding:42px 44px;">
+      <div style="max-width:60ch;">
+        <div class="eyebrow" style="color:var(--moana);">The position, in one sentence</div>
+        <h2 style="color:var(--moana); margin-top:6px;">
+          AI for Indigenous communities must be built on an assets-based, trust-first methodology that
+          treats data sovereignty as a technical requirement.
+        </h2>
+      </div>
+    </div>
+  </StitchedBand>
+
+  <div class="seam-thick"></div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="band-label">
+        <div class="eyebrow">What that means in practice</div>
+        <h2 style="margin-top:8px;">Four positions</h2>
+      </div>
+      <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px;">
+        {positions.map((p, i) => (
+          <div class={`patch ${i % 2 === 0 ? "p-alaea-l" : "p-kai-l"}`} style="padding:26px 24px;">
+            <svg viewBox="0 0 200 189" style={`width:26px; height:24px; ${i % 2 === 0 ? "color:var(--alaea);" : "color:var(--kai);"}`}><use href="#uluLeaf" class="leaf" /></svg>
+            <h3 class:list={i % 2 === 0 ? "head-alaea" : "head-kai"} style="font-size:16px; margin-top:10px;">{p.title}</h3>
+            <p style="font-size:13.5px; margin-top:8px;">{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <StitchedBand leftHue="kai" rightHue="ulu" flip>
+    <div class="p-kai" style="padding:42px 44px; color:white;">
+      <div style="max-width:58ch;">
+        <h2 style="color:white;">What this means for Community Sovereignty</h2>
+        <p style="margin-top:14px; color:rgba(255,255,255,0.9);">
+          Community sovereignty is one of our three organizational pillars, and this research is its
+          clearest expression. Every system we build is designed for responsible data governance,
+          local ownership, maintainability, and technological sovereignty, so that what is built in
+          Hawaiʻi can be governed from Hawaiʻi, by the people it serves.
+        </p>
+      </div>
+    </div>
+  </StitchedBand>
+</Base>

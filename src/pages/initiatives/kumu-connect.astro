@@ -1,0 +1,92 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+
+const tabs = [
+  { label: "Initiatives Overview", href: "/initiatives/" },
+  { label: "PLACES Education", href: "/initiatives/places-education/" },
+  { label: "Kumu Connect", href: "/initiatives/kumu-connect/" },
+  { label: "AI for Hawaiʻi", href: "/initiatives/ai-for-hawaii/" },
+  { label: "Community & Workforce", href: "/initiatives/community-workforce/" },
+];
+---
+<Base title="Kumu Connect — Ulu Lāhui Foundation" description="Culturally grounded AI that helps Kaiapuni teachers with substitute coverage and culturally authentic lesson planning.">
+  <PageHead
+    eyebrow="Initiatives · Kumu Connect"
+    title="Kumu Connect"
+    lede="ULF's flagship AI product: built with kumu, for kumu, and evaluated in real Kaiapuni classrooms."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/initiatives/kumu-connect/" />
+  </div>
+
+  <StitchedBand leftHue="alaea" rightHue="kai" flip>
+    <div class="p-alaea" style="padding:46px 46px; color:white;">
+      <blockquote style="font-size:17px; font-weight:600; color:white; max-width:60ch;">
+        Uses culturally grounded retrieval and multi-stage generative AI to help Kaiapuni (Hawaiian
+        immersion) teachers with substitute coverage and culturally authentic lesson plan generation,
+        evaluated with 36 educators across 3 schools.
+      </blockquote>
+    </div>
+  </StitchedBand>
+
+  <div class="section container-narrow">
+    <h2 style="margin-bottom:16px;">What the evaluation found</h2>
+    <div class="piece-row">
+      <div class="block pb p-moana-l">
+        <div class="num" style="color:var(--moana);">4.20/5</div>
+        <div class="lbl" style="color:var(--moana);">Cultural accuracy</div>
+      </div>
+      <div class="block pb p-kai-l">
+        <div class="num" style="color:var(--kai);">Good</div>
+        <div class="lbl" style="color:var(--kai);">System usability score</div>
+      </div>
+      <div class="block pb p-lehua-l">
+        <div class="num" style="color:var(--lehua);">4.45/5</div>
+        <div class="lbl" style="color:var(--lehua);">Pedagogical usefulness</div>
+      </div>
+    </div>
+    <p style="font-size:14px; margin-top:18px;">
+      Before the full system, a one-year co-design case study with 13 educators produced a System
+      Usability Scale score of 87, rated Excellent. The technical model and architecture live on the
+      <a href="/research/kumu-connect-rd/" style="text-decoration:underline; text-decoration-style:dashed;">Kumu Connect R&amp;D research page</a>,
+      so this product page stays evergreen as the underlying model evolves.
+    </p>
+  </div>
+
+  <div class="seam-thick"></div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="band-label">
+        <div class="eyebrow">Why it exists</div>
+        <h2 style="margin-top:8px;">The problem Kumu Connect answers</h2>
+      </div>
+      <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:22px;">
+        <div class="patch p-olena-l" style="padding:24px;">
+          <h3 style="color:var(--olena-dark); font-size:16px;">Substitute coverage</h3>
+          <p style="font-size:13.5px; margin-top:8px;">
+            Kaiapuni classrooms need substitutes who can teach in ʻŌlelo Hawaiʻi on short notice. That
+            pool is small. Kumu Connect supports continuity when the regular kumu is out.
+          </p>
+        </div>
+        <div class="patch p-ulu-l" style="padding:24px;">
+          <h3 style="color:var(--ulu-dark); font-size:16px;">Culturally authentic lessons</h3>
+          <p style="font-size:13.5px; margin-top:8px;">
+            Lesson plans generated with the wrong cultural grounding are worse than none. Kumu Connect
+            is designed around Hawaiian language, place, and ways of learning.
+          </p>
+        </div>
+        <div class="patch tilt-b p-alaea-l" style="padding:24px;">
+          <h3 style="color:var(--alaea-deep); font-size:16px;">Trust first</h3>
+          <p style="font-size:13.5px; margin-top:8px;">
+            Educators told us plainly that they would not trust systems built without their
+            participation. Co-design is not a feature of this product; it is the reason it exists.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>

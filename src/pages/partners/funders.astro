@@ -1,0 +1,55 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+import { funders } from "../../data/partners";
+
+const tabs = [
+  { label: "Overview", href: "/partners/" },
+  { label: "Funders", href: "/partners/funders/" },
+  { label: "Schools & Communities", href: "/partners/schools-communities/" },
+  { label: "Become a Partner", href: "/partners/become-a-partner/" },
+];
+---
+<Base title="Funders — Ulu Lāhui Foundation" description="The foundations and agencies that fund ULF's work, with award context.">
+  <PageHead
+    eyebrow="Partners · Funders"
+    title="Funders"
+    lede="The organizations that make the work possible, with the kind of relationship each award describes."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/partners/funders/" />
+  </div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="card-stack" style="grid-template-columns:1fr; gap:24px;">
+        {funders.map((f, i) => (
+          <div class={`patch ${i === 0 ? "p-moana-l" : "p-kai-l"}`} style="padding:30px 32px;">
+            <h3 style={i === 0 ? "color:var(--moana);" : "color:var(--kai);"}>{f.org}</h3>
+            <p style="font-size:14.5px; margin-top:10px; max-width:56ch;">{f.detail}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <StitchedBand leftHue="olena" rightHue="kai" flip>
+    <div class="qb q-ulu-l" style="padding:36px 42px;">
+      <div class="eyebrow" style="color:var(--ulu-dark);">A note on award amounts</div>
+      <p style="margin-top:10px; font-size:14.5px; max-width:58ch;">
+        We distinguish ULF's direct award amounts from the total value of larger collaborative grants
+        in which ULF participates as a collaborator or subawardee (for example, the NSF Broadening
+        Participation in Computing awards led by the University of Hawaiʻi at Mānoa and Georgia Tech).
+        The two are never silently summed, because they describe different things.
+      </p>
+      <p style="margin-top:12px; font-size:14.5px; max-width:58ch;">
+        Foundations and program officers exploring a partnership should visit our
+        <a href="/support/foundation-grant-partnership/" style="text-decoration:underline; text-decoration-style:dashed;">foundation partnership page</a>.
+      </p>
+    </div>
+  </StitchedBand>
+</Base>

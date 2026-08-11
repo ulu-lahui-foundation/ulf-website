@@ -1,0 +1,103 @@
+---
+const path = Astro.url.pathname;
+const items = [
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about/" },
+  {
+    label: "Initiatives", href: "/initiatives/", children: [
+      { label: "Initiatives Overview", href: "/initiatives/" },
+      { label: "PLACES Education", href: "/initiatives/places-education/" },
+      { label: "Kumu Connect", href: "/initiatives/kumu-connect/" },
+      { label: "AI for Hawaiʻi", href: "/initiatives/ai-for-hawaii/" },
+      { label: "Community & Workforce", href: "/initiatives/community-workforce/" },
+    ],
+  },
+  {
+    label: "Impact", href: "/impact/", children: [
+      { label: "At a Glance", href: "/impact/" },
+      { label: "By Program", href: "/impact/by-program/" },
+      { label: "Stories", href: "/impact/stories/" },
+    ],
+  },
+  {
+    label: "Research", href: "/research/", children: [
+      { label: "Overview", href: "/research/" },
+      { label: "Publications", href: "/research/publications/" },
+      { label: "Kumu Connect R&D", href: "/research/kumu-connect-rd/" },
+      { label: "Data Sovereignty & AI", href: "/research/indigenous-data-sovereignty/" },
+      { label: "Collaborators", href: "/research/collaborators/" },
+    ],
+  },
+  {
+    label: "Partners", href: "/partners/", children: [
+      { label: "Overview", href: "/partners/" },
+      { label: "Funders", href: "/partners/funders/" },
+      { label: "Schools & Communities", href: "/partners/schools-communities/" },
+      { label: "Become a Partner", href: "/partners/become-a-partner/" },
+    ],
+  },
+  {
+    label: "News", href: "/news/", children: [
+      { label: "News", href: "/news/" },
+      { label: "Press Releases", href: "/news/press-releases/" },
+      { label: "Media Coverage", href: "/news/media-coverage/" },
+      { label: "Newsletter", href: "/news/newsletter/" },
+    ],
+    edge: true,
+  },
+];
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+<nav class="site-nav" id="site-nav" aria-label="Primary">
+  <div class="site-nav-inner">
+    <a class="brand" href="/">
+      <svg viewBox="0 0 200 189" aria-hidden="true"><use href="#uluLeaf" class="leaf" /></svg>
+      <span>
+        Ulu Lāhui
+        <small>Foundation</small>
+      </span>
+    </a>
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links">
+      Menu
+    </button>
+    <div class="nav-links" id="nav-links">
+      {items.map((item) =>
+        "children" in item && item.children ? (
+          <div class:list={["nav-group", item.edge && "nav-edge"]}>
+            <a href={item.href} class:list={isActive(item.href) && "active"} aria-haspopup="true" aria-expanded="false">
+              {item.label}
+              <svg class="caret" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" /></svg>
+            </a>
+            <div class="nav-sub">
+              {item.children.map((child) => (
+                <a href={child.href} class:list={isActive(child.href) && "active"}>{child.label}</a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a href={item.href} class:list={isActive(item.href) && "active"}>{item.label}</a>
+        )
+      )}
+      <a class="nav-cta" href="/support/donate/">Donate</a>
+    </div>
+  </div>
+</nav>
+<script>
+  const btn = document.getElementById("nav-toggle");
+  const nav = document.getElementById("site-nav");
+  btn?.addEventListener("click", () => {
+    const open = nav?.classList.toggle("menu-open");
+    btn.setAttribute("aria-expanded", String(open));
+  });
+  document.querySelectorAll<HTMLElement>(".nav-group").forEach((group) => {
+    const link = group.querySelector<HTMLAnchorElement>(":scope > a");
+    link?.addEventListener("mouseenter", () => link.setAttribute("aria-expanded", "true"));
+    link?.addEventListener("mouseleave", () => link.setAttribute("aria-expanded", "false"));
+    group.addEventListener("focusout", (e) => {
+      if (!group.contains(e.relatedTarget as Node)) {
+        link?.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+</script>

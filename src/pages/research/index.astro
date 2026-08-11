@@ -1,0 +1,87 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+
+const tabs = [
+  { label: "Overview", href: "/research/" },
+  { label: "Publications", href: "/research/publications/" },
+  { label: "Kumu Connect R&D", href: "/research/kumu-connect-rd/" },
+  { label: "Data Sovereignty & AI", href: "/research/indigenous-data-sovereignty/" },
+  { label: "Collaborators", href: "/research/collaborators/" },
+];
+
+const themes = [
+  { title: "AI grounded in Hawaiian language and epistemology", text: "Low-resource language models, culturally grounded evaluation, and tools that treat ʻŌlelo Hawaiʻi as a first-class language." },
+  { title: "Technologies for Indigenous data sovereignty", text: "Systems designed so that data, decisions, and infrastructure stay in community hands." },
+  { title: "Place-based sensing and computing", text: "Environmental sensing informed by traditional knowledge: loko iʻa, loʻi, and ʻāina monitoring." },
+  { title: "Educational technology shaped by Hawaiian ways of teaching", text: "Tools built with kumu and kūpuna for Kaiapuni and place-based classrooms." },
+];
+---
+<Base title="Research — Ulu Lāhui Foundation" description="ULF's published research practice: culturally grounded AI, data sovereignty, and educational technology.">
+  <PageHead
+    eyebrow="Research"
+    title="Research that programs stand on"
+    lede="Few peer nonprofits can match this body of work. We treat it as a differentiator: our programs are grounded in an active, published research practice, and the throughline runs from foundational place-based CS to a fully evaluated AI system."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/research/" />
+  </div>
+
+  <StitchedBand leftHue="moana" rightHue="kai" flip>
+    <div class="p-moana-l" style="padding:42px 44px;">
+      <div style="max-width:60ch;">
+        <div class="eyebrow" style="color:var(--moana);">The throughline</div>
+        <h2 style="color:var(--moana); margin-top:6px;">From fishpond sensors to evaluated AI</h2>
+        <p style="margin-top:14px; font-size:15px;">
+          Foundational place-based computer science work in 2023, teacher needs-finding in 2024, and a
+          fully evaluated AI system, Kumu Connect, in 2025 and 2026, with parallel work on community
+          AI auditing and Native Hawaiian youth wellness. Community sovereignty runs through all of
+          it: the strongest and clearest expression of that pillar on our body of work.
+        </p>
+        <p style="margin-top:12px; font-size:15px;">
+          ULF's research is conducted in collaboration with Georgia Tech's Ka Moamoa Lab, directed by
+          our Interim Executive Director, Josiah Hester. This is a research collaboration between ULF
+          and the lab, not an institutional affiliation between the two organizations.
+        </p>
+      </div>
+    </div>
+  </StitchedBand>
+
+  <div class="seam-thick"></div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="band-label">
+        <div class="eyebrow">Research themes</div>
+        <h2 style="margin-top:8px;">What we ask different questions about</h2>
+      </div>
+      <div class="gallery">
+        {themes.map((t, i) => (
+          <div class={`cell patch ${i % 2 === 0 ? "p-lehua-l" : "p-kai-l"}`}>
+            <div class="lbl" style={i % 2 === 0 ? "color:var(--lehua);" : "color:var(--kai);"}>{t.title}</div>
+            <div class="sub-lbl" style="font-weight:400; text-transform:none; letter-spacing:0; opacity:1; margin-top:6px;">{t.text}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <StitchedBand leftHue="olena" rightHue="ulu" flip>
+    <div class="p-alaea" style="padding:44px 46px; color:white;">
+      <div style="max-width:56ch;">
+        <div class="eyebrow" style="color:var(--olena-light);">Why publish</div>
+        <h2 style="margin-top:6px; color:white;">Rigorous, evaluated, and shared</h2>
+        <p style="margin-top:14px; color:rgba(255,255,255,0.9);">
+          We conduct rigorous applied research, evaluate what we build, publish what can appropriately
+          be shared, and translate research into technologies and programs communities can own,
+          govern, and extend. When a claim on this site has a paper behind it, the paper is listed in
+          our <a href="/research/publications/" style="color:var(--olena-light); text-decoration:underline; text-decoration-style:dashed;">publications</a>.
+        </p>
+      </div>
+    </div>
+  </StitchedBand>
+</Base>

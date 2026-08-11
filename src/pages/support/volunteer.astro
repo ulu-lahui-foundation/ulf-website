@@ -1,0 +1,66 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+import { site } from "../../data/site";
+
+const tabs = [
+  { label: "Donate", href: "/support/donate/" },
+  { label: "Corporate Partnership", href: "/support/corporate-partnership/" },
+  { label: "Foundation Grants", href: "/support/foundation-grant-partnership/" },
+  { label: "Volunteer", href: "/support/volunteer/" },
+  { label: "Contact", href: "/support/contact/" },
+];
+
+const roles = [
+  { title: "Workshop facilitation", text: "Help kumu get the most out of AI for Hawaiʻi sessions, from setup to talk story." },
+  { title: "Curriculum review", text: "Educators and technologists who can review CS lessons for clarity, accuracy, and classroom fit." },
+  { title: "Translation & cultural review", text: "Fluent ʻŌlelo Hawaiʻi speakers to review materials. We never machine-translate; your eyes matter." },
+  { title: "Evaluation support", text: "Research-minded volunteers to support co-design sessions, surveys, and data collection with educators." },
+];
+---
+<Base title="Volunteer — Ulu Lāhui Foundation" description="Volunteer roles with Ulu Lāhui Foundation: workshops, curricula, translation, and research.">
+  <PageHead
+    eyebrow="Support · Volunteer"
+    title="Volunteer"
+    lede="Real roles, with real responsibility, inside the work rather than alongside it."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/support/volunteer/" />
+  </div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="band-label">
+        <div class="eyebrow">Open roles</div>
+        <h2 style="margin-top:8px;">Where hands are needed</h2>
+      </div>
+      <div class="gallery">
+        {roles.map((r, i) => (
+          <div class={`cell patch ${i % 2 === 0 ? "p-ulu-l" : "p-lehua-l"}`} style="aspect-ratio:auto; min-height:170px;">
+            <div class="lbl" style={i % 2 === 0 ? "color:var(--ulu-dark);" : "color:var(--lehua);"}>{r.title}</div>
+            <div class="sub-lbl" style="font-weight:400; text-transform:none; letter-spacing:0; opacity:1; margin-top:6px;">{r.text}</div>
+          </div>
+        ))}
+      </div>
+      <p style="font-size:13px; color:var(--muted); margin-top:22px;">
+        Clinics: a volunteer's time is respected with clear scopes, check-ins, and credit where credit
+        is due, including co-authorship where the work becomes research.
+      </p>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <StitchedBand leftHue="alaea" rightHue="kai" flip>
+    <div class="qb q-alaea-l" style="padding:34px 40px;">
+      <div class="eyebrow" style="color:var(--alaea-deep);">Get started</div>
+      <h2 style="color:var(--alaea-deep); margin-top:6px; font-size:22px;">Write to us about what you bring</h2>
+      <p style="margin-top:10px; font-size:14.5px;">
+        Tell us your skills, your availability, and which role calls to you, at
+        <a href={`mailto:${site.email}?subject=Volunteering`} style="font-weight:700;">{site.email}</a>.
+      </p>
+    </div>
+  </StitchedBand>
+</Base>

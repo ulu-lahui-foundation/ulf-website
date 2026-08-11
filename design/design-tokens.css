@@ -1,0 +1,246 @@
+/* ============================================================
+   KAPA LAU ʻULU — DESIGN TOKENS
+   Ulu Lāhui Foundation website
+
+   This file is the single source of truth for every color,
+   spacing, and shape value in the system. If a value you need
+   isn't here, it isn't part of the system — don't invent one.
+
+   Pair with design-system-RULES.md, which governs HOW these
+   tokens get used (when a container is "stitched" vs "patches",
+   which colors are forbidden as fills, gutter behavior, button
+   states, etc). This file has no opinions — it's just values.
+   ============================================================ */
+
+:root {
+  /* ---- structural ---- */
+  --radius: 4px;                 /* buttons, nav, footer, callout, standalone containers ONLY.
+                                     Never on a stitched container or a patch — see rules doc. */
+  --ink: #2B1B12;                 /* default text color. Warm dark brown. NEVER pure black. */
+  --muted: #6b6459;                /* secondary/caption text only */
+
+  /* ---- the six hues: light / vivid / deep / dark ---- */
+  /* light   = pastel field
+     vivid   = the accent itself
+     deep    = one step darker than vivid, hue-shifted toward a richer adjacent
+               color (not just darkened) — used for gradients and borders on
+               vivid surfaces
+     dark    = the deepest tint, for rare dark-field use and text-on-light */
+
+  --alaea: #D96913;         --alaea-deep: #BB2A0D;         --alaea-light: #F8E4D4;         --alaea-light-deep: #F6C7B2;         --alaea-dark: #492306;
+  --olena: #F2A900;         --olena-deep: #C96B00;         --olena-light: #FBEACA;         --olena-light-deep: #FBD5A6;         --olena-dark: #4A3006;
+  --ulu:   #A2C601;         --ulu-deep:   #4F9505;         --ulu-light:   #ECF3CC;         --ulu-light-deep:   #D8EFAD;         --ulu-dark:   #303B00;
+  --moana: #0B5FA8;         --moana-deep: #072189;         --moana-light: #D8E8F5;         --moana-light-deep: #B9CAF0;         --moana-dark: #0B2C48;
+  --lehua: #C41E5A;         --lehua-deep: #A2176A;         --lehua-light: #F6DCE7;         --lehua-light-deep: #F1BEDA;         --lehua-dark: #4A122C;
+  --kai:   #147A6B;         --kai-deep:   #0F525B;         --kai-light:   #DCEDE8;         --kai-light-deep:   #C2E3DF;         --kai-dark:   #0F2E2A;
+
+  /* ---- page colors ----
+     #FBEDD2 is the ONE page/table color used behind both stitched
+     and patches sections on the real site. */
+  --page-color: #FBEDD2;
+
+  /* ---- shadow / bevel colors ----
+     #492306 (= --alaea-dark) is the one shadow color for the whole
+     system. Used at different opacities for different purposes —
+     never substitute a neutral black or gray. */
+  --shadow-patch:        rgba(73,35,6,0.35);   /* .patch drop shadow */
+  --shadow-scatter:      rgba(73,35,6,0.22);   /* background scatter shapes */
+  --shadow-transition:   rgba(73,35,6,0.35);   /* section-transition line, same opacity as patch shadow */
+
+  /* bevel tokens for stitched/puffy surfaces — shadow only, no highlight half */
+  --alaea-lo-on-light: rgba(217,105,19,0.30);  --alaea-lo-on-vivid: rgba(187,42,13,0.40);
+  --olena-lo-on-light: rgba(242,169,0,0.30);   --olena-lo-on-vivid: rgba(201,107,0,0.40);
+  --ulu-lo-on-light:   rgba(162,198,1,0.30);   --ulu-lo-on-vivid:   rgba(79,149,5,0.40);
+  --moana-lo-on-light: rgba(11,95,168,0.28);   --moana-lo-on-vivid: rgba(7,33,137,0.40);
+  --lehua-lo-on-light: rgba(196,30,90,0.28);   --lehua-lo-on-vivid: rgba(162,23,106,0.40);
+  --kai-lo-on-light:   rgba(20,122,107,0.28);  --kai-lo-on-vivid:   rgba(15,82,91,0.40);
+
+  /* ---- seam / border ----
+     Stitched containers: border color depends on whether the
+     container's fill is vivid or light — the two are NOT
+     interchangeable, because a border needs the same *contrast
+     ratio* against its own fill either way, not the same hex value.
+       - On a VIVID fill: border = that hue's --{X}-deep (contrast
+         ratio against vivid is ~1.3–2.0 — a subtle one-shade-darker
+         edge).
+       - On a LIGHT fill: border = that hue's --{X}-edge-light below
+         — NOT --{X}-deep, which is 3–10x too dark against a light
+         fill and reads as a heavy, mismatched border. These were
+         computed to land at the same ~1.3–2.0 contrast ratio as the
+         vivid case, just starting from the light color instead. */
+  --alaea-edge-light: #E7A26B;
+  --olena-edge-light: #ECA012;
+  --ulu-edge-light:   #A3BC2C;
+  --moana-edge-light: #6AA7D9;
+  --lehua-edge-light: #EEBCD1;
+  --kai-edge-light:   #84C0AE;
+
+  /* ---- spacing scale (echo spacing) ---- 
+     Use these seven values only. Vary which ones you reach for —
+     using the same one everywhere reads as no rhythm at all. */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+  --space-7: 96px;
+
+  /* ---- gutter system (stitched layouts only) ---- */
+  --gutter-min: 60px;
+  --gutter-max: 180px;
+  --gutter-padding: 8px;
+}
+
+/* ============================================================
+   TYPE SCALE — K2D for headings, Quicksand for everything else.
+   Labels/tags/eyebrows/buttons are ALWAYS Quicksand 700, all caps,
+   letter-spacing 0.06em. Never use caps for a heading or a
+   sentence someone has to read.
+   ============================================================ */
+body        { font-family: 'Quicksand', sans-serif; font-weight: 400; color: var(--ink); }
+h1, .display { font-family: 'K2D', sans-serif; font-weight: 700; font-size: 44px; } /* hero moments only */
+h2, .h1      { font-family: 'K2D', sans-serif; font-weight: 600; font-size: 32px; } /* page titles */
+h3, .h2      { font-family: 'K2D', sans-serif; font-weight: 600; font-size: 24px; } /* section titles */
+h4, .h3      { font-family: 'K2D', sans-serif; font-weight: 600; font-size: 18px; } /* card / block titles */
+.body-text   { font-family: 'Quicksand', sans-serif; font-weight: 400; font-size: 16px; }
+.small-text  { font-family: 'Quicksand', sans-serif; font-weight: 500; font-size: 14px; }
+.label       { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ============================================================
+   STITCHED CONTAINERS
+   One border, all four sides, sharp corners (radius 0), color =
+   var(--edge) set per instance to that hue's -deep tone. Bevel is
+   shadow-only (no highlight). Full rules in design-system-RULES.md
+   Part "Stitched."
+   ============================================================ */
+.stitched-edge {
+  border-radius: 0;
+  border: 1px solid var(--edge, var(--kai-deep));
+}
+.stitched-bevel {
+  box-shadow: inset -1.5px -1.5px 2px var(--lo, var(--kai-lo-on-light));
+}
+
+/* Gutters: flexible width capped at --gutter-max, minimum --gutter-min,
+   8px internal padding, icon fills 100% of the padded area sized off
+   height only (width derives from aspect-ratio: 1 — never set width
+   directly). No border/no radius on the side touching the true screen
+   edge — apply .gutter-l or .gutter-r for that. */
+.page-gutter {
+  flex: 1 1 var(--gutter-min);
+  min-width: var(--gutter-min);
+  max-width: var(--gutter-max);
+  padding: var(--gutter-padding);
+  box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.page-gutter svg, .page-gutter img {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+/* IMPORTANT: these two rules must be declared AFTER .stitched-edge in
+   your stylesheet. .stitched-edge sets the `border` shorthand, which
+   will silently re-enable border-left/border-right if this comes first. */
+.gutter-l { justify-content: flex-end;   border-left: none; }
+.gutter-r { justify-content: flex-start; border-right: none; }
+
+/* For a grid of stitched cells (e.g. a 4-column gallery), gutter columns
+   must use a fr-based max, NOT a fixed px max — a fixed max in a grid
+   track gets sizing priority over content columns and squeezes them at
+   narrow viewports. Use minmax(60px, 0.75fr) scaled to your content's
+   fr total (roughly: gutter-fr = 0.75 * (your content fr total / 4)). */
+
+/* ============================================================
+   PATCHES
+   Real drop shadow (never blurred to 0 — see --shadow-patch),
+   zero radius, occasional slight rotation. NEVER use the
+   stitched-edge/bevel classes on a patch — a patch's border is a
+   dashed outline INSET 4px from the true edge (not a border sitting
+   flush on the edge, which would read as stitched). This is done
+   with `outline` + a negative `outline-offset`, not `border` — CSS
+   borders can't be inset from an element's own edge, but outlines
+   can, so this is straightforward rather than structurally hard.
+   ============================================================ */
+.patch {
+  position: relative;
+  z-index: 2;
+  border-radius: 0;
+  box-shadow: 6px 6px 0 var(--shadow-patch);
+  outline: 1px dashed currentColor;
+  outline-offset: -4px;
+}
+.patch.tilt-a { transform: rotate(-2deg); }
+.patch.tilt-b { transform: rotate(1.5deg); }
+.patch.tilt-c { transform: rotate(-1deg); }
+/* Only some patches in a group get a tilt class — roughly 1 in 8,
+   never a majority. */
+
+.scatter-patch {
+  position: absolute;
+  z-index: 1;                      /* MUST be lower than the real content's z-index (2) */
+  box-shadow: 0 8px 16px var(--shadow-scatter);
+}
+/* Scattered background shapes go INSIDE the same positioned ancestor
+   as the real content (not a sibling higher up), and must be sized
+   comparably to the real content pieces — not small corner confetti. */
+
+/* ============================================================
+   BUTTONS — primary / secondary / tertiary, each with default,
+   hover, active, disabled. Set --tone / --tone-deep / --tone-light
+   / --tone-ink per instance to any of the six hues.
+   ============================================================ */
+.btn {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 11px 22px;
+  border-radius: var(--radius);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--tone);
+  color: var(--tone-ink, white);
+  border: 1px dashed var(--tone-deep);
+}
+.btn-primary:hover, .btn-primary:active {
+  /* hover and active are IDENTICAL — both get this inset "pressed" shadow */
+  box-shadow: inset 2px 2px 4px rgba(43,27,18,0.35), inset -1px -1px 2px rgba(255,255,255,0.12);
+}
+.btn-primary:disabled {
+  background: #D9D4C6; border-color: #B8B2A2; color: #948E7E; box-shadow: none; cursor: not-allowed;
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--tone);
+  border: 1px dashed var(--tone);
+}
+.btn-secondary:hover, .btn-secondary:active {
+  background: var(--tone-light);   /* fills with the hue's light tint — identical for hover and active */
+}
+.btn-secondary:disabled {
+  background: transparent; border-color: #B8B2A2; color: #948E7E; cursor: not-allowed;
+}
+
+.btn-tertiary {
+  background: transparent;
+  color: var(--tone);
+  border: none;
+  padding: 11px 4px;
+}
+.btn-tertiary:hover, .btn-tertiary:active {
+  text-decoration: underline; text-decoration-style: dashed; text-decoration-thickness: 1px;
+}
+.btn-tertiary:disabled {
+  color: #948E7E; cursor: not-allowed; text-decoration: none;
+}
+/* Tertiary was never explicitly specified by the client — flagged as a
+   draft. Confirm before treating it as final. */

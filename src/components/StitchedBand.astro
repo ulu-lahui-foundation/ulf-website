@@ -1,0 +1,41 @@
+---
+// A pieced, stitched section: two quilted gutters + center content.
+interface Props {
+  leftHue?: string; // e.g. "lehua" | "lehua-l"
+  rightHue?: string;
+  flip?: boolean; // mirror the right gutter art
+  ariaHidden?: boolean;
+}
+const { leftHue = "lehua", rightHue = "moana", flip = false, ariaHidden = false } = Astro.props;
+const hueToColors: Record<string, string> = {
+  alaea: "var(--alaea)",
+  alaea_l: "var(--alaea-light)",
+  olena: "var(--olena)",
+  olena_l: "var(--olena-light)",
+  ulu: "var(--ulu)",
+  ulu_l: "var(--ulu-light)",
+  moana: "var(--moana)",
+  moana_l: "var(--moana-light)",
+  lehua: "var(--lehua)",
+  lehua_l: "var(--lehua-light)",
+  kai: "var(--kai)",
+  kai_l: "var(--kai-light)",
+};
+---
+<div class="stitched" aria-hidden={ariaHidden}>
+  <div class="page-frame">
+    <div class={`page-gutter pb p-${leftHue} gutter-l`}>
+      <svg viewBox="0 0 200 200" style={`color:${hueToColors[leftHue.replace(/-l$/, "_l")]};opacity:0.5`}>
+        <use href="#uluQuiltA" class="leaf" />
+      </svg>
+    </div>
+    <div class="page-frame-content">
+      <slot />
+    </div>
+    <div class={`page-gutter pb p-${rightHue} gutter-r`}>
+      <svg viewBox="0 0 200 200" style={`color:${hueToColors[rightHue.replace(/-l$/, "_l")]};opacity:0.5;${flip ? "transform:scaleX(-1)" : ""}`}>
+        <use href="#uluQuiltB" class="leaf" />
+      </svg>
+    </div>
+  </div>
+</div>

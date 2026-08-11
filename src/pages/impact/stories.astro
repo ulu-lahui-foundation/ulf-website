@@ -1,0 +1,66 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+
+const tabs = [
+  { label: "At a Glance", href: "/impact/" },
+  { label: "By Program", href: "/impact/by-program/" },
+  { label: "Stories", href: "/impact/stories/" },
+];
+
+const quotes = [
+  {
+    quote:
+      "I learned a lot of new AI terminology and the importance of all the different layers of AI to safeguard our way of life as Hawaiian people when using technology.",
+    attrib: "Workshop participant, AI for Hawaiʻi",
+    hue: "p-alaea-l", initials: "WP",
+  },
+  {
+    quote:
+      "Being mindful of what you share on the internet is not just about personal protection, but the protection of the accuracy of information... and honoring cultural aspects of information to prevent misuse, misrepresentation, and bias.",
+    attrib: "Workshop participant, AI for Hawaiʻi",
+    hue: "p-moana-l", initials: "WP",
+  },
+];
+---
+<Base title="Stories — Ulu Lāhui Foundation" description="Educator voices from AI for Hawaiʻi workshops, quoted verbatim.">
+  <PageHead
+    eyebrow="Impact · Stories"
+    title="In their words"
+    lede="Educator quotes from our workshops, used verbatim with attribution. More are being added as permission allows."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/impact/stories/" />
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:30px;">
+        {quotes.map((q, i) => (
+          <div class={`quote-patch patch ${q.hue} ${i === 1 ? "tilt-b" : ""}`} style="max-width:100%; margin:0;">
+            <div class="avatar" style="background:var(--ink); color:var(--olena-light); width:56px; height:56px; font-size:15px; margin:0 0 16px;">{q.initials}</div>
+            <blockquote>
+              <p style="font-size:17px;">“{q.quote}”</p>
+            </blockquote>
+            <div class="attrib" style="margin-top:14px;">{q.attrib}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <StitchedBand leftHue="lehua-l" rightHue="kai" flip>
+    <div class="qb q-ulu-l" style="padding:34px 40px;">
+      <p style="font-size:14.5px;">
+        At least five more testimonies exist in the AI4HI 2026 Impact Report. We are rotating them in
+        as permission is confirmed. Where a headshot is not available, initials stand in, as above.
+      </p>
+    </div>
+  </StitchedBand>
+</Base>

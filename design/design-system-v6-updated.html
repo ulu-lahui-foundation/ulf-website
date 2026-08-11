@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kapa Lau ʻUlu — Design System v0.4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=K2D:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --radius: 4px;
+    --ink: #2B1B12;
+
+    --alaea: #D96913; --alaea-deep: #AD540F; --alaea-light: #F8E4D4; --alaea-light-deep: #DFCDBE; --alaea-dark: #492306;
+    --olena: #F2A900; --olena-deep: #C68A00; --olena-light: #FBEACA; --olena-light-deep: #E1D2B5; --olena-dark: #4A3006;
+    --ulu:   #A2C601; --ulu-deep:   #7E9A00; --ulu-light:   #ECF3CC; --ulu-light-deep:   #D4DAB7; --ulu-dark:   #303B00;
+    --moana: #0B5FA8; --moana-deep: #094D89; --moana-light: #D8E8F5; --moana-light-deep: #C2D0DC; --moana-dark: #0B2C48;
+    --lehua: #C41E5A; --lehua-deep: #A0184B; --lehua-light: #F6DCE7; --lehua-light-deep: #DDC6CF; --lehua-dark: #4A122C;
+    --kai:   #147A6B; --kai-deep:   #10645A; --kai-light:   #DCEDE8; --kai-light-deep:   #C6D5D0; --kai-dark:   #0F2E2A;
+
+    --page: #EDF1EC;
+    --seam: #7A6952;
+
+    /* bevel tokens — highlight always the hue's light wash; shadow is vivid (on a light field) or deep (on a vivid field) */
+    --alaea-hi: rgba(248,228,212,0.5); --alaea-lo-on-light: rgba(217,105,19,0.30); --alaea-lo-on-vivid: rgba(173,84,15,0.40);
+    --olena-hi: rgba(251,234,202,0.5); --olena-lo-on-light: rgba(242,169,0,0.30); --olena-lo-on-vivid: rgba(198,138,0,0.40);
+    --ulu-hi:   rgba(236,243,204,0.65); --ulu-lo-on-light:   rgba(162,198,1,0.30); --ulu-lo-on-vivid:   rgba(126,154,0,0.40);
+    --moana-hi: rgba(216,232,245,0.5); --moana-lo-on-light: rgba(11,95,168,0.28); --moana-lo-on-vivid: rgba(9,77,137,0.40);
+    --lehua-hi: rgba(246,220,231,0.5); --lehua-lo-on-light: rgba(196,30,90,0.28); --lehua-lo-on-vivid: rgba(160,24,75,0.40);
+    --kai-hi:   rgba(220,237,232,0.65); --kai-lo-on-light:   rgba(20,122,107,0.28); --kai-lo-on-vivid:   rgba(16,100,90,0.40);
+    --muted: #6b6459;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Quicksand', sans-serif; color: var(--ink); background: var(--page); padding: 48px 24px 120px; font-size: 16px; line-height: 1.65; }
+  .wrap { max-width: 920px; margin: 0 auto; display: flex; flex-direction: column; gap: 68px; }
+  h1 { font-family: 'K2D', sans-serif; font-weight: 700; font-size: 44px; letter-spacing: -0.01em; }
+  h2.doc-title { font-family: 'K2D', sans-serif; font-weight: 600; font-size: 25px; margin-bottom: 6px; }
+  .sub { color: var(--muted); font-size: 15px; margin-top: 8px; }
+  .eyebrow { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  section { border-top: 2px solid #d8d2c2; padding-top: 42px; }
+  p, li { max-width: 68ch; }
+  p + p { margin-top: 12px; }
+  .note { font-size: 14.5px; color: var(--muted); max-width: 66ch; margin-bottom: 20px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 14px 0; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid #d8d2c2; vertical-align: middle; }
+  th { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  code { font-family: 'Quicksand', sans-serif; font-weight: 600; background: #e2e6de; padding: 2px 6px; border-radius: 4px; font-size: 0.9em; }
+  ul { padding-left: 22px; }
+  li { margin-bottom: 8px; }
+  .swatch-dot { display:inline-block; width:14px; height:14px; border-radius:3px; vertical-align:-2px; margin-right:6px; }
+
+  .leaf { fill: currentColor; }
+  .leaf-outline { fill: none; stroke: currentColor; stroke-width: 5; stroke-dasharray: 9 7; stroke-linecap: round; }
+
+  /* the quilted surface — trapunto bevel, colored from the same hue, never black/white */
+  .quilted {
+    border-radius: var(--radius);
+    box-shadow:
+      inset 1.5px 1.5px 1px var(--hi, var(--kai-hi)),
+      inset -1.5px -1.5px 2px var(--lo, var(--kai-lo-on-light)),
+      0 2px 2px var(--lo, var(--kai-lo-on-light));
+  }
+  /* same bevel, no radius — for pieced blocks: each patch is quilted after piecing,
+     but a patch never rounds its own corner, only the outer bound edge does */
+  .puffy {
+    box-shadow:
+      inset 1.5px 1.5px 1px var(--hi, var(--kai-hi)),
+      inset -1.5px -1.5px 2px var(--lo, var(--kai-lo-on-light));
+  }
+
+  /* color matrix table */
+  .matrix-cell { width: 90px; height: 46px; display:flex; align-items:center; justify-content:center; font-family:'Quicksand',sans-serif; font-weight:700; font-size:10px; letter-spacing:0.04em; text-transform:uppercase; }
+
+  /* type scale */
+  .type-row { display: flex; align-items: baseline; gap: 20px; padding: 10px 0; border-bottom: 1px dashed #cfc9b8; }
+  .type-row .sample { font-family: 'K2D', sans-serif; }
+  .type-row .meta { font-family: 'Quicksand', sans-serif; font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; min-width: 190px; }
+
+  .spacing-demo { position: relative; background: linear-gradient(155deg, var(--olena-light) 0%, var(--olena-light-deep) 100%); padding: 32px; }
+  .spacing-demo h3 { font-family:'K2D',sans-serif; font-weight:600; font-size: 24px; }
+  .spacing-demo .gap-mark { position: absolute; left: 32px; width: 1px; border-left: 1.5px dashed var(--alaea); }
+  .spacing-demo .gap-label { position: absolute; left: 44px; font-family:'Quicksand',sans-serif; font-size: 11px; font-weight:700; color: var(--alaea); }
+  .spacing-demo p { font-size: 15px; color: var(--muted); max-width: 52ch; }
+
+  /* buttons */
+  .btn-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+  .btn-stack { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .btn { font-family: 'Quicksand', sans-serif; font-weight: 600; font-size: 14px; padding: 11px 22px; border: none; cursor: pointer; border-radius: var(--radius); }
+  .btn-label { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 10px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* button hierarchy — tone set per instance via --tone/--tone-deep/--tone-light/--tone-ink */
+  .btn2 { font-family:'Quicksand',sans-serif; font-weight:600; font-size:14px; padding:11px 22px; border-radius:var(--radius); cursor:pointer; }
+
+  .btn-primary {
+    background: var(--tone); color: var(--tone-ink, white);
+    border: 1px dashed var(--tone-deep);
+  }
+  .btn-primary:hover, .btn-primary.state-hover,
+  .btn-primary:active, .btn-primary.state-active {
+    box-shadow: inset 2px 2px 4px rgba(43,27,18,0.35), inset -1px -1px 2px rgba(255,255,255,0.12);
+  }
+  .btn-primary:disabled, .btn-primary.state-disabled {
+    background:#D9D4C6; border-color:#B8B2A2; color:#948E7E; box-shadow:none; cursor:not-allowed;
+  }
+
+  .btn-secondary {
+    background: transparent; color: var(--tone);
+    border: 1px dashed var(--tone);
+  }
+  .btn-secondary:hover, .btn-secondary.state-hover,
+  .btn-secondary:active, .btn-secondary.state-active {
+    background: var(--tone-light);
+  }
+  .btn-secondary:disabled, .btn-secondary.state-disabled {
+    background:transparent; border-color:#B8B2A2; color:#948E7E; cursor:not-allowed;
+  }
+
+  .btn-tertiary {
+    background: transparent; color: var(--tone);
+    border: none; padding: 11px 4px;
+  }
+  .btn-tertiary:hover, .btn-tertiary.state-hover,
+  .btn-tertiary:active, .btn-tertiary.state-active {
+    text-decoration: underline; text-decoration-style: dashed; text-decoration-thickness: 1px;
+  }
+  .btn-tertiary:disabled, .btn-tertiary.state-disabled {
+    color:#948E7E; cursor:not-allowed; text-decoration:none;
+  }
+  .btn-shadow-wrap { position: relative; display: inline-block; }
+  .btn-shadow-behind { position: absolute; inset: 0; transform: translate(6px,7px); background: var(--ink); opacity: 0.22; border-radius: var(--radius); }
+  .btn-stitch { background: transparent; border: 2.5px dashed var(--ink); color: var(--ink); }
+
+  .leaf-states { display: flex; gap: 36px; justify-content: center; flex-wrap: wrap; }
+  .leaf-state-col { text-align: center; }
+  .leaf-wrap { display: inline-block; width: 110px; height: 104px; }
+  .leaf-wrap svg { width: 100%; height: 100%; display: block; }
+  .caption { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 11px; color: var(--muted); margin-top: 8px; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* bento / pieced blocks — sharp corners, seam-based */
+  /* full-page-width demo frame — breaks out of the reading column to show
+     how a section sits between page margins, gutters carrying a quilt motif */
+  .trans-line { width: 100vw; position: relative; left: 50%; margin-left: -50vw; background: var(--ink); margin-top: 24px; margin-bottom: 24px; }
+  .full-bleed { width: 100vw; position: relative; left: 50%; margin-left: -50vw; }
+  .stitched-frame { background: #FBEACA; padding: 0; }
+  .page-frame { display: flex; align-items: stretch; }
+  .page-gutter { flex: 1 1 60px; min-width: 60px; max-width: 180px; padding: 8px; position: relative; overflow: hidden; display: flex; align-items: center; box-sizing: border-box; }
+  /* sized as a square, smaller than the container, so it reads as an appliqué
+     square set inside a quilt block — not a bleeding pattern. any square
+     graphic (svg or a future png) can drop into this same box. */
+  .page-gutter svg, .page-gutter img { height: 100%; width: auto; aspect-ratio: 1; object-fit: contain; flex-shrink: 0; }
+  .gutter-l { justify-content: flex-end; border-left: none; }
+  .gutter-r { justify-content: flex-start; border-right: none; }
+  .page-frame-content { flex: 1 1 860px; max-width: 860px; min-width: 0; }
+  .frame-label { font-family:'Quicksand',sans-serif; font-weight:700; font-size: 11px; letter-spacing:0.05em; text-transform:uppercase; color: var(--muted); text-align:center; padding: 10px 0; }
+
+  .bento2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0; height: 220px; }
+  .bento3 { display: grid; grid-template-columns: 1.4fr 1fr; grid-template-rows: 1fr 1fr; gap: 0; height: 360px; }
+  /* one border, all four sides, colored to match whatever text color the block already
+     uses — no more tracking which specific edge needs a seam */
+  /* each stitched container gets its own rounded corner and a plain solid
+     border, one shade darker than that container's own shadow color */
+  .stitched-edge { border-radius: 0; border: 1px solid var(--edge, var(--kai-deep)); }
+
+  /* patches sit on the page itself, full width, with a few extra patches scattered
+     behind the main group to suggest a bigger pile on the table */
+  .patches-frame { width: 100vw; position: relative; left: 50%; margin-left: -50vw; background: #FBEACA; padding: 56px 0; overflow: hidden; }
+  .patches-frame .content-col { max-width: 860px; margin: 0 auto; padding: 0 16px; position: relative; z-index: 2; }
+  .scatter-patch { position: absolute; z-index: 1; box-shadow: 0 8px 16px rgba(43,27,18,0.22); }
+  .block { padding: 24px; display: flex; flex-direction: column; justify-content: center; position: relative; overflow: hidden; }
+  .block .leaf-bg { position: absolute; right: -24px; bottom: -24px; width: 200px; height: 190px; opacity: 0.9; z-index: 0; }
+  .block .content { position: relative; z-index: 1; }
+  .block h3 { font-family: 'K2D', sans-serif; font-weight: 600; font-size: 22px; line-height: 1.15; margin-bottom: 8px; }
+  .block p { font-size: 13px; margin-bottom: 14px; }
+  .block .num { font-family: 'K2D', sans-serif; font-weight: 700; font-size: 32px; }
+  .block .lbl { font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; margin-top: 2px; }
+  .stitch-input { display:flex; align-items:center; gap: 12px; }
+  .stitch-input svg { width: 30px; height: 28px; color: var(--kai); flex-shrink: 0; }
+  .stitch-input input { flex:1; border:none; border-bottom: 2.5px dashed var(--ink); background: transparent; font-family:'Quicksand',sans-serif; font-size: 13px; padding: 6px 2px; outline: none; color: var(--ink); }
+  .seam-legend { display: flex; gap: 26px; margin-top: 16px; font-size: 12px; color: var(--muted); flex-wrap: wrap; }
+  .seam-legend .key { display: inline-flex; align-items: center; gap: 6px; }
+  .seam-legend .line { width: 22px; height: 0; display: inline-block; }
+
+  /* gallery grid, 4 across 2 down */
+  .gallery { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; padding: 10px; position: relative; z-index: 2; }
+  /* patches — cut pieces not yet sewn to anything: real shadow, sharp raw edges, no puff */
+  .patch {
+    position: relative;
+    z-index: 2;
+    border-radius: 0;
+    box-shadow: 6px 6px 0 rgba(43,27,18,0.35);
+  }
+  .patch.tilt-a { transform: rotate(-2deg); }
+  .patch.tilt-b { transform: rotate(1.5deg); }
+  .patch.tilt-c { transform: rotate(-1deg); }
+
+  .gallery .cell { border-radius: 0; aspect-ratio: 1; padding: 16px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .gallery .cell .lbl { font-family:'K2D',sans-serif; font-weight: 600; font-size: 14px; }
+  .gallery .cell .sub-lbl { font-family:'Quicksand',sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.75; }
+
+  /* team gallery */
+  .team-row { display: flex; gap: 26px; flex-wrap: wrap; padding: 14px 10px; position: relative; z-index: 2; }
+  .person { text-align: center; width: 150px; padding: 20px 12px; }
+  .avatar { width: 84px; height: 84px; border-radius: 50%; margin: 0 auto 12px; display:flex; align-items:center; justify-content:center; font-family:'K2D',sans-serif; font-weight:700; font-size: 20px; }
+  .person .pname { font-family:'K2D',sans-serif; font-weight: 600; font-size: 14px; }
+  .person .prole { font-family:'Quicksand',sans-serif; font-size: 11px; color: var(--muted); }
+
+  /* callout / donation */
+  .callout { position: relative; overflow: hidden; padding: 56px 48px; display:flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .callout .callout-bg { position:absolute; right: -60px; top: -40px; width: 420px; height: 420px; opacity: 0.16; z-index:0; }
+  .callout .content { position: relative; z-index:1; max-width: 480px; }
+  .callout h3 { font-family:'K2D',sans-serif; font-weight: 700; font-size: 30px; line-height: 1.15; color: white; }
+  .callout p { color: rgba(255,255,255,0.88); font-size: 15px; margin: 12px 0 20px; }
+
+  /* footer */
+  .site-footer { background: linear-gradient(155deg, var(--ulu-light) 0%, var(--ulu-light-deep) 100%); color: var(--ulu-dark); padding: 40px 44px 26px; border-top: 3px solid var(--ink); }
+  .footer-cols { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 32px; }
+  .footer-brand { display:flex; align-items:center; gap:8px; font-family:'K2D',sans-serif; font-weight:600; font-size:16px; color: var(--ink); margin-bottom: 10px; }
+  .footer-brand svg { width: 20px; height: 19px; color: var(--ulu-dark); }
+  .footer-cols h5 { font-family:'Quicksand',sans-serif; font-weight:700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ulu-dark); opacity: 0.75; margin-bottom: 10px; }
+  .footer-cols li { list-style: none; font-size: 13px; margin-bottom: 8px; color: var(--ink); }
+  .footer-bottom { margin-top: 28px; padding-top: 18px; border-top: 1px solid rgba(43,27,18,0.15); font-size: 12px; color: var(--ulu-dark); display:flex; justify-content: space-between; }
+
+  /* nav */
+  .site-nav { background: linear-gradient(155deg, var(--kai-light) 0%, var(--kai-light-deep) 100%); padding: 14px 22px; display: flex; align-items: center; justify-content: space-between; }
+  .site-nav .brand { display: flex; align-items: center; gap: 8px; font-family: 'K2D', sans-serif; font-weight: 600; font-size: 15px; }
+  .site-nav .brand svg { width: 20px; height: 19px; color: var(--ulu); }
+  .nav-links { display: flex; gap: 24px; font-size: 13px; font-weight: 600; align-items: center; }
+  .nav-links .active { position: relative; color: var(--ink); }
+  .nav-links .active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -6px; border-top: 2.5px dashed var(--alaea); }
+  .nav-links span:not(.active):not(.nav-cta) { color: var(--muted); }
+  .nav-cta { background: var(--alaea); color: white; padding: 8px 16px; border-radius: var(--radius); font-weight: 700; font-size: 12px; }
+</style>
+</head>
+<body>
+
+<svg style="position:absolute; width:0; height:0" aria-hidden="true">
+  <symbol id="uluLeaf" viewBox="0 0 200 189">
+    <path d="M 5.8,11.8 Q 5.8,11.8 2.9,13.8 Q 0.0,15.9 10.6,23.5 Q 21.2,31.1 23.7,37.0 Q 26.2,42.9 22.4,57.4 Q 18.5,71.9 18.9,92.8 Q 19.2,113.7 31.8,85.7 Q 44.4,57.6 43.9,83.0 Q 43.4,108.4 50.6,140.2 Q 57.8,172.0 68.2,155.5 Q 78.6,138.9 76.2,105.7 Q 73.8,72.5 80.6,85.4 Q 87.4,98.3 90.6,143.5 Q 93.7,188.7 104.1,172.8 Q 114.4,156.8 116.8,140.0 Q 119.2,123.2 132.3,147.4 Q 145.4,171.7 164.0,171.8 Q 182.6,171.9 184.4,159.0 Q 186.1,146.2 183.8,138.5 Q 181.5,130.8 153.0,112.7 Q 124.5,94.7 146.7,95.4 Q 168.9,96.0 184.2,92.2 Q 199.5,88.4 177.6,76.4 Q 155.8,64.4 118.8,62.7 Q 81.8,60.9 85.5,57.3 Q 89.2,53.6 119.5,54.1 Q 149.8,54.6 164.4,51.0 Q 179.0,47.4 155.1,35.4 Q 131.3,23.5 95.6,28.5 Q 59.9,33.4 86.0,16.8 Q 112.1,0.2 90.8,3.7 Q 69.5,7.3 52.5,16.0 Q 35.4,24.7 20.6,18.2 Z"/>
+  </symbol>
+  <symbol id="uluQuiltA" viewBox="0 0 200 200">
+    <path d="M 5.2,4.2 Q 5.2,4.2 7.3,16.0 Q 9.4,27.8 22.6,36.7 Q 35.8,45.7 18.0,51.9 Q 0.1,58.0 31.7,64.2 Q 63.2,70.4 46.8,68.8 Q 30.4,67.2 19.4,73.5 Q 8.5,79.7 39.2,81.8 Q 69.8,83.8 58.1,90.5 Q 46.4,97.2 71.3,98.6 Q 96.2,100.1 71.3,101.4 Q 46.4,102.8 58.1,109.5 Q 69.8,116.2 39.2,118.2 Q 8.5,120.3 19.4,126.5 Q 30.4,132.8 46.8,131.2 Q 63.2,129.6 31.7,135.8 Q 0.1,142.0 18.0,148.1 Q 35.8,154.3 22.8,163.0 Q 9.8,171.7 7.0,183.3 Q 4.2,194.8 16.0,192.7 Q 27.8,190.6 36.7,177.4 Q 45.7,164.2 51.9,182.0 Q 58.0,199.9 64.2,168.3 Q 70.4,136.8 68.8,153.2 Q 67.2,169.6 73.5,180.6 Q 79.7,191.5 81.8,160.8 Q 83.8,130.2 90.5,141.9 Q 97.2,153.6 98.6,128.7 Q 100.1,103.8 101.4,128.7 Q 102.8,153.6 109.5,141.9 Q 116.2,130.2 118.2,160.8 Q 120.3,191.5 126.5,180.6 Q 132.8,169.6 131.2,153.2 Q 129.6,136.8 135.8,168.3 Q 142.0,199.9 148.1,182.0 Q 154.3,164.2 163.0,177.2 Q 171.7,190.2 183.3,193.0 Q 194.8,195.8 192.7,184.0 Q 190.6,172.2 177.4,163.3 Q 164.2,154.3 182.0,148.1 Q 199.9,142.0 168.3,135.8 Q 136.8,129.6 153.2,131.2 Q 169.6,132.8 180.6,126.5 Q 191.5,120.3 160.8,118.2 Q 130.2,116.2 141.9,109.5 Q 153.6,102.8 128.7,101.4 Q 103.8,99.9 128.7,98.6 Q 153.6,97.2 141.9,90.5 Q 130.2,83.8 160.8,81.8 Q 191.5,79.7 180.6,73.5 Q 169.6,67.2 153.2,68.8 Q 136.8,70.4 168.3,64.2 Q 199.9,58.0 182.0,51.9 Q 164.2,45.7 177.2,37.0 Q 190.2,28.3 193.0,16.7 Q 195.8,5.2 184.0,7.3 Q 172.2,9.4 163.3,22.6 Q 154.3,35.8 148.1,18.0 Q 142.0,0.1 135.8,31.7 Q 129.6,63.2 131.2,46.8 Q 132.8,30.4 126.5,19.4 Q 120.3,8.5 118.2,39.2 Q 116.2,69.8 109.5,58.1 Q 102.8,46.4 101.4,71.3 Q 99.9,96.2 98.6,71.3 Q 97.2,46.4 90.5,58.1 Q 83.8,69.8 81.8,39.2 Q 79.7,8.5 73.5,19.4 Q 67.2,30.4 68.8,46.8 Q 70.4,63.2 64.2,31.7 Q 58.0,0.1 51.9,18.0 Q 45.7,35.8 37.0,22.8 Q 28.3,9.8 16.7,7.0 Z"/>
+  </symbol>
+  <symbol id="uluQuiltB" viewBox="0 0 200 200">
+    <path d="M 154.4,154.4 Q 154.4,154.4 156.7,160.7 Q 159.0,167.0 160.6,170.5 Q 162.2,173.9 165.2,178.2 Q 168.2,182.5 170.3,184.8 Q 172.4,187.1 175.2,189.3 Q 178.0,191.5 180.4,192.6 Q 182.8,193.7 185.9,194.3 Q 189.1,194.9 191.9,194.9 Q 194.8,194.9 195.0,194.1 Q 195.2,193.4 195.0,191.2 Q 194.9,189.1 194.3,185.9 Q 193.7,182.8 192.6,180.4 Q 191.5,178.0 189.7,175.6 Q 187.9,173.2 185.2,170.7 Q 182.5,168.2 178.2,165.2 Q 173.9,162.2 170.5,160.6 Q 167.0,159.0 160.7,156.7 Z M 45.6,154.4 Q 45.6,154.4 39.3,156.7 Q 33.0,159.0 29.5,160.6 Q 26.1,162.2 21.8,165.2 Q 17.5,168.2 15.2,170.3 Q 12.9,172.4 10.7,175.2 Q 8.5,178.0 7.4,180.4 Q 6.3,182.8 5.7,185.9 Q 5.1,189.1 5.1,191.9 Q 5.1,194.8 5.9,195.0 Q 6.6,195.2 8.8,195.0 Q 10.9,194.9 14.1,194.3 Q 17.2,193.7 19.6,192.6 Q 22.0,191.5 24.4,189.7 Q 26.8,187.9 29.3,185.2 Q 31.8,182.5 34.8,178.2 Q 37.8,173.9 39.4,170.5 Q 41.0,167.0 43.3,160.7 Z M 199.2,141.4 Q 199.2,141.4 196.0,140.1 Q 192.8,138.8 184.9,137.6 Q 176.9,136.4 172.1,136.6 Q 167.3,136.8 160.3,138.4 Q 153.4,139.9 146.4,139.7 Q 139.4,139.5 139.7,145.7 Q 140.1,151.8 138.4,159.5 Q 136.8,167.3 136.6,172.1 Q 136.4,176.9 137.6,184.9 Q 138.8,192.8 140.4,196.4 Q 142.0,199.9 144.0,199.0 Q 145.9,198.0 148.3,195.1 Q 150.7,192.2 152.1,188.9 Q 153.5,185.5 153.7,180.6 Q 154.0,175.6 151.3,164.2 Q 148.5,152.7 148.5,151.1 Q 148.5,149.6 149.7,148.9 Q 150.9,148.3 163.3,151.1 Q 175.6,154.0 180.3,153.8 Q 184.9,153.6 188.5,152.2 Q 192.2,150.7 194.3,149.2 Q 196.4,147.6 198.1,145.5 Q 199.9,143.5 199.5,142.4 Z M 0.8,141.4 Q 0.8,141.4 0.5,142.4 Q 0.1,143.5 1.9,145.5 Q 3.6,147.6 5.7,149.2 Q 7.8,150.7 11.5,152.2 Q 15.1,153.6 19.7,153.8 Q 24.4,154.0 36.7,151.1 Q 49.1,148.3 50.3,148.9 Q 51.5,149.6 51.5,151.1 Q 51.5,152.7 48.7,164.2 Q 46.0,175.6 46.3,180.6 Q 46.5,185.5 47.9,188.9 Q 49.3,192.2 51.7,195.1 Q 54.1,198.0 56.0,199.0 Q 58.0,199.9 59.6,196.4 Q 61.2,192.8 62.4,184.9 Q 63.6,176.9 63.4,172.1 Q 63.2,167.3 61.6,159.5 Q 59.9,151.8 60.3,145.7 Q 60.6,139.5 54.4,139.8 Q 48.2,140.1 40.5,138.4 Q 32.7,136.8 27.9,136.6 Q 23.1,136.4 15.7,137.5 Q 8.3,138.5 4.6,139.9 Z M 80.4,9.6 Q 80.4,9.6 75.0,23.1 Q 69.6,36.5 73.0,56.0 Q 76.4,75.4 56.4,72.5 Q 36.5,69.6 23.1,75.0 Q 9.6,80.5 23.2,84.2 Q 36.7,87.9 55.9,85.4 Q 75.0,82.9 60.7,90.0 Q 46.4,97.2 71.3,98.6 Q 96.2,100.1 71.3,101.4 Q 46.4,102.8 60.7,110.0 Q 75.0,117.1 55.9,114.6 Q 36.7,112.1 23.2,115.8 Q 9.6,119.6 23.1,125.0 Q 36.5,130.4 56.0,127.0 Q 75.4,123.6 72.5,143.6 Q 69.6,163.5 75.0,176.9 Q 80.5,190.4 84.2,176.8 Q 87.9,163.3 85.4,144.1 Q 82.9,125.0 90.0,139.3 Q 97.2,153.6 98.6,128.7 Q 100.1,103.8 101.4,128.7 Q 102.8,153.6 110.0,139.3 Q 117.1,125.0 114.6,144.1 Q 112.1,163.3 115.8,176.8 Q 119.6,190.4 125.0,176.9 Q 130.4,163.5 127.0,144.0 Q 123.6,124.6 143.6,127.5 Q 163.5,130.4 176.9,125.0 Q 190.4,119.5 176.8,115.8 Q 163.3,112.1 144.1,114.6 Q 125.0,117.1 139.3,110.0 Q 153.6,102.8 128.7,101.4 Q 103.8,99.9 128.7,98.6 Q 153.6,97.2 139.3,90.0 Q 125.0,82.9 144.1,85.4 Q 163.3,87.9 176.8,84.2 Q 190.4,80.4 176.9,75.0 Q 163.5,69.6 144.0,73.0 Q 124.6,76.4 127.5,56.4 Q 130.4,36.5 125.0,23.1 Q 119.5,9.6 115.8,23.2 Q 112.1,36.7 114.6,55.9 Q 117.1,75.0 110.0,60.7 Q 102.8,46.4 101.4,71.3 Q 99.9,96.2 98.6,71.3 Q 97.2,46.4 90.0,60.7 Q 82.9,75.0 85.4,55.9 Q 87.9,36.7 84.2,23.2 Z M 194.9,5.2 Q 194.9,5.2 194.1,5.0 Q 193.4,4.8 191.2,5.0 Q 189.1,5.1 185.9,5.7 Q 182.8,6.3 180.4,7.4 Q 178.0,8.5 175.6,10.3 Q 173.2,12.1 170.7,14.8 Q 168.2,17.5 165.2,21.8 Q 162.2,26.1 160.6,29.5 Q 159.0,33.0 156.7,39.3 Q 154.4,45.6 160.7,43.3 Q 167.0,41.0 170.5,39.4 Q 173.9,37.8 178.2,34.8 Q 182.5,31.8 184.8,29.7 Q 187.1,27.6 189.3,24.8 Q 191.5,22.0 192.6,19.6 Q 193.7,17.2 194.3,14.1 Q 194.9,10.9 194.9,8.1 Z M 5.2,5.1 Q 5.2,5.1 5.0,5.9 Q 4.8,6.6 5.0,8.8 Q 5.1,10.9 5.7,14.1 Q 6.3,17.2 7.4,19.6 Q 8.5,22.0 10.3,24.4 Q 12.1,26.8 14.8,29.3 Q 17.5,31.8 21.8,34.8 Q 26.1,37.8 29.5,39.4 Q 33.0,41.0 39.3,43.3 Q 45.6,45.6 43.3,39.3 Q 41.0,33.0 39.4,29.5 Q 37.8,26.1 34.8,21.8 Q 31.8,17.5 29.7,15.2 Q 27.6,12.9 24.8,10.7 Q 22.0,8.5 19.6,7.4 Q 17.2,6.3 14.1,5.7 Q 10.9,5.1 8.1,5.1 Z M 142.0,0.1 Q 142.0,0.1 140.4,3.6 Q 138.8,7.2 137.6,15.1 Q 136.4,23.1 136.6,27.9 Q 136.8,32.7 138.4,40.5 Q 140.1,48.2 139.7,54.3 Q 139.4,60.5 145.6,60.2 Q 151.8,59.9 159.5,61.6 Q 167.3,63.2 172.1,63.4 Q 176.9,63.6 184.3,62.5 Q 191.7,61.5 195.4,60.1 Q 199.2,58.6 199.5,57.6 Q 199.9,56.5 198.1,54.5 Q 196.4,52.4 194.3,50.8 Q 192.2,49.3 188.5,47.8 Q 184.9,46.4 180.3,46.2 Q 175.6,46.0 163.3,48.9 Q 150.9,51.7 149.7,51.1 Q 148.5,50.4 148.5,48.9 Q 148.5,47.3 151.3,35.8 Q 154.0,24.4 153.7,19.4 Q 153.5,14.5 152.1,11.1 Q 150.7,7.8 148.3,4.9 Q 145.9,2.0 144.0,1.0 Z M 58.0,0.1 Q 58.0,0.1 56.0,1.0 Q 54.1,2.0 51.7,4.9 Q 49.3,7.8 47.9,11.1 Q 46.5,14.5 46.3,19.4 Q 46.0,24.4 48.7,35.8 Q 51.5,47.3 51.5,48.9 Q 51.5,50.4 50.3,51.1 Q 49.1,51.7 36.7,48.9 Q 24.4,46.0 19.7,46.2 Q 15.1,46.4 11.5,47.8 Q 7.8,49.3 5.7,50.8 Q 3.6,52.4 1.9,54.5 Q 0.1,56.5 0.5,57.6 Q 0.8,58.6 4.0,59.9 Q 7.2,61.2 15.1,62.4 Q 23.1,63.6 27.9,63.4 Q 32.7,63.2 39.7,61.6 Q 46.6,60.1 53.6,60.3 Q 60.6,60.5 60.3,54.3 Q 59.9,48.2 61.6,40.5 Q 63.2,32.7 63.4,27.9 Q 63.6,23.1 62.4,15.1 Q 61.2,7.2 59.6,3.6 Z"/>
+  </symbol>
+</svg>
+
+<div class="wrap">
+
+  <div>
+    <h1>Kapa Lau ʻUlu</h1>
+    <div class="sub">Design system v0.5 — comprehensive reference for building the site.</div>
+  </div>
+
+  <!-- PART 1 — CONCEPT -->
+  <section>
+    <div class="eyebrow">Part 1 — Concept</div>
+    <h2 class="doc-title">Fill, shadow, stitch</h2>
+    <p>The same <em>ulu</em> (breadfruit) leaf appears three times, as three translations of itself: <strong>fill</strong>, a solid appliquéd shape — knowledge as it exists, whole and certain. <strong>Shadow</strong>, a dim displaced silhouette — the moment of transmission, observed and translated. <strong>Stitch</strong>, a running-thread outline — what's re-made by a different hand. One idea about how knowledge moves, expressed as a system that shows up in a button's states as readily as in the motif itself.</p>
+  </section>
+
+  <!-- PART 2 — QUILT AS SITE -->
+  <section>
+    <div class="eyebrow">Part 2 — The site as a quilt</div>
+    <h2 class="doc-title">Piecing and appliqué are two different jobs</h2>
+    <p><strong>Appliqué</strong> lays one motif on top of a field, stitched around its own edge — that's the leaf, fill/shadow/stitch, and it's flat: a button is a cut shape held down by thread, not a padded block (Part 7). <strong>Piecing</strong> joins separate fabric patches at a seam pressed flat into a fine line — that's the layout. A group of related content is unevenly sized blocks pushed edge to edge; the gap between them is a seam, not a border on any one block; only the outer edge of the whole pieced group gets a radius, the way a quilt is bound at its edge but no single patch is.</p>
+    <p>One more layer: once the patches are pieced, a real quilt gets quilted straight through everything — top, batting, backing — so each patch ends up puffed even though the seam between patches stays flat and pressed. Containers here work the same way (Part 6): the seam is structural and flat, the patch surface on either side of it is not.</p>
+  </section>
+
+  <!-- PART 3 — COLOR MATRIX -->
+  <section>
+    <div class="eyebrow">Part 3 — Color</div>
+    <h2 class="doc-title">Six hues, three depths each — no white, no black</h2>
+    <p class="note">Every color comes from the same dye bath at a different strength: a light wash, the full-strength dye, and a deep over-dyed version. That's a light field, a vivid accent, and a dark field, for each of six hues. Backgrounds are always one of these eighteen — never a neutral white or gray. Text and stitching use Kukui ink, a dark warm brown with red in it, never a flat black.</p>
+    <p class="note"><strong>ʻAlaea is now the confirmed primary, <code>#D96913</code></strong> — pulled directly from the logo (which actually renders <code>#D86911</code>, near-identical, likely a compression rounding difference). <strong>Ulu is now <code>#A2C601</code></strong>, a much brighter yellow-green than the earlier forest tone — bright enough that it needs Kukui ink for its text, not white. One more data point from the logo: its gold sits at <code>#F0C05D</code>, a touch lighter and more yellow than the ʻŌlena below — worth considering if ʻŌlena should shift to match it exactly, but not changed here without confirmation.</p>
+    <table>
+      <tr><th>Hue</th><th>Light (field)</th><th>Vivid (accent)</th><th>Dark (field)</th></tr>
+      <tr><td>ʻAlaea — red clay, our primary</td><td><div class="matrix-cell" style="background:var(--alaea-light); color:var(--alaea-dark);">#F8E4D4</div></td><td><div class="matrix-cell" style="background:var(--alaea); color:white;">#D96913</div></td><td><div class="matrix-cell" style="background:var(--alaea-dark); color:var(--alaea-light);">#492306</div></td></tr>
+      <tr><td>ʻŌlena — turmeric</td><td><div class="matrix-cell" style="background:var(--olena-light); color:var(--olena-dark);">#FBEACA</div></td><td><div class="matrix-cell" style="background:var(--olena); color:var(--ink);">#F2A900</div></td><td><div class="matrix-cell" style="background:var(--olena-dark); color:var(--olena-light);">#4A3006</div></td></tr>
+      <tr><td>Ulu — new growth</td><td><div class="matrix-cell" style="background:var(--ulu-light); color:var(--ulu-dark);">#ECF3CC</div></td><td><div class="matrix-cell" style="background:var(--ulu); color:var(--ink);">#A2C601</div></td><td><div class="matrix-cell" style="background:var(--ulu-dark); color:var(--ulu-light);">#303B00</div></td></tr>
+      <tr><td>Moana — deep ocean</td><td><div class="matrix-cell" style="background:var(--moana-light); color:var(--moana-dark);">#D8E8F5</div></td><td><div class="matrix-cell" style="background:var(--moana); color:white;">#0B5FA8</div></td><td><div class="matrix-cell" style="background:var(--moana-dark); color:var(--moana-light);">#0B2C48</div></td></tr>
+      <tr><td>Lehua — blossom</td><td><div class="matrix-cell" style="background:var(--lehua-light); color:var(--lehua-dark);">#F6DCE7</div></td><td><div class="matrix-cell" style="background:var(--lehua); color:white;">#C41E5A</div></td><td><div class="matrix-cell" style="background:var(--lehua-dark); color:var(--lehua-light);">#4A122C</div></td></tr>
+      <tr><td>Kai — night water</td><td><div class="matrix-cell" style="background:var(--kai-light); color:var(--kai-dark);">#DCEDE8</div></td><td><div class="matrix-cell" style="background:var(--kai); color:white;">#147A6B</div></td><td><div class="matrix-cell" style="background:var(--kai-dark); color:var(--kai-light);">#0F2E2A</div></td></tr>
+    </table>
+    <p class="note" style="margin-top:10px;"><span class="swatch-dot" style="background:var(--ink);"></span>Kukui ink — <code>#2B1B12</code> — default text, seams, and stitch lines. Warm, dark, never neutral.</p>
+    <p class="note"><strong>Usage ratio: light and vivid carry the page; dark is for text, seams, and thin lines only.</strong> A dark field (the third column above) is the rare exception, not a default background choice — reach for it sparingly, if at all, rather than defaulting to it for hero sections, footers, or any large surface. Most of a page should read as pastel fields and confident vivid accents, with Kukui ink doing the quiet work of text and structure underneath.</p>
+    <p class="note"><strong>Headers on a light field use that hue's vivid tone as text color, not a muted dark tint</strong> — a headline should read as confidently colored, not softened into near-gray safety. Two exceptions, purely for contrast: ʻŌlena and Ulu are both light, bright hues, so their vivid tone sits too close in value to their own light wash to read clearly as text (checked, not guessed: under 2:1 contrast). For those two only, use the dark tint for headers; every other hue uses vivid text directly on its light field. Body copy can stay on the dark tint throughout for easier reading at length — this rule is about headers and labels, not paragraphs. Vivid containers next to other vivid containers are also fine and encouraged (Part 8) — there's no rule requiring a light field to buffer every vivid one.</p>
+  </section>
+
+  <!-- PART 4 — TYPE SCALE -->
+  <section>
+    <div class="eyebrow">Part 4 — Type</div>
+    <h2 class="doc-title">Scale</h2>
+    <p class="note">K2D for anything someone should notice first; Quicksand for anything they need to read at length. Labels are always Quicksand, bold, all caps — never a heading, never a full sentence.</p>
+    <div class="type-row"><div class="sample" style="font-size:44px; font-weight:700;">Display 44</div><div class="meta">K2D 700 · hero moments only</div></div>
+    <div class="type-row"><div class="sample" style="font-size:32px; font-weight:600;">Heading 1 · 32</div><div class="meta">K2D 600 · page titles</div></div>
+    <div class="type-row"><div class="sample" style="font-size:24px; font-weight:600;">Heading 2 · 24</div><div class="meta">K2D 600 · section titles</div></div>
+    <div class="type-row"><div class="sample" style="font-size:18px; font-weight:600;">Heading 3 · 18</div><div class="meta">K2D 600 · card / block titles</div></div>
+    <div class="type-row"><div class="sample" style="font-family:'Quicksand',sans-serif; font-size:16px; font-weight:400;">Body · 16</div><div class="meta">Quicksand 400 · paragraphs</div></div>
+    <div class="type-row"><div class="sample" style="font-family:'Quicksand',sans-serif; font-size:14px; font-weight:500;">Small · 14</div><div class="meta">Quicksand 500 · secondary text</div></div>
+    <div class="type-row" style="border-bottom:none;"><div class="sample" style="font-family:'Quicksand',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;">Label · 11</div><div class="meta">Quicksand 700 caps · tags, eyebrows, buttons</div></div>
+
+    <h2 class="doc-title" style="margin-top:36px;">Spacing — heading to body</h2>
+    <p class="note">The gap above a heading should always be larger than the gap below it, so the heading reads as attached to what follows, not crowded by what came before.</p>
+    <div class="spacing-demo quilted" style="padding-top:40px; --hi:var(--olena-hi); --lo:var(--olena-lo-on-light); --edge:var(--olena-deep);">
+      <div class="gap-mark" style="top:8px; height:32px;"></div>
+      <div class="gap-label" style="top:16px;">24px above</div>
+      <h3 style="margin-top:0;">[Heading placeholder]</h3>
+      <div class="gap-mark" style="top:76px; height:22px;"></div>
+      <div class="gap-label" style="top:82px;">12px below</div>
+      <p style="margin-top:34px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    </div>
+  </section>
+
+  <!-- PART 5 — REAL TRACED MOTIFS -->
+  <section>
+    <div class="eyebrow">Part 5 — The motifs, traced</div>
+    <h2 class="doc-title">One small leaf, two full quilt blocks</h2>
+    <p class="note">All three are traced directly from hand-drawn artwork, not redrawn or algorithmically generated. The small leaf is for icon-scale use. The two quilt blocks are full radial compositions, built for large-scale use — a hero backdrop, a callout's background art (Part 9), a divider.</p>
+    <div class="leaf-states">
+      <div class="leaf-state-col"><div class="leaf-wrap" style="color:var(--ulu);"><svg viewBox="0 0 200 189"><use href="#uluLeaf" class="leaf"/></svg></div><div class="caption">Single leaf — fill</div></div>
+      <div class="leaf-state-col"><div class="leaf-wrap" style="position:relative;"><svg viewBox="0 0 200 189" style="position:absolute; opacity:0.3; color:var(--ink); transform: translate(7px,9px);"><use href="#uluLeaf" class="leaf"/></svg></div><div class="caption">Single leaf — shadow</div></div>
+      <div class="leaf-state-col"><div class="leaf-wrap" style="color:var(--ink);"><svg viewBox="0 0 200 189"><use href="#uluLeaf" class="leaf-outline"/></svg></div><div class="caption">Single leaf — stitch</div></div>
+    </div>
+    <div class="leaf-states" style="margin-top:32px;">
+      <div class="leaf-state-col"><div class="leaf-wrap" style="width:180px; height:180px; color:var(--ulu-dark);"><svg viewBox="0 0 200 200"><use href="#uluQuiltA" class="leaf"/></svg></div><div class="caption">Quilt block A — traced</div></div>
+      <div class="leaf-state-col"><div class="leaf-wrap" style="width:180px; height:180px; color:var(--moana-dark);"><svg viewBox="0 0 200 200"><use href="#uluQuiltB" class="leaf"/></svg></div><div class="caption">Quilt block B — traced</div></div>
+    </div>
+  </section>
+
+  <!-- PART 6 — QUILTED DIMENSIONALITY -->
+  <section>
+    <div class="eyebrow">Part 6 — Surfaces are not flat</div>
+    <h2 class="doc-title">Trapunto, not a drop shadow</h2>
+    <p>Quilts get dimension from batting and thread, not from light and blur — a trapunto-stitched motif is visibly puffed, raised above the surrounding field, because there's padding stuffed behind it. That's a mechanical, physical kind of dimension, and it's a different thing from a generic UI drop shadow. So instead of a soft outer glow, every filled surface here gets a tight inset bevel: a thin light catch on one edge, a thin dark recess on the other, like fabric pressed down around something puffed underneath. Paired with a faint directional gradient (a dye bath is never perfectly even), it reads as real material without reaching for the purple-glow, glass-card AI default.</p>
+    <div class="btn-row" style="margin-top:20px;">
+      <div style="width:140px; height:90px; background: linear-gradient(155deg, var(--alaea) 0%, var(--alaea-deep) 100%); --hi:var(--alaea-hi); --lo:var(--alaea-lo-on-vivid); --edge:var(--alaea-deep);" class="quilted"></div>
+      <div style="width:140px; height:90px; background: linear-gradient(155deg, var(--olena-light) 0%, var(--olena-light-deep) 100%); --hi:var(--olena-hi); --lo:var(--olena-lo-on-light); --edge:var(--olena-deep);" class="quilted"></div>
+      <div style="width:140px; height:90px; background: linear-gradient(155deg, var(--moana) 0%, var(--moana-deep) 100%); --hi:var(--moana-hi); --lo:var(--moana-lo-on-vivid); --edge:var(--moana-deep);" class="quilted"></div>
+    </div>
+    <p class="note" style="margin-top:14px;">This bevel belongs to containers — cards, callouts, gallery cells, pieced blocks — never to controls. Buttons are appliqué (Part 7): flat, held down by stitching, no padding underneath. A pieced block is different from a button — after piecing, a real quilt gets quilted straight through all the joined patches, so each patch is puffed even though the seam between patches stays a flat, pressed line. That's the distinction that matters here: the seam is structural and flat; the patch surface on either side of it is not.</p>
+  </section>
+
+  <!-- PART 7 — BUTTONS -->
+  <section>
+    <div class="eyebrow">Part 7 — Buttons</div>
+    <h2 class="doc-title">Primary, secondary, tertiary — each with four states</h2>
+    <p class="note">Every button is appliqué (Part 2) — flat, held down by a stitched border, never padded or bevelled the way a container is (Part 6). The dashed border isn't decoration; it's the same running stitch that holds any appliquéd shape to its field. Hierarchy is fill: primary is solid, secondary is outlined, tertiary is just colored text.</p>
+
+    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:18px; margin-top:28px; margin-bottom:10px;">Primary</h3>
+    <p class="note">Fill is any vivid — whichever fits the surrounding block, same as everywhere else in this system. Border is that vivid's own deep tone, one shade darker, dashed. Hover and active are identical: an inset shadow, like the button is being pressed into the fabric it's stitched to.</p>
+    <div class="btn-row">
+      <div class="btn-stack"><button class="btn2 btn-primary" style="--tone:var(--alaea); --tone-deep:var(--alaea-deep); --tone-ink:white;">Get involved</button><span class="btn-label">Default</span></div>
+      <div class="btn-stack"><button class="btn2 btn-primary state-hover" style="--tone:var(--alaea); --tone-deep:var(--alaea-deep); --tone-ink:white;">Get involved</button><span class="btn-label">Hover</span></div>
+      <div class="btn-stack"><button class="btn2 btn-primary state-active" style="--tone:var(--alaea); --tone-deep:var(--alaea-deep); --tone-ink:white;">Get involved</button><span class="btn-label">Active (= hover)</span></div>
+      <div class="btn-stack"><button class="btn2 btn-primary state-disabled" disabled>Get involved</button><span class="btn-label">Disabled</span></div>
+    </div>
+    <p class="note" style="margin-top:16px;">Any vivid works the same way — this isn't locked to one accent:</p>
+    <div class="btn-row">
+      <button class="btn2 btn-primary" style="--tone:var(--moana); --tone-deep:var(--moana-deep); --tone-ink:white;">Get involved</button>
+      <button class="btn2 btn-primary" style="--tone:var(--ulu); --tone-deep:var(--ulu-deep); --tone-ink:var(--ink);">Get involved</button>
+      <button class="btn2 btn-primary" style="--tone:var(--lehua); --tone-deep:var(--lehua-deep); --tone-ink:white;">Get involved</button>
+    </div>
+
+    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:18px; margin-top:32px; margin-bottom:10px;">Secondary</h3>
+    <p class="note">No fill by default — the vivid shows up only in the dashed border and the text. Hover and active fill in with that vivid's own light tint, a soft wash rather than the primary's solid commitment.</p>
+    <div class="btn-row">
+      <div class="btn-stack"><button class="btn2 btn-secondary" style="--tone:var(--alaea); --tone-light:var(--alaea-light);">Get involved</button><span class="btn-label">Default</span></div>
+      <div class="btn-stack"><button class="btn2 btn-secondary state-hover" style="--tone:var(--alaea); --tone-light:var(--alaea-light);">Get involved</button><span class="btn-label">Hover</span></div>
+      <div class="btn-stack"><button class="btn2 btn-secondary state-active" style="--tone:var(--alaea); --tone-light:var(--alaea-light);">Get involved</button><span class="btn-label">Active (= hover)</span></div>
+      <div class="btn-stack"><button class="btn2 btn-secondary state-disabled" disabled>Get involved</button><span class="btn-label">Disabled</span></div>
+    </div>
+    <p class="note" style="margin-top:16px;">Same flexibility on tone:</p>
+    <div class="btn-row">
+      <button class="btn2 btn-secondary" style="--tone:var(--moana); --tone-light:var(--moana-light);">Get involved</button>
+      <button class="btn2 btn-secondary" style="--tone:var(--kai); --tone-light:var(--kai-light);">Get involved</button>
+      <button class="btn2 btn-secondary" style="--tone:var(--lehua); --tone-light:var(--lehua-light);">Get involved</button>
+    </div>
+
+    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:18px; margin-top:32px; margin-bottom:10px;">Tertiary — proposed, not yet confirmed</h3>
+    <p class="note">No fill, no border, no stitch — just the vivid as text. This is the one tier without a spec from you yet, so treat this as a starting draft: hover and active add a dashed underline (still a stitch, just a smaller one), disabled goes the same gray as the other two tiers. Flag if this isn't the direction you want.</p>
+    <div class="btn-row">
+      <div class="btn-stack"><button class="btn2 btn-tertiary" style="--tone:var(--alaea);">Get involved</button><span class="btn-label">Default</span></div>
+      <div class="btn-stack"><button class="btn2 btn-tertiary state-hover" style="--tone:var(--alaea);">Get involved</button><span class="btn-label">Hover</span></div>
+      <div class="btn-stack"><button class="btn2 btn-tertiary state-active" style="--tone:var(--alaea);">Get involved</button><span class="btn-label">Active (= hover)</span></div>
+      <div class="btn-stack"><button class="btn2 btn-tertiary state-disabled" disabled>Get involved</button><span class="btn-label">Disabled</span></div>
+    </div>
+  </section>
+
+  <!-- PART 8 — STITCHED & PATCHES STYLE RULES -->
+  <section>
+    <div class="eyebrow">Part 8 — Stitched and patches</div>
+    <h2 class="doc-title">Two physical states, two rule sets</h2>
+    <p>Before the worked examples, the rules themselves. Content on this site exists in one of two physical states, and each behaves differently — this section is the spec; Part 9 is it applied.</p>
+    <p><strong>Stitched</strong> is pieced together and then quilted straight through, edge to edge, into one complete finished quilt spanning the page. <strong>Patches</strong> are cut pieces that haven't been sewn to anything yet — loose, individual, sitting on their own. Part 9 shows five layouts, each built both ways.</p>
+
+    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:18px; margin-top:28px; margin-bottom:10px;">Stitched — rules</h3>
+    <ul>
+      <li><strong>The seam is a plain solid border, one shade darker than the container's own shadow.</strong> No dashes — dashes only ever come from the shadow color underneath each block anyway, so a solid line one step darker reads as a clean pressed edge without extra ornament. Each container carries its own 4px rounded corner too — the radius isn't reserved for the outer edge of a group.</li>
+      <li><strong>Gutters get the exact same treatment as the blocks they frame</strong> — same puffy bevel, same sharp un-rounded corners. A gutter is a patch of the same finished quilt, not a separate frame bolted onto it, so it can't have different edge treatment than its neighbors.</li>
+      <li><strong>Mix vivids freely</strong> — that's the fun of a finished quilt. ʻŌlena with Lehua, Moana with Ulu, and most other combinations read well side by side. Two specific pairs don't: ʻAlaea next to Moana, and ʻAlaea next to ʻŌlena both go muddy where they touch. Avoid those two; everything else is fair game, including vivid-on-vivid with no light buffer between (Part 3).</li>
+    </ul>
+
+    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:18px; margin-top:28px; margin-bottom:10px;">Patches — rules</h3>
+    <ul>
+      <li><strong>A real outer drop shadow, not the inset trapunto bevel.</strong> A patch hasn't been quilted yet — there's no batting behind it to puff it up. What it does have is weight: it's a cut piece of fabric sitting loose on a table, casting an ordinary shadow below it.</li>
+      <li><strong>A few patches sit at a slight angle</strong> — not perfectly aligned to the grid. Scattered pieces on a table are never all square to each other; a couple of degrees of rotation here and there keeps them looking placed, not printed.</li>
+      <li><strong>Corners are fully sharp — zero radius, no rounding at all.</strong> This is sharper than the 4px used everywhere else in the system: raw cut fabric has a hard edge, full stop.</li>
+    </ul>
+  </section>
+
+  <!-- PART 9 — MOCK-UPS -->
+  <section>
+    <div class="eyebrow">Part 9 — Mock-ups</div>
+    <h2 class="doc-title">Every layout, both ways</h2>
+    <p class="note">Five layouts, each built stitched and as patches, so the same content can be compared directly in both physical states rather than deciding once per layout which state it "is."</p>
+
+    <!-- TWO CONTAINERS -->
+    <h2 class="doc-title" style="margin-top:40px;">Two containers</h2>
+    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:16px; margin-bottom:8px;">Stitched</h3>
+    <p class="note">Gutters get the same puffy bevel as the blocks they frame, and every seam — gutter to block, block to block — is a plain 1px border on the block's own edge, one shade darker than its shadow. Each block also rounds its own corner rather than sharing one big outer curve.</p>
+    <div class="full-bleed stitched-frame">
+      <div class="page-frame">
+        <div class="page-gutter puffy stitched-edge gutter-l" style="background:linear-gradient(155deg, var(--lehua) 0%, var(--lehua-deep) 100%); --hi:var(--lehua-hi); --lo:var(--lehua-lo-on-vivid); --edge:var(--lehua-deep); color:white;">
+          <svg viewBox="0 0 200 200" style="color:var(--lehua-light); opacity:0.5;"><use href="#uluQuiltA" class="leaf"/></svg>
+        </div>
+        <div class="page-frame-content">
+          <div class="bento2">
+            <div class="block puffy stitched-edge" style="grid-column:1; background:linear-gradient(155deg, var(--moana) 0%, var(--moana-deep) 100%); color:white; --hi:var(--moana-hi); --lo:var(--moana-lo-on-vivid); --edge:var(--moana-deep);">
+              <svg class="leaf-bg" viewBox="0 0 200 200" style="color:var(--moana-deep); opacity:0.45;"><use href="#uluQuiltB" class="leaf"/></svg>
+              <div class="content"><h3>[Program name]</h3><p style="color:#e2eefa;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p></div>
+            </div>
+            <div class="block puffy stitched-edge" style="grid-column:2; background:linear-gradient(155deg, var(--ulu) 0%, var(--ulu-deep) 100%); color:var(--ink); --hi:var(--ulu-hi); --lo:var(--ulu-lo-on-vivid); --edge:var(--ulu-deep);">
+              <svg class="leaf-bg" viewBox="0 0 200 189" style="color:var(--ulu-deep); opacity:0.5;"><use href="#uluLeaf" class="leaf"/></svg>
+              <div class="content"><h3 style="color:var(--ink);">[Program name]</h3><p style="color:var(--ulu-dark);">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="page-gutter puffy stitched-edge gutter-r" style="background:linear-gradient(155deg, var(--alaea) 0%, var(--alaea-deep) 100%); --hi:var(--alaea-hi); --lo:var(--alaea-lo-on-vivid); --edge:var(--alaea-deep); color:white;">
+          <svg viewBox="0 0 200 200" style="color:var(--alaea-light); opacity:0.5; transform:scaleX(-1);"><use href="#uluQuiltA" class="leaf"/></svg>
+        </div>
+      </div>
+    </div>    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:16px; margin:28px 0 8px;">Patches</h3>
+    <p class="note">Same two placeholders, cut loose instead of sewn together — page color showing through as the table, a couple of stray patches tucked behind to suggest a bigger pile just out of frame.</p>
+    <div class="patches-frame">
+      <div class="content-col" style="display:flex; gap:24px;">
+        <div class="scatter-patch" style="top:-16px; left:-24px; width:220px; height:130px; background:var(--kai-light); transform:rotate(-3deg); opacity:0.6;"></div>
+        <div class="scatter-patch" style="bottom:-16px; right:-24px; width:220px; height:130px; background:var(--lehua); transform:rotate(3deg); opacity:0.5;"></div>
+        <div class="patch" style="flex:1; padding:26px; background:linear-gradient(155deg, var(--moana) 0%, var(--moana-deep) 100%);">
+          <h3 style="color:white;">[Program name]</h3>
+          <p style="font-size:13px; color:#e2eefa; margin-top:8px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+        </div>
+        <div class="patch tilt-a" style="flex:1; padding:26px; background:linear-gradient(155deg, var(--ulu-light) 0%, var(--ulu-light-deep) 100%);">
+          <h3 style="color:var(--ulu-dark);">[Program name]</h3>
+          <p style="font-size:13px; color:var(--ink); margin-top:8px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- THREE CONTAINERS -->
+    <h2 class="doc-title" style="margin-top:40px;">Three containers</h2>    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:16px; margin-bottom:8px;">Stitched</h3>
+    <p class="note">Quilt Block B in the gutters this time. The small single leaf still earns a spot inside the hero block itself, at icon scale. The left gutter is one piece, matching the full-height hero beside it; the right gutter is two, matching the stat and the email block it actually borders.</p>
+    <div class="full-bleed stitched-frame">
+      <div style="display:grid; grid-template-columns: minmax(60px,0.45fr) 1.4fr 1fr minmax(60px,0.45fr); grid-template-rows: repeat(2, 1fr); height:360px;">
+        <div class="page-gutter puffy stitched-edge gutter-l" style="grid-column:1; grid-row:1/3; border-left:none; background:linear-gradient(155deg, var(--ulu) 0%, var(--ulu-deep) 100%); --hi:var(--ulu-hi); --lo:var(--ulu-lo-on-vivid); --edge:var(--ulu-deep); color:var(--ink);">
+          <svg viewBox="0 0 200 200" style="color:var(--ulu-light); opacity:0.5;"><use href="#uluQuiltB" class="leaf"/></svg>
+        </div>
+        <div class="block puffy stitched-edge" style="grid-column:2; grid-row:1/3; background:linear-gradient(155deg, var(--alaea) 0%, var(--alaea-deep) 100%); color:white; --hi:var(--alaea-hi); --lo:var(--alaea-lo-on-vivid); --edge:var(--alaea-deep);">
+          <svg class="leaf-bg" viewBox="0 0 200 189" style="color:var(--olena);"><use href="#uluLeaf" class="leaf"/></svg>
+          <div class="content"><h3>[Headline placeholder]</h3><p style="color:#f7e5d8;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p><button class="btn" style="background:var(--olena); color:var(--ink);">[Button label]</button></div>
+        </div>
+        <div class="block puffy stitched-edge" style="grid-column:3; grid-row:1; background:linear-gradient(155deg, var(--moana-light) 0%, var(--moana-light-deep) 100%); --hi:var(--moana-hi); --lo:var(--moana-lo-on-light); --edge:var(--moana-deep);">
+          <svg class="leaf-bg" viewBox="0 0 200 200" style="color:var(--moana-light-deep); opacity:0.5;"><use href="#uluQuiltA" class="leaf"/></svg>
+          <div class="content"><div class="num" style="color:var(--moana);">[Stat]</div><div class="lbl" style="color:var(--moana);">[Stat label]</div></div>
+        </div>
+        <div class="block puffy stitched-edge" style="grid-column:3; grid-row:2; background:linear-gradient(155deg, var(--kai-light) 0%, var(--kai-light-deep) 100%); --hi:var(--kai-hi); --lo:var(--kai-lo-on-light); --edge:var(--kai-deep);">
+          <div class="content stitch-input">
+            <svg viewBox="0 0 200 189"><use href="#uluLeaf" class="leaf-outline"/></svg>
+            <input type="text" placeholder="Your email">
+          </div>
+        </div>
+        <div class="page-gutter puffy stitched-edge gutter-r" style="grid-column:4; grid-row:1; border-right:none; background:linear-gradient(155deg, var(--lehua) 0%, var(--lehua-deep) 100%); --hi:var(--lehua-hi); --lo:var(--lehua-lo-on-vivid); --edge:var(--lehua-deep);">
+          <svg viewBox="0 0 200 200" style="color:var(--lehua-light); opacity:0.5; transform:scaleX(-1);"><use href="#uluQuiltB" class="leaf"/></svg>
+        </div>
+        <div class="page-gutter puffy stitched-edge gutter-r" style="grid-column:4; grid-row:2; border-right:none; background:linear-gradient(155deg, var(--kai) 0%, var(--kai-deep) 100%); --hi:var(--kai-hi); --lo:var(--kai-lo-on-vivid); --edge:var(--kai-deep); color:white;">
+          <svg viewBox="0 0 200 200" style="color:var(--kai-light); opacity:0.5; transform:scaleX(-1);"><use href="#uluQuiltB" class="leaf"/></svg>
+        </div>
+      </div>
+    </div>    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:16px; margin:28px 0 8px;">Patches</h3>
+    <p class="note">Three loose pieces instead of one pieced hero — no gutters, since there's no finished quilt yet to frame.</p>
+    <div class="patches-frame">
+      <div class="content-col" style="display:flex; gap:20px;">
+        <div class="scatter-patch" style="top:-14px; left:-20px; width:200px; height:120px; background:var(--alaea); transform:rotate(3deg); opacity:0.5;"></div>
+        <div class="scatter-patch" style="bottom:-14px; right:-20px; width:200px; height:120px; background:var(--ulu-light); transform:rotate(-3deg); opacity:0.6;"></div>
+        <div class="patch tilt-b" style="flex:1.4; padding:26px; background:linear-gradient(155deg, var(--alaea-light) 0%, var(--alaea-light-deep) 100%);">
+          <h3 style="color:var(--alaea-deep);">[Headline placeholder]</h3>
+          <p style="font-size:13px; color:var(--ink); margin-top:8px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <button class="btn" style="margin-top:12px; background:var(--olena); color:var(--ink);">[Button label]</button>
+        </div>
+        <div class="patch" style="flex:1; padding:26px; background:linear-gradient(155deg, var(--moana-light) 0%, var(--moana-light-deep) 100%);">
+          <div style="font-family:'K2D',sans-serif; font-weight:700; font-size:26px; color:var(--moana);">[Stat]</div>
+          <div style="font-family:'Quicksand',sans-serif; font-weight:700; font-size:11px; letter-spacing:0.05em; text-transform:uppercase; color:var(--moana);">[Stat label]</div>
+        </div>
+        <div class="patch" style="flex:1; padding:26px; background:linear-gradient(155deg, var(--kai) 0%, var(--kai-deep) 100%); display:flex; flex-direction:column; justify-content:center;">
+          <div class="stitch-input" style="gap:10px;">
+            <svg viewBox="0 0 200 189" style="color:white;"><use href="#uluLeaf" class="leaf-outline"/></svg>
+            <input type="text" placeholder="Your email" style="border-bottom-color:white; color:white;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="seam-legend">
+      <span class="key"><span class="line" style="border-top:1px solid var(--ink);"></span> stitched edge — 1px solid border, one shade darker than the shadow</span>
+      <span class="key"><span class="line" style="border-top:2.5px dashed var(--ink);"></span> appliqué stitch — where a motif sits on a field</span>
+    </div>
+
+    <!-- GRID GALLERY -->
+    <h2 class="doc-title" style="margin-top:40px;">Grid gallery</h2>
+    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:16px; margin-bottom:8px;">Patches</h3>
+    <p class="note">Fewer patches tilted this time than the last pass — one is enough to read as "placed by hand," three started to look scattered rather than casual. Two of the eight are vivid instead of light, mixed in rather than segregated, and the shapes behind the grid are framing-sized, not corner confetti — sized like the cells themselves, peeking out from behind on opposite sides.</p>
+    <div class="patches-frame">
+      <div class="content-col">
+        <div class="scatter-patch" style="top:-18px; left:-22px; width:200px; height:200px; background:var(--kai-light); transform:rotate(-4deg); opacity:0.55;"></div>
+        <div class="scatter-patch" style="bottom:-18px; right:-22px; width:200px; height:200px; background:var(--lehua); transform:rotate(4deg); opacity:0.45;"></div>
+        <div class="gallery">
+          <div class="cell patch" style="background:linear-gradient(155deg, var(--alaea) 0%, var(--alaea-deep) 100%); color:white;"><div class="lbl">[Item]</div><div class="sub-lbl" style="opacity:0.85;">[Category]</div></div>
+          <div class="cell patch" style="background:linear-gradient(155deg, var(--olena-light) 0%, var(--olena-light-deep) 100%); color:var(--olena-dark);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+          <div class="cell patch tilt-b" style="background:linear-gradient(155deg, var(--ulu-light) 0%, var(--ulu-light-deep) 100%); color:var(--ulu-dark);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+          <div class="cell patch" style="background:linear-gradient(155deg, var(--moana-light) 0%, var(--moana-light-deep) 100%); color:var(--moana);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+          <div class="cell patch" style="background:linear-gradient(155deg, var(--lehua-light) 0%, var(--lehua-light-deep) 100%); color:var(--lehua);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+          <div class="cell patch" style="background:linear-gradient(155deg, var(--kai) 0%, var(--kai-deep) 100%); color:white;"><div class="lbl">[Item]</div><div class="sub-lbl" style="opacity:0.85;">[Category]</div></div>
+          <div class="cell patch" style="background:linear-gradient(155deg, var(--alaea-light) 0%, var(--alaea-light-deep) 100%); color:var(--alaea-deep);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+          <div class="cell patch" style="background:linear-gradient(155deg, var(--olena-light) 0%, var(--olena-light-deep) 100%); color:var(--olena-dark);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+        </div>
+      </div>
+    </div>    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:16px; margin:28px 0 8px;">Stitched</h3>
+    <p class="note">The same eight cells, pieced into one quilt instead of left loose. Each gutter is two pieces now, not one — the top segment lines up with the top row of four, the bottom with the bottom row, since that's actually what each one borders.</p>
+    <div class="full-bleed stitched-frame">
+      <div style="display:grid; grid-template-columns: minmax(60px,0.75fr) repeat(4, 1fr) minmax(60px,0.75fr); grid-template-rows: repeat(2, 1fr); height:380px;">
+        <div class="page-gutter puffy stitched-edge gutter-l" style="grid-column:1; grid-row:1; border-left:none; background:linear-gradient(155deg, var(--olena) 0%, var(--olena-deep) 100%); --hi:var(--olena-hi); --lo:var(--olena-lo-on-vivid); --edge:var(--olena-deep); color:var(--ink);">
+          <svg viewBox="0 0 200 200" style="color:var(--olena-light); opacity:0.5;"><use href="#uluQuiltA" class="leaf"/></svg>
+        </div>
+        <div class="page-gutter puffy stitched-edge gutter-l" style="grid-column:1; grid-row:2; border-left:none; background:linear-gradient(155deg, var(--alaea) 0%, var(--alaea-deep) 100%); --hi:var(--alaea-hi); --lo:var(--alaea-lo-on-vivid); --edge:var(--alaea-deep); color:white;">
+          <svg viewBox="0 0 200 200" style="color:var(--alaea-light); opacity:0.5;"><use href="#uluQuiltA" class="leaf"/></svg>
+        </div>
+        <div class="cell puffy stitched-edge" style="grid-column:2; grid-row:1; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(155deg, var(--alaea-light) 0%, var(--alaea-light-deep) 100%); color:var(--alaea-deep); --hi:var(--alaea-hi); --lo:var(--alaea-lo-on-light); --edge:var(--alaea-deep);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+        <div class="cell puffy stitched-edge" style="grid-column:3; grid-row:1; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(155deg, var(--olena-light) 0%, var(--olena-light-deep) 100%); color:var(--olena-dark); --hi:var(--olena-hi); --lo:var(--olena-lo-on-light); --edge:var(--olena-deep);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+        <div class="cell puffy stitched-edge" style="grid-column:4; grid-row:1; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(155deg, var(--ulu-light) 0%, var(--ulu-light-deep) 100%); color:var(--ulu-dark); --hi:var(--ulu-hi); --lo:var(--ulu-lo-on-light); --edge:var(--ulu-deep);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+        <div class="cell puffy stitched-edge" style="grid-column:5; grid-row:1; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(155deg, var(--moana-light) 0%, var(--moana-light-deep) 100%); color:var(--moana); --hi:var(--moana-hi); --lo:var(--moana-lo-on-light); --edge:var(--moana-deep);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+        <div class="cell puffy stitched-edge" style="grid-column:2; grid-row:2; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(155deg, var(--lehua-light) 0%, var(--lehua-light-deep) 100%); color:var(--lehua); --hi:var(--lehua-hi); --lo:var(--lehua-lo-on-light); --edge:var(--lehua-deep);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+        <div class="cell puffy stitched-edge" style="grid-column:3; grid-row:2; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(155deg, var(--kai-light) 0%, var(--kai-light-deep) 100%); color:var(--kai); --hi:var(--kai-hi); --lo:var(--kai-lo-on-light); --edge:var(--kai-deep);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+        <div class="cell puffy stitched-edge" style="grid-column:4; grid-row:2; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(155deg, var(--alaea-light) 0%, var(--alaea-light-deep) 100%); color:var(--alaea-deep); --hi:var(--alaea-hi); --lo:var(--alaea-lo-on-light); --edge:var(--alaea-deep);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+        <div class="cell puffy stitched-edge" style="grid-column:5; grid-row:2; padding:16px; display:flex; flex-direction:column; justify-content:flex-end; background:linear-gradient(155deg, var(--olena-light) 0%, var(--olena-light-deep) 100%); color:var(--olena-dark); --hi:var(--olena-hi); --lo:var(--olena-lo-on-light); --edge:var(--olena-deep);"><div class="lbl">[Item]</div><div class="sub-lbl">[Category]</div></div>
+        <div class="page-gutter puffy stitched-edge gutter-r" style="grid-column:6; grid-row:1; border-right:none; background:linear-gradient(155deg, var(--kai) 0%, var(--kai-deep) 100%); --hi:var(--kai-hi); --lo:var(--kai-lo-on-vivid); --edge:var(--kai-deep); color:white;">
+          <svg viewBox="0 0 200 200" style="color:var(--kai-light); opacity:0.5; transform:scaleX(-1);"><use href="#uluQuiltA" class="leaf"/></svg>
+        </div>
+        <div class="page-gutter puffy stitched-edge gutter-r" style="grid-column:6; grid-row:2; border-right:none; background:linear-gradient(155deg, var(--moana) 0%, var(--moana-deep) 100%); --hi:var(--moana-hi); --lo:var(--moana-lo-on-vivid); --edge:var(--moana-deep); color:white;">
+          <svg viewBox="0 0 200 200" style="color:var(--moana-light); opacity:0.5; transform:scaleX(-1);"><use href="#uluQuiltA" class="leaf"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- TEAM -->
+    <h2 class="doc-title" style="margin-top:40px;">Team</h2>    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:16px; margin-bottom:8px;">Patches</h3>
+    <p class="note">One tilt instead of two, one card vivid instead of light, and the shapes behind the row are sized like the person cards themselves.</p>
+    <div class="patches-frame">
+      <div class="content-col">
+        <div class="team-row">
+          <div class="scatter-patch" style="top:-14px; left:-18px; width:150px; height:170px; background:var(--lehua-light); transform:rotate(-4deg); opacity:0.55;"></div>
+          <div class="scatter-patch" style="bottom:-14px; right:-18px; width:150px; height:170px; background:var(--moana); transform:rotate(4deg); opacity:0.45;"></div>
+          <div class="person patch tilt-a" style="background:linear-gradient(155deg, var(--alaea) 0%, var(--alaea-deep) 100%);">
+            <div class="avatar" style="background:white; color:var(--alaea);">XX</div>
+            <div class="pname" style="color:white;">[Name]</div><div class="prole" style="color:#f7e2d5;">[Role]</div>
+          </div>
+          <div class="person patch" style="background:linear-gradient(155deg, var(--moana-light) 0%, var(--moana-light-deep) 100%);">
+            <div class="avatar" style="background:var(--moana); color:white;">XX</div>
+            <div class="pname" style="color:var(--moana);">[Name]</div><div class="prole">[Role]</div>
+          </div>
+          <div class="person patch" style="background:linear-gradient(155deg, var(--olena-light) 0%, var(--olena-light-deep) 100%);">
+            <div class="avatar" style="background:var(--olena); color:var(--ink);">XX</div>
+            <div class="pname" style="color:var(--olena-dark);">[Name]</div><div class="prole">[Role]</div>
+          </div>
+          <div class="person patch" style="background:linear-gradient(155deg, var(--lehua-light) 0%, var(--lehua-light-deep) 100%);">
+            <div class="avatar" style="background:var(--lehua); color:white;">XX</div>
+            <div class="pname" style="color:var(--lehua);">[Name]</div><div class="prole">[Role]</div>
+          </div>
+        </div>
+      </div>
+    </div>    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:16px; margin:28px 0 8px;">Stitched</h3>
+    <p class="note">Same four people, pieced into a single strip — one continuous quilt of a team, not four separate cards.</p>
+    <div class="full-bleed stitched-frame">
+      <div class="page-frame">
+        <div class="page-gutter puffy stitched-edge gutter-l" style="background:linear-gradient(155deg, var(--moana) 0%, var(--moana-deep) 100%); --hi:var(--moana-hi); --lo:var(--moana-lo-on-vivid); --edge:var(--moana-deep); color:white;">
+          <svg viewBox="0 0 200 200" style="color:var(--moana-light); opacity:0.5;"><use href="#uluQuiltB" class="leaf"/></svg>
+        </div>
+        <div class="page-frame-content">
+          <div style="display:grid; grid-template-columns:repeat(4,1fr);">
+            <div class="puffy stitched-edge" style="text-align:center; padding:24px 12px; background:linear-gradient(155deg, var(--alaea-light) 0%, var(--alaea-light-deep) 100%); --hi:var(--alaea-hi); --lo:var(--alaea-lo-on-light); --edge:var(--alaea-deep); color:var(--alaea-deep);">
+              <div class="avatar" style="background:var(--alaea); color:white;">XX</div>
+              <div class="pname" style="color:var(--alaea-deep);">[Name]</div><div class="prole">[Role]</div>
+            </div>
+            <div class="puffy stitched-edge" style="text-align:center; padding:24px 12px; background:linear-gradient(155deg, var(--moana-light) 0%, var(--moana-light-deep) 100%); --hi:var(--moana-hi); --lo:var(--moana-lo-on-light); --edge:var(--moana-deep); color:var(--moana);">
+              <div class="avatar" style="background:var(--moana); color:white;">XX</div>
+              <div class="pname" style="color:var(--moana);">[Name]</div><div class="prole">[Role]</div>
+            </div>
+            <div class="puffy stitched-edge" style="text-align:center; padding:24px 12px; background:linear-gradient(155deg, var(--olena-light) 0%, var(--olena-light-deep) 100%); --hi:var(--olena-hi); --lo:var(--olena-lo-on-light); --edge:var(--olena-deep); color:var(--olena-dark);">
+              <div class="avatar" style="background:var(--olena); color:var(--ink);">XX</div>
+              <div class="pname" style="color:var(--olena-dark);">[Name]</div><div class="prole">[Role]</div>
+            </div>
+            <div class="puffy stitched-edge" style="text-align:center; padding:24px 12px; background:linear-gradient(155deg, var(--lehua-light) 0%, var(--lehua-light-deep) 100%); --hi:var(--lehua-hi); --lo:var(--lehua-lo-on-light); --edge:var(--lehua-deep); color:var(--lehua);">
+              <div class="avatar" style="background:var(--lehua); color:white;">XX</div>
+              <div class="pname" style="color:var(--lehua);">[Name]</div><div class="prole">[Role]</div>
+            </div>
+          </div>
+        </div>
+        <div class="page-gutter puffy stitched-edge gutter-r" style="background:linear-gradient(155deg, var(--alaea) 0%, var(--alaea-deep) 100%); --hi:var(--alaea-hi); --lo:var(--alaea-lo-on-vivid); --edge:var(--alaea-deep); color:white;">
+          <svg viewBox="0 0 200 200" style="color:var(--alaea-light); opacity:0.5; transform:scaleX(-1);"><use href="#uluQuiltB" class="leaf"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- CALLOUT -->
+    <h2 class="doc-title" style="margin-top:40px;">Callout</h2>
+    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:16px; margin-bottom:8px;">Stitched</h3>
+    <p class="note">Now framed the same way as every other stitched section — gutters on both sides, same fixed width, same page color showing above and below.</p>
+    <div class="full-bleed stitched-frame">
+      <div class="page-frame">
+        <div class="page-gutter puffy stitched-edge gutter-l" style="background:linear-gradient(155deg, var(--olena) 0%, var(--olena-deep) 100%); --hi:var(--olena-hi); --lo:var(--olena-lo-on-vivid); --edge:var(--olena-deep); color:var(--ink);">
+          <svg viewBox="0 0 200 200" style="color:var(--olena-light); opacity:0.5;"><use href="#uluQuiltB" class="leaf"/></svg>
+        </div>
+        <div class="page-frame-content">
+          <div class="callout puffy stitched-edge" style="background: linear-gradient(155deg, var(--lehua) 0%, var(--lehua-deep) 100%); --hi:var(--lehua-hi); --lo:var(--lehua-lo-on-vivid); --edge:var(--lehua-deep);">
+            <svg class="callout-bg" viewBox="0 0 200 200" style="color:white;"><use href="#uluQuiltA" class="leaf"/></svg>
+            <div class="content">
+              <h3>[Callout headline]</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              <button class="btn" style="background:var(--olena); color:var(--ink);">Give today</button>
+            </div>
+          </div>
+        </div>
+        <div class="page-gutter puffy stitched-edge gutter-r" style="background:linear-gradient(155deg, var(--moana) 0%, var(--moana-deep) 100%); --hi:var(--moana-hi); --lo:var(--moana-lo-on-vivid); --edge:var(--moana-deep); color:white;">
+          <svg viewBox="0 0 200 200" style="color:var(--moana-light); opacity:0.5; transform:scaleX(-1);"><use href="#uluQuiltB" class="leaf"/></svg>
+        </div>
+      </div>
+    </div>    <h3 style="font-family:'K2D',sans-serif; font-weight:600; font-size:16px; margin:28px 0 8px;">Patches</h3>
+    <p class="note">One loose patch, page color showing all the way around it, sitting slightly askew with a couple of stray pieces tucked behind. It doesn't need to fill the full content width the way the stitched version does — a patch is a piece of fabric, not a banner, so it's sized more like the other patches in this document than like a hero.</p>
+    <div class="patches-frame">
+      <div class="content-col" style="display:flex; justify-content:center;">
+        <div class="scatter-patch" style="top:-24px; left:calc(50% - 330px); width:140px; height:80px; background:var(--alaea-light); transform:rotate(-5deg); opacity:0.55;"></div>
+        <div class="scatter-patch" style="bottom:-24px; left:calc(50% + 160px); width:140px; height:80px; background:var(--kai); transform:rotate(5deg); opacity:0.45;"></div>
+        <div class="patch" style="position:relative; overflow:hidden; width:560px; max-width:100%; padding:32px 34px; transform:rotate(-0.6deg); background:linear-gradient(155deg, var(--lehua) 0%, var(--lehua-deep) 100%);">
+          <svg class="callout-bg" viewBox="0 0 200 200" style="position:absolute; right:-30px; top:-20px; color:white; width:180px; height:180px; opacity:0.16; z-index:0;"><use href="#uluQuiltA" class="leaf"/></svg>
+          <div class="content">
+            <h3 style="color:white; font-size:22px;">[Callout headline]</h3>
+            <p style="color:rgba(255,255,255,0.88); font-size:14px; margin:10px 0 16px; max-width:32ch;">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <button class="btn" style="background:var(--olena); color:var(--ink);">Give today</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 10 — SECTION TRANSITIONS -->
+  <section>
+    <div class="eyebrow">Part 10 — Section transitions</div>
+    <h2 class="doc-title">Moving between stitched and patches on the actual page</h2>
+    <p>Part 9 shows each layout stitched and as patches in isolation, for comparison. On the real site, a page will move from one to the other — a patches gallery followed by a stitched callout, say. That handoff needs its own rule, or it just reads as the page ending arbitrarily.</p>
+    <p>The transition lives in the patches color, <code>#FBEACA</code>, since that's the "table" both states share. A solid line in the patches shadow color (<code>rgb(43,27,18)</code> at full opacity — this is Kukui ink) marks the actual seam:</p>
+    <ul>
+      <li><strong>Patches → stitched: a 3px line.</strong> Thin, because leaving the table for a finished quilt is a small step — the patches were already halfway organized.</li>
+      <li><strong>Stitched → patches: a 16px line.</strong> Thick, because coming apart from a finished quilt back into loose pieces is the bigger jump of the two, and should read as one.</li>
+    </ul>
+
+    <div style="margin-top:24px; display:flex; gap:40px; align-items:flex-start;">
+      <div style="flex:1;">
+        <div class="frame-label" style="text-align:left; padding:0 0 8px;">Patches → stitched</div>
+        <div style="display:flex; flex-direction:column;">
+          <div style="height:80px; background:#FBEACA; display:flex; align-items:center; justify-content:center;">
+            <div class="patch tilt-a" style="width:60%; height:60%; background:linear-gradient(155deg, var(--moana-light) 0%, var(--moana-light-deep) 100%);"></div>
+          </div>
+          <div style="height:3px; background:var(--ink);"></div>
+          <div style="height:80px; background:#FBEACA; display:flex; align-items:center; justify-content:center;">
+            <div class="puffy stitched-edge" style="width:60%; height:75%; background:linear-gradient(155deg, var(--ulu) 0%, var(--ulu-deep) 100%); --hi:var(--ulu-hi); --lo:var(--ulu-lo-on-vivid); --edge:var(--ulu-deep);"></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1;">
+        <div class="frame-label" style="text-align:left; padding:0 0 8px;">Stitched → patches</div>
+        <div style="display:flex; flex-direction:column;">
+          <div style="height:80px; background:#FBEACA; display:flex; align-items:center; justify-content:center;">
+            <div class="puffy stitched-edge" style="width:60%; height:75%; background:linear-gradient(155deg, var(--alaea) 0%, var(--alaea-deep) 100%); --hi:var(--alaea-hi); --lo:var(--alaea-lo-on-vivid); --edge:var(--alaea-deep);"></div>
+          </div>
+          <div style="height:16px; background:var(--ink);"></div>
+          <div style="height:80px; background:#FBEACA; display:flex; align-items:center; justify-content:center;">
+            <div class="patch tilt-b" style="width:60%; height:60%; background:linear-gradient(155deg, var(--lehua-light) 0%, var(--lehua-light-deep) 100%);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="note" style="margin-top:20px;">Both sides now sit on the same page color — the two states no longer announce themselves with a different background, only with how the piece itself is built: a hard-edged border and bevel on the stitched side, a cast shadow and slight tilt on the patches side. That distinction is the actual content of the demo above, not a color swap.</p>
+  </section>
+
+  <!-- PART 10 — NAV -->
+  <section>
+    <div class="eyebrow">Part 11 — Site menu</div>
+    <h2 class="doc-title">Nav</h2>
+    <p class="note">Patches style — a single long patch, page color around it, not pieced into the page below it.</p>
+    <div class="patches-frame">
+      <div class="content-col">
+        <div class="scatter-patch" style="top:-12px; left:-16px; width:180px; height:60px; background:var(--moana-light); transform:rotate(-3deg); opacity:0.55;"></div>
+        <div class="scatter-patch" style="bottom:-12px; right:-16px; width:180px; height:60px; background:var(--alaea); transform:rotate(3deg); opacity:0.45;"></div>
+        <div class="patch site-nav" style="--hi:var(--kai-hi); --lo:var(--kai-lo-on-light); background:linear-gradient(155deg, var(--kai-light) 0%, var(--kai-light-deep) 100%);">
+          <div class="brand"><svg viewBox="0 0 200 189"><use href="#uluLeaf" class="leaf"/></svg>Ulu Lāhui</div>
+          <div class="nav-links">
+            <span class="active">Programs</span>
+            <span>Our story</span>
+            <span>Get involved</span>
+            <span class="nav-cta">Donate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PART 12 — LAYOUT & VOICE -->
+  <section>
+    <div class="eyebrow">Part 12 — Layout, spacing, voice</div>
+    <h2 class="doc-title">Rhythm and words</h2>
+    <p><strong>Echo spacing.</strong> <code>4 · 8 · 16 · 24 · 40 · 64 · 96</code> px, used unevenly on purpose — the same gap everywhere reads as no rhythm, just repetition.</p>
+    <p><strong>Voice.</strong> Active voice, first-person plural. No em dashes. Hawaiian terms in italics with an English gloss on first use. Community members as agents, not beneficiaries. No "not X but Y" constructions. Plain and warm, not clever.</p>
+  </section>
+
+  <!-- PART 13 — ANTI-PATTERNS -->
+  <section>
+    <div class="eyebrow">Part 13 — Named anti-patterns, updated</div>
+    <h2 class="doc-title">Where "add dimension" stops and "AI slop" starts</h2>
+    <table>
+      <tr><th>Don't</th><th>Do instead, here</th></tr>
+      <tr><td>Wide, soft, diffuse drop shadow (glow)</td><td>Tight inset trapunto bevel, 2–6px spread max (Part 6)</td></tr>
+      <tr><td>Decorative saturated gradient (purple-to-blue, gradient text)</td><td>A single-hue value shift, ~15% darker, simulating dye-bath sheen — same hue in, same hue out</td></tr>
+      <tr><td>24px+ radius on cards</td><td>4px, everywhere, on the outer edge of a group only</td></tr>
+      <tr><td>Side-tab / border-accent on a rounded card</td><td>No border on any individual block, ever — the seam carries the structure, the puffy bevel carries the dimension (Parts 6, 8)</td></tr>
+      <tr><td>Identical card grid</td><td>Uneven bento sizing, rotating field colors (Parts 8–9)</td></tr>
+      <tr><td>Icon in a rounded tile above a heading</td><td>Icon and heading inline, or dropped if it doesn't earn its place</td></tr>
+      <tr><td>Cream/beige or pure white/black</td><td>The six-hue matrix, light or dark, never neutral (Part 3)</td></tr>
+    </table>
+  </section>
+
+</div>
+</body>
+</html>

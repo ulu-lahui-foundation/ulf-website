@@ -1,0 +1,37 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHead from "../components/PageHead.astro";
+import StitchedBand from "../components/StitchedBand.astro";
+---
+<Base title="Accessibility — Ulu Lāhui Foundation" description="Accessibility commitments for this site.">
+  <PageHead
+    eyebrow="Legal"
+    title="Accessibility"
+    lede="Everyone should be able to read the work, including the communities we serve."
+  />
+  <div class="section container-narrow" style="padding-top:8px;">
+    <div class="prose">
+      <h2>What we do</h2>
+      <ul>
+        <li>Semantic HTML: landmarks, headings in order, one main landmark per page, and a skip link.</li>
+        <li>Color is never the only carrier: text contrast follows WCAG AA against every field color, and links and states carry borders or underlines as well as color.</li>
+        <li>Focus states stay visible, and the full navigation is keyboard operable, including on small screens.</li>
+        <li>Decorative motifs are aria-hidden; meaningful images carry descriptive alt text.</li>
+        <li>Type is resizable without loss, and layout collapses to single columns on narrow viewports.</li>
+      </ul>
+      <h2>What we are still working on</h2>
+      <p>
+        Some decorative elements of the quilt motif are inherently visual; we have kept them out of
+        the way of content. If you hit a barrier, tell us at any contact route, and we will treat the
+        report as a bug, which is how we treat everything.
+      </p>
+    </div>
+  </div>
+  <StitchedBand leftHue="ulu" rightHue="moana" flip ariaHidden>
+    <div class="qb q-olena-l" style="padding:30px 38px;">
+      <p style="font-size:14px;">
+        Reported issues get fixed, not argued with. That is the standard.
+      </p>
+    </div>
+  </StitchedBand>
+</Base>

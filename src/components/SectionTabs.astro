@@ -1,0 +1,19 @@
+---
+// In-section navigation, chips style. Pass links as { label, href }.
+interface Props {
+  links: { label: string; href: string }[];
+  current?: string;
+}
+const { links, current = "" } = Astro.props;
+---
+<nav aria-label="Section" style="display:flex; gap:10px; flex-wrap:wrap; margin:8px 0 8px;">
+  {links.map((l) => (
+    <a
+      href={l.href}
+      class:list={["chip", current === l.href ? "chip-alaea" : "chip-kai"]}
+      style={current === l.href ? "border-style:solid;" : "text-decoration:none;"}
+    >
+      {l.label}
+    </a>
+  ))}
+</nav>

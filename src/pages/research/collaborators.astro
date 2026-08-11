@@ -1,0 +1,59 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHead from "../../components/PageHead.astro";
+import StitchedBand from "../../components/StitchedBand.astro";
+import SectionTabs from "../../components/SectionTabs.astro";
+
+const tabs = [
+  { label: "Overview", href: "/research/" },
+  { label: "Publications", href: "/research/publications/" },
+  { label: "Kumu Connect R&D", href: "/research/kumu-connect-rd/" },
+  { label: "Data Sovereignty & AI", href: "/research/indigenous-data-sovereignty/" },
+  { label: "Collaborators", href: "/research/collaborators/" },
+];
+
+const collaborators = [
+  { name: "Georgia Tech — Ka Moamoa Lab", note: "ULF's ongoing research collaborator, directed by Josiah Hester. Many ULF staff and consultants are co-authors on the papers in our publications list.", hue: "p-moana-l", head: "head-moana" },
+  { name: "University of Hawaiʻi at Mānoa", note: "PI Tyler Ray leads the Smart and Connected Communities award ULF participates in as a subawardee, alongside Georgia Tech.", hue: "p-olena-l", head: "head-olena-dark" },
+  { name: "Stanford University", note: "Co-authors on the community-centered AI auditing study, which ran co-design workshops with 22 Oʻahu educators.", hue: "p-alaea-l", head: "head-alaea" },
+  { name: "Theorycraftist Games", note: "Collaborators on Kaona, the tabletop RPG for restorative Hawaiian futurism.", hue: "p-lehua-l", head: "head-lehua" },
+  { name: "Waiʻanae Coast Comprehensive Health Center", note: "Community partner in the Kaona wellness work with Native Hawaiian and Pacific Islander youth.", hue: "p-kai-l", head: "head-kai" },
+];
+---
+<Base title="Research Collaborators — Ulu Lāhui Foundation" description="The research collaborators behind ULF's published work.">
+  <PageHead
+    eyebrow="Research · Collaborators"
+    title="Research collaborators"
+    lede="We use the word collaborator consistently here: these are the researchers, labs, and community organizations who co-created the work in our publications."
+  />
+  <div class="container" style="margin-top:6px;">
+    <SectionTabs links={tabs} current="/research/collaborators/" />
+  </div>
+
+  <div class="seam-thick"></div>
+
+  <div class="table">
+    <div class="content-col">
+      <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px;">
+        {collaborators.map((c, i) => (
+          <div class={`patch ${c.hue} ${i % 4 === 1 ? "tilt-b" : ""}`} style="padding:28px 26px;">
+            <h3 class={c.head} style="font-size:17px;">{c.name}</h3>
+            <p style="font-size:13.5px; margin-top:10px;">{c.note}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div class="seam-thin"></div>
+
+  <StitchedBand leftHue="ulu-l" rightHue="moana" flip>
+    <div class="qb q-olena-l" style="padding:32px 40px;">
+      <p style="font-size:14.5px;">
+        Collaborators are not partners. The distinction matters: a partner relationship is a
+        different commitment, described precisely on our <a href="/partners/" style="text-decoration:underline; text-decoration-style:dashed;">partners page</a>,
+        with each organization in its own category.
+      </p>
+    </div>
+  </StitchedBand>
+</Base>
