@@ -1,13 +1,14 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
 import SectionTabs from "../../components/SectionTabs.astro";
 
 const tabs = [
-  { label: "At a Glance", href: "/impact/" },
-  { label: "By Program", href: "/impact/by-program/" },
-  { label: "Stories", href: "/impact/stories/" },
+  { label: "At a Glance", href: `${BASE}/impact/` },
+  { label: "By Program", href: `${BASE}/impact/by-program/` },
+  { label: "Stories", href: `${BASE}/impact/stories/` },
 ];
 
 const quotes = [

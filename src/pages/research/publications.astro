@@ -1,4 +1,5 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
@@ -6,11 +7,11 @@ import SectionTabs from "../../components/SectionTabs.astro";
 import { publications, type PubRelation } from "../../data/publications";
 
 const tabs = [
-  { label: "Overview", href: "/research/" },
-  { label: "Publications", href: "/research/publications/" },
-  { label: "Kumu Connect R&D", href: "/research/kumu-connect-rd/" },
-  { label: "Data Sovereignty & AI", href: "/research/indigenous-data-sovereignty/" },
-  { label: "Collaborators", href: "/research/collaborators/" },
+  { label: "Overview", href: `${BASE}/research/` },
+  { label: "Publications", href: `${BASE}/research/publications/` },
+  { label: "Kumu Connect R&D", href: `${BASE}/research/kumu-connect-rd/` },
+  { label: "Data Sovereignty & AI", href: `${BASE}/research/indigenous-data-sovereignty/` },
+  { label: "Collaborators", href: `${BASE}/research/collaborators/` },
 ];
 
 const relations: (PubRelation | "all")[] = [

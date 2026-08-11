@@ -1,14 +1,15 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
 import SectionTabs from "../../components/SectionTabs.astro";
 
 const tabs = [
-  { label: "News", href: "/news/" },
-  { label: "Press Releases", href: "/news/press-releases/" },
-  { label: "Media Coverage", href: "/news/media-coverage/" },
-  { label: "Newsletter", href: "/news/newsletter/" },
+  { label: "News", href: `${BASE}/news/` },
+  { label: "Press Releases", href: `${BASE}/news/press-releases/` },
+  { label: "Media Coverage", href: `${BASE}/news/media-coverage/` },
+  { label: "Newsletter", href: `${BASE}/news/newsletter/` },
 ];
 
 const items = [
@@ -16,21 +17,21 @@ const items = [
     title: "Kumu Connect named a flagship evaluation of 2026",
     date: "2026",
     text: "The full system and evaluation paper, with 36 educators across 3 schools, was published at IDC 2026.",
-    href: "/research/kumu-connect-rd/",
+    href: `${BASE}/research/kumu-connect-rd/`,
     hue: "p-alaea", head: "text-white", subCls: "opacity:0.85;",
   },
   {
     title: "AI for Hawaiʻi reaches 33 schools",
     date: "2026",
     text: "Six workshops, six complex areas, and a 97% average increase in AI understanding among kumu.",
-    href: "/initiatives/ai-for-hawaii/",
+    href: `${BASE}/initiatives/ai-for-hawaii/`,
     hue: "p-moana-l", head: "head-moana",
   },
   {
     title: "PLACES Education earns NSF support",
     date: "2023",
     text: "The five-year award to the University of Hawaiʻi at Mānoa and Georgia Tech team includes ULF as a collaborator, supporting place-based CS at scale.",
-    href: "/news/press-releases/",
+    href: `${BASE}/news/press-releases/`,
     hue: "p-ulu-l", head: "head-ulu-dark",
   },
 ];
@@ -68,7 +69,7 @@ const items = [
   <StitchedBand leftHue="olena" rightHue="kai" flip>
     <div class="qb q-olena-l" style="padding:34px 40px;">
       <p style="font-size:14.5px;">
-        Media inquiries: <a href="/support/contact/" style="text-decoration:underline; text-decoration-style:dashed;">contact the foundation</a>.
+        Media inquiries: <a href={`${import.meta.env.BASE_URL}/support/contact/`} style="text-decoration:underline; text-decoration-style:dashed;">contact the foundation</a>.
       </p>
     </div>
   </StitchedBand>

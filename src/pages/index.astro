@@ -1,4 +1,5 @@
 ---
+import { BASE } from "../lib/base";
 import Base from "../layouts/Base.astro";
 import StitchedBand from "../components/StitchedBand.astro";
 import { stats } from "../data/stats";
@@ -6,7 +7,7 @@ import { stats } from "../data/stats";
 const initiatives = [
   {
     title: "PLACES Education",
-    href: "/initiatives/places-education/",
+    href: `${BASE}/initiatives/places-education/`,
     line: "Place-based and culturally revitalizing CS and STEM curricula, co-designed with kumu and kūpuna.",
     cls: "p-ulu-l tilt-slight",
     head: "head-ulu-dark",
@@ -14,7 +15,7 @@ const initiatives = [
   },
   {
     title: "Kumu Connect",
-    href: "/initiatives/kumu-connect/",
+    href: `${BASE}/initiatives/kumu-connect/`,
     line: "Culturally grounded AI that helps Kaiapuni teachers plan lessons and cover substitutes.",
     cls: "p-alaea tilt-b",
     head: "text-white",
@@ -22,7 +23,7 @@ const initiatives = [
   },
   {
     title: "AI for Hawaiʻi",
-    href: "/initiatives/ai-for-hawaii/",
+    href: `${BASE}/initiatives/ai-for-hawaii/`,
     line: "Workshops that put AI literacy, data sovereignty, and language tools in the hands of educators.",
     cls: "p-moana-l",
     head: "head-moana",
@@ -46,7 +47,7 @@ const proof = [
   <!-- Full-width looping video hero -->
   <section class="video-hero" aria-label="Growing the Nation — Kōolaupoko mountains">
     <video
-      poster="/media/koolaupoko-poster.jpg"
+      poster={`${import.meta.env.BASE_URL}/media/koolaupoko-poster.jpg`}
       autoplay
       muted
       loop
@@ -55,8 +56,8 @@ const proof = [
       fetchpriority="high"
       disableremoteplayback
     >
-      <source media="(max-width: 760px)" src="/media/koolaupoko-mobile.mp4" type="video/mp4" />
-      <source src="/media/koolaupoko.mp4" type="video/mp4" />
+      <source media="(max-width: 760px)" src={`${import.meta.env.BASE_URL}/media/koolaupoko-mobile.mp4`} type="video/mp4" />
+      <source src={`${import.meta.env.BASE_URL}/media/koolaupoko.mp4`} type="video/mp4" />
     </video>
     <div class="scrim" aria-hidden="true"></div>
     <div class="hero-copy">
@@ -78,8 +79,8 @@ const proof = [
           innovation rooted in the knowledge, needs, and possibilities of Hawaiʻi.
         </p>
         <div class="hero-cta-row">
-          <a class="btn btn-primary" style="--tone:var(--olena); --tone-deep:var(--olena-deep); --tone-ink:var(--ink);" href="/support/donate/">Support the work</a>
-          <a class="btn btn-secondary btn-on-vivid" href="/impact/">See our impact</a>
+          <a class="btn btn-primary" style="--tone:var(--olena); --tone-deep:var(--olena-deep); --tone-ink:var(--ink);" href={`${import.meta.env.BASE_URL}/support/donate/`}>Support the work</a>
+          <a class="btn btn-secondary btn-on-vivid" href={`${import.meta.env.BASE_URL}/impact/`}>See our impact</a>
         </div>
       </div>
       <div class="p-moana-l hero-stat">
@@ -169,7 +170,7 @@ const proof = [
           36 educators across 3 Kaiapuni schools measured cultural accuracy at 4.20 out of 5 and
           pedagogical usefulness at 4.45 out of 5. The numbers come from real classroom use, not a demo.
         </p>
-        <a class="btn" style="background:var(--olena); color:var(--ink); border:1px dashed var(--olena-deep);" href="/research/kumu-connect-rd/">Read the research</a>
+        <a class="btn" style="background:var(--olena); color:var(--ink); border:1px dashed var(--olena-deep);" href={`${import.meta.env.BASE_URL}/research/kumu-connect-rd/`}>Read the research</a>
       </div>
     </div>
   </StitchedBand>
@@ -204,7 +205,7 @@ const proof = [
       <div class="stitch-input">
         <svg viewBox="0 0 200 189"><use href="#uluLeaf" class="leaf-outline" /></svg>
         <input type="email" placeholder="Your email" aria-label="Email address" />
-        <a class="btn btn-primary" style="--tone:var(--kai); --tone-deep:var(--kai-deep);" href="/news/newsletter/">Sign up</a>
+        <a class="btn btn-primary" style="--tone:var(--kai); --tone-deep:var(--kai-deep);" href={`${import.meta.env.BASE_URL}/news/newsletter/`}>Sign up</a>
       </div>
     </div>
   </StitchedBand>

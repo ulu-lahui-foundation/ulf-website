@@ -5,42 +5,42 @@ const cols = [
   {
     title: "About",
     links: [
-      { label: "About", href: "/about/" },
-      { label: "Mission & Vision", href: "/about/#mission" },
-      { label: "Story", href: "/about/#story" },
-      { label: "Leadership & Staff", href: "/about/#team" },
-      { label: "Board", href: "/about/#board" },
-      { label: "Governance & Values", href: "/about/#governance" },
+      { label: "About", href: `${import.meta.env.BASE_URL}/about/` },
+      { label: "Mission & Vision", href: `${import.meta.env.BASE_URL}/about/#mission` },
+      { label: "Story", href: `${import.meta.env.BASE_URL}/about/#story` },
+      { label: "Leadership & Staff", href: `${import.meta.env.BASE_URL}/about/#team` },
+      { label: "Board", href: `${import.meta.env.BASE_URL}/about/#board` },
+      { label: "Governance & Values", href: `${import.meta.env.BASE_URL}/about/#governance` },
     ],
   },
   {
     title: "Programs",
     links: [
-      { label: "Initiatives", href: "/initiatives/" },
-      { label: "PLACES Education", href: "/initiatives/places-education/" },
-      { label: "Kumu Connect", href: "/initiatives/kumu-connect/" },
-      { label: "AI for Hawaiʻi", href: "/initiatives/ai-for-hawaii/" },
-      { label: "Community & Workforce", href: "/initiatives/community-workforce/" },
+      { label: "Initiatives", href: `${import.meta.env.BASE_URL}/initiatives/` },
+      { label: "PLACES Education", href: `${import.meta.env.BASE_URL}/initiatives/places-education/` },
+      { label: "Kumu Connect", href: `${import.meta.env.BASE_URL}/initiatives/kumu-connect/` },
+      { label: "AI for Hawaiʻi", href: `${import.meta.env.BASE_URL}/initiatives/ai-for-hawaii/` },
+      { label: "Community & Workforce", href: `${import.meta.env.BASE_URL}/initiatives/community-workforce/` },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "Impact", href: "/impact/" },
-      { label: "Research", href: "/research/" },
-      { label: "Publications", href: "/research/publications/" },
-      { label: "Partners", href: "/partners/" },
-      { label: "News", href: "/news/" },
+      { label: "Impact", href: `${import.meta.env.BASE_URL}/impact/` },
+      { label: "Research", href: `${import.meta.env.BASE_URL}/research/` },
+      { label: "Publications", href: `${import.meta.env.BASE_URL}/research/publications/` },
+      { label: "Partners", href: `${import.meta.env.BASE_URL}/partners/` },
+      { label: "News", href: `${import.meta.env.BASE_URL}/news/` },
     ],
   },
   {
     title: "Support",
     links: [
-      { label: "Donate", href: "/support/donate/" },
-      { label: "Corporate Partnership", href: "/support/corporate-partnership/" },
-      { label: "Foundation Grants", href: "/support/foundation-grant-partnership/" },
-      { label: "Volunteer", href: "/support/volunteer/" },
-      { label: "Contact", href: "/support/contact/" },
+      { label: "Donate", href: `${import.meta.env.BASE_URL}/support/donate/` },
+      { label: "Corporate Partnership", href: `${import.meta.env.BASE_URL}/support/corporate-partnership/` },
+      { label: "Foundation Grants", href: `${import.meta.env.BASE_URL}/support/foundation-grant-partnership/` },
+      { label: "Volunteer", href: `${import.meta.env.BASE_URL}/support/volunteer/` },
+      { label: "Contact", href: `${import.meta.env.BASE_URL}/support/contact/` },
     ],
   },
 ];
@@ -80,8 +80,8 @@ const cols = [
     <div class="footer-bottom">
       <div>© {year} {site.name}. All rights reserved.</div>
       <div class="legal">
-        <a href="/accessibility/">Accessibility</a>
-        <a href="/privacy-policy/">Privacy</a>
+        <a href={`${import.meta.env.BASE_URL}/accessibility/`}>Accessibility</a>
+        <a href={`${import.meta.env.BASE_URL}/privacy-policy/`}>Privacy</a>
       </div>
     </div>
   </div>

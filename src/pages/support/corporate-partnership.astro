@@ -1,4 +1,5 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
@@ -6,11 +7,11 @@ import SectionTabs from "../../components/SectionTabs.astro";
 import { site } from "../../data/site";
 
 const tabs = [
-  { label: "Donate", href: "/support/donate/" },
-  { label: "Corporate Partnership", href: "/support/corporate-partnership/" },
-  { label: "Foundation Grants", href: "/support/foundation-grant-partnership/" },
-  { label: "Volunteer", href: "/support/volunteer/" },
-  { label: "Contact", href: "/support/contact/" },
+  { label: "Donate", href: `${BASE}/support/donate/` },
+  { label: "Corporate Partnership", href: `${BASE}/support/corporate-partnership/` },
+  { label: "Foundation Grants", href: `${BASE}/support/foundation-grant-partnership/` },
+  { label: "Volunteer", href: `${BASE}/support/volunteer/` },
+  { label: "Contact", href: `${BASE}/support/contact/` },
 ];
 
 const tiers = [

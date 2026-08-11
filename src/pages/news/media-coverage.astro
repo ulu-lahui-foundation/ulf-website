@@ -1,14 +1,15 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
 import SectionTabs from "../../components/SectionTabs.astro";
 
 const tabs = [
-  { label: "News", href: "/news/" },
-  { label: "Press Releases", href: "/news/press-releases/" },
-  { label: "Media Coverage", href: "/news/media-coverage/" },
-  { label: "Newsletter", href: "/news/newsletter/" },
+  { label: "News", href: `${BASE}/news/` },
+  { label: "Press Releases", href: `${BASE}/news/press-releases/` },
+  { label: "Media Coverage", href: `${BASE}/news/media-coverage/` },
+  { label: "Newsletter", href: `${BASE}/news/newsletter/` },
 ];
 
 const coverage = [
@@ -16,13 +17,13 @@ const coverage = [
     where: "AI4HI 2026 Impact Report",
     title: "Workshop outcomes and educator voices",
     text: "The primary published record of the AI for Hawaiʻi season: outcomes, testimonies, and methodology. Cited across the Impact and Initiatives pages of this site.",
-    href: "/impact/stories/",
+    href: `${BASE}/impact/stories/`,
   },
   {
     where: "The NSF award, as covered",
     title: "Broadening participation in computing",
     text: "Coverage of the collaborative University of Hawaiʻi at Mānoa and Georgia Tech award names ULF among the project partners. We describe our role within it accurately wherever we appear.",
-    href: "/news/press-releases/",
+    href: `${BASE}/news/press-releases/`,
   },
 ];
 ---
@@ -59,7 +60,7 @@ const coverage = [
     <div class="qb q-ulu-l" style="padding:32px 40px;">
       <p style="font-size:14.5px;">
         Reporters and program officers seeking context beyond press items will find the fuller record
-        on our <a href="/research/publications/" style="text-decoration:underline; text-decoration-style:dashed;">publications page</a>.
+        on our <a href={`${import.meta.env.BASE_URL}/research/publications/`} style="text-decoration:underline; text-decoration-style:dashed;">publications page</a>.
       </p>
     </div>
   </StitchedBand>

@@ -1,47 +1,48 @@
 ---
+import { BASE } from "../lib/base";
 const path = Astro.url.pathname;
 const items = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about/" },
+  { label: "Home", href: `${BASE}` },
+  { label: "About", href: `${BASE}/about/` },
   {
-    label: "Initiatives", href: "/initiatives/", children: [
-      { label: "Initiatives Overview", href: "/initiatives/" },
-      { label: "PLACES Education", href: "/initiatives/places-education/" },
-      { label: "Kumu Connect", href: "/initiatives/kumu-connect/" },
-      { label: "AI for Hawaiʻi", href: "/initiatives/ai-for-hawaii/" },
-      { label: "Community & Workforce", href: "/initiatives/community-workforce/" },
+    label: "Initiatives", href: `${BASE}/initiatives/`, children: [
+      { label: "Initiatives Overview", href: `${BASE}/initiatives/` },
+      { label: "PLACES Education", href: `${BASE}/initiatives/places-education/` },
+      { label: "Kumu Connect", href: `${BASE}/initiatives/kumu-connect/` },
+      { label: "AI for Hawaiʻi", href: `${BASE}/initiatives/ai-for-hawaii/` },
+      { label: "Community & Workforce", href: `${BASE}/initiatives/community-workforce/` },
     ],
   },
   {
-    label: "Impact", href: "/impact/", children: [
-      { label: "At a Glance", href: "/impact/" },
-      { label: "By Program", href: "/impact/by-program/" },
-      { label: "Stories", href: "/impact/stories/" },
+    label: "Impact", href: `${BASE}/impact/`, children: [
+      { label: "At a Glance", href: `${BASE}/impact/` },
+      { label: "By Program", href: `${BASE}/impact/by-program/` },
+      { label: "Stories", href: `${BASE}/impact/stories/` },
     ],
   },
   {
-    label: "Research", href: "/research/", children: [
-      { label: "Overview", href: "/research/" },
-      { label: "Publications", href: "/research/publications/" },
-      { label: "Kumu Connect R&D", href: "/research/kumu-connect-rd/" },
-      { label: "Data Sovereignty & AI", href: "/research/indigenous-data-sovereignty/" },
-      { label: "Collaborators", href: "/research/collaborators/" },
+    label: "Research", href: `${BASE}/research/`, children: [
+      { label: "Overview", href: `${BASE}/research/` },
+      { label: "Publications", href: `${BASE}/research/publications/` },
+      { label: "Kumu Connect R&D", href: `${BASE}/research/kumu-connect-rd/` },
+      { label: "Data Sovereignty & AI", href: `${BASE}/research/indigenous-data-sovereignty/` },
+      { label: "Collaborators", href: `${BASE}/research/collaborators/` },
     ],
   },
   {
-    label: "Partners", href: "/partners/", children: [
-      { label: "Overview", href: "/partners/" },
-      { label: "Funders", href: "/partners/funders/" },
-      { label: "Schools & Communities", href: "/partners/schools-communities/" },
-      { label: "Become a Partner", href: "/partners/become-a-partner/" },
+    label: "Partners", href: `${BASE}/partners/`, children: [
+      { label: "Overview", href: `${BASE}/partners/` },
+      { label: "Funders", href: `${BASE}/partners/funders/` },
+      { label: "Schools & Communities", href: `${BASE}/partners/schools-communities/` },
+      { label: "Become a Partner", href: `${BASE}/partners/become-a-partner/` },
     ],
   },
   {
-    label: "News", href: "/news/", children: [
-      { label: "News", href: "/news/" },
-      { label: "Press Releases", href: "/news/press-releases/" },
-      { label: "Media Coverage", href: "/news/media-coverage/" },
-      { label: "Newsletter", href: "/news/newsletter/" },
+    label: "News", href: `${BASE}/news/`, children: [
+      { label: "News", href: `${BASE}/news/` },
+      { label: "Press Releases", href: `${BASE}/news/press-releases/` },
+      { label: "Media Coverage", href: `${BASE}/news/media-coverage/` },
+      { label: "Newsletter", href: `${BASE}/news/newsletter/` },
     ],
     edge: true,
   },
@@ -51,7 +52,7 @@ const isActive = (href: string) =>
 ---
 <nav class="site-nav" id="site-nav" aria-label="Primary">
   <div class="site-nav-inner">
-    <a class="brand" href="/">
+    <a class="brand" href={`${import.meta.env.BASE_URL}`}>
       <svg viewBox="0 0 200 189" aria-hidden="true"><use href="#uluLeaf" class="leaf" /></svg>
       <span>
         Ulu Lāhui
@@ -79,7 +80,7 @@ const isActive = (href: string) =>
           <a href={item.href} class:list={isActive(item.href) && "active"}>{item.label}</a>
         )
       )}
-      <a class="nav-cta" href="/support/donate/">Donate</a>
+      <a class="nav-cta" href={`${import.meta.env.BASE_URL}/support/donate/`}>Donate</a>
     </div>
   </div>
 </nav>

@@ -1,14 +1,15 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
 import SectionTabs from "../../components/SectionTabs.astro";
 
 const tabs = [
-  { label: "News", href: "/news/" },
-  { label: "Press Releases", href: "/news/press-releases/" },
-  { label: "Media Coverage", href: "/news/media-coverage/" },
-  { label: "Newsletter", href: "/news/newsletter/" },
+  { label: "News", href: `${BASE}/news/` },
+  { label: "Press Releases", href: `${BASE}/news/press-releases/` },
+  { label: "Media Coverage", href: `${BASE}/news/media-coverage/` },
+  { label: "Newsletter", href: `${BASE}/news/newsletter/` },
 ];
 
 const releases = [

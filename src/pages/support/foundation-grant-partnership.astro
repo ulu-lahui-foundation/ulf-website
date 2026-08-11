@@ -1,4 +1,5 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
@@ -6,11 +7,11 @@ import SectionTabs from "../../components/SectionTabs.astro";
 import { site } from "../../data/site";
 
 const tabs = [
-  { label: "Donate", href: "/support/donate/" },
-  { label: "Corporate Partnership", href: "/support/corporate-partnership/" },
-  { label: "Foundation Grants", href: "/support/foundation-grant-partnership/" },
-  { label: "Volunteer", href: "/support/volunteer/" },
-  { label: "Contact", href: "/support/contact/" },
+  { label: "Donate", href: `${BASE}/support/donate/` },
+  { label: "Corporate Partnership", href: `${BASE}/support/corporate-partnership/` },
+  { label: "Foundation Grants", href: `${BASE}/support/foundation-grant-partnership/` },
+  { label: "Volunteer", href: `${BASE}/support/volunteer/` },
+  { label: "Contact", href: `${BASE}/support/contact/` },
 ];
 
 const priorities = [
@@ -47,8 +48,8 @@ const priorities = [
         <div class="eyebrow" style="color:var(--kai);">Before you write a check</div>
         <h3 style="color:var(--kai); margin-top:8px;">Diligence, served plainly</h3>
         <p style="margin-top:10px; font-size:13.5px;">
-          Start with two pages: our <a href="/impact/" style="text-decoration:underline; text-decoration-style:dashed;">impact</a>
-          (sourced numbers) and our <a href="/about/#board" style="text-decoration:underline; text-decoration-style:dashed;">board</a>
+          Start with two pages: our <a href={`${import.meta.env.BASE_URL}/impact/`} style="text-decoration:underline; text-decoration-style:dashed;">impact</a>
+          (sourced numbers) and our <a href={`${import.meta.env.BASE_URL}/about/#board`} style="text-decoration:underline; text-decoration-style:dashed;">board</a>
           (the governing board, on our about page). Then write to us.
         </p>
       </div>

@@ -1,40 +1,41 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
 import SectionTabs from "../../components/SectionTabs.astro";
 
 const tabs = [
-  { label: "Initiatives Overview", href: "/initiatives/" },
-  { label: "PLACES Education", href: "/initiatives/places-education/" },
-  { label: "Kumu Connect", href: "/initiatives/kumu-connect/" },
-  { label: "AI for Hawaiʻi", href: "/initiatives/ai-for-hawaii/" },
-  { label: "Community & Workforce", href: "/initiatives/community-workforce/" },
+  { label: "Initiatives Overview", href: `${BASE}/initiatives/` },
+  { label: "PLACES Education", href: `${BASE}/initiatives/places-education/` },
+  { label: "Kumu Connect", href: `${BASE}/initiatives/kumu-connect/` },
+  { label: "AI for Hawaiʻi", href: `${BASE}/initiatives/ai-for-hawaii/` },
+  { label: "Community & Workforce", href: `${BASE}/initiatives/community-workforce/` },
 ];
 
 const cards = [
   {
     title: "PLACES Education",
     sub: "Place-based CS curricula and professional development",
-    href: "/initiatives/places-education/",
+    href: `${BASE}/initiatives/places-education/`,
     hue: "p-ulu-l", head: "head-ulu-dark",
   },
   {
     title: "Kumu Connect",
     sub: "Culturally grounded AI for Kaiapuni teachers",
-    href: "/initiatives/kumu-connect/",
+    href: `${BASE}/initiatives/kumu-connect/`,
     hue: "p-alaea", head: "text-white", subCls: "opacity:0.85;",
   },
   {
     title: "AI for Hawaiʻi",
     sub: "AI literacy workshops, evaluated at 33 schools",
-    href: "/initiatives/ai-for-hawaii/",
+    href: `${BASE}/initiatives/ai-for-hawaii/`,
     hue: "p-moana-l", head: "head-moana",
   },
   {
     title: "Community & Workforce",
     sub: "ʻĀina-based learning and workforce pathways",
-    href: "/initiatives/community-workforce/",
+    href: `${BASE}/initiatives/community-workforce/`,
     hue: "p-kai-l", head: "head-kai",
   },
 ];

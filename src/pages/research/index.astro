@@ -1,15 +1,16 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
 import SectionTabs from "../../components/SectionTabs.astro";
 
 const tabs = [
-  { label: "Overview", href: "/research/" },
-  { label: "Publications", href: "/research/publications/" },
-  { label: "Kumu Connect R&D", href: "/research/kumu-connect-rd/" },
-  { label: "Data Sovereignty & AI", href: "/research/indigenous-data-sovereignty/" },
-  { label: "Collaborators", href: "/research/collaborators/" },
+  { label: "Overview", href: `${BASE}/research/` },
+  { label: "Publications", href: `${BASE}/research/publications/` },
+  { label: "Kumu Connect R&D", href: `${BASE}/research/kumu-connect-rd/` },
+  { label: "Data Sovereignty & AI", href: `${BASE}/research/indigenous-data-sovereignty/` },
+  { label: "Collaborators", href: `${BASE}/research/collaborators/` },
 ];
 
 const themes = [
@@ -79,7 +80,7 @@ const themes = [
           We conduct rigorous applied research, evaluate what we build, publish what can appropriately
           be shared, and translate research into technologies and programs communities can own,
           govern, and extend. When a claim on this site has a paper behind it, the paper is listed in
-          our <a href="/research/publications/" style="color:var(--olena-light); text-decoration:underline; text-decoration-style:dashed;">publications</a>.
+          our <a href={`${import.meta.env.BASE_URL}/research/publications/`} style="color:var(--olena-light); text-decoration:underline; text-decoration-style:dashed;">publications</a>.
         </p>
       </div>
     </div>

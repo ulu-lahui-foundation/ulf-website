@@ -1,4 +1,5 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
@@ -6,10 +7,10 @@ import SectionTabs from "../../components/SectionTabs.astro";
 import { partnerGroups } from "../../data/partners";
 
 const tabs = [
-  { label: "Overview", href: "/partners/" },
-  { label: "Funders", href: "/partners/funders/" },
-  { label: "Schools & Communities", href: "/partners/schools-communities/" },
-  { label: "Become a Partner", href: "/partners/become-a-partner/" },
+  { label: "Overview", href: `${BASE}/partners/` },
+  { label: "Funders", href: `${BASE}/partners/funders/` },
+  { label: "Schools & Communities", href: `${BASE}/partners/schools-communities/` },
+  { label: "Become a Partner", href: `${BASE}/partners/become-a-partner/` },
 ];
 
 const groupTones = ["p-alaea", "p-moana", "p-ulu", "p-kai", "p-lehua", "p-olena"];
@@ -61,7 +62,7 @@ const chipTones = ["chip-alaea", "chip-moana", "chip-ulu", "chip-kai", "chip-leh
         Past collaborators are not quietly dropped: when a program winds down, the organization moves
         to a past collaborators category rather than leaving a stale claim in place.
       </p>
-      <a class="btn btn-primary" style="--tone:var(--kai); --tone-deep:var(--kai-deep); margin-top:16px;" href="/partners/become-a-partner/">Become a partner</a>
+      <a class="btn btn-primary" style="--tone:var(--kai); --tone-deep:var(--kai-deep); margin-top:16px;" href={`${import.meta.env.BASE_URL}/partners/become-a-partner/`}>Become a partner</a>
     </div>
   </StitchedBand>
 </Base>

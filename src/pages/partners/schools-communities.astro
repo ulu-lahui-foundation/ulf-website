@@ -1,4 +1,5 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
@@ -6,10 +7,10 @@ import SectionTabs from "../../components/SectionTabs.astro";
 import { schoolsByIsland } from "../../data/partners";
 
 const tabs = [
-  { label: "Overview", href: "/partners/" },
-  { label: "Funders", href: "/partners/funders/" },
-  { label: "Schools & Communities", href: "/partners/schools-communities/" },
-  { label: "Become a Partner", href: "/partners/become-a-partner/" },
+  { label: "Overview", href: `${BASE}/partners/` },
+  { label: "Funders", href: `${BASE}/partners/funders/` },
+  { label: "Schools & Communities", href: `${BASE}/partners/schools-communities/` },
+  { label: "Become a Partner", href: `${BASE}/partners/become-a-partner/` },
 ];
 ---
 <Base title="Schools & Communities — Ulu Lāhui Foundation" description="The schools and communities ULF serves, by island and complex area.">

@@ -1,15 +1,16 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
 import SectionTabs from "../../components/SectionTabs.astro";
 
 const tabs = [
-  { label: "Initiatives Overview", href: "/initiatives/" },
-  { label: "PLACES Education", href: "/initiatives/places-education/" },
-  { label: "Kumu Connect", href: "/initiatives/kumu-connect/" },
-  { label: "AI for Hawaiʻi", href: "/initiatives/ai-for-hawaii/" },
-  { label: "Community & Workforce", href: "/initiatives/community-workforce/" },
+  { label: "Initiatives Overview", href: `${BASE}/initiatives/` },
+  { label: "PLACES Education", href: `${BASE}/initiatives/places-education/` },
+  { label: "Kumu Connect", href: `${BASE}/initiatives/kumu-connect/` },
+  { label: "AI for Hawaiʻi", href: `${BASE}/initiatives/ai-for-hawaii/` },
+  { label: "Community & Workforce", href: `${BASE}/initiatives/community-workforce/` },
 ];
 
 const areas = [

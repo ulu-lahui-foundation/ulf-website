@@ -1,15 +1,16 @@
 ---
+import { BASE } from "../../lib/base";
 import Base from "../../layouts/Base.astro";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
 import SectionTabs from "../../components/SectionTabs.astro";
 
 const tabs = [
-  { label: "Initiatives Overview", href: "/initiatives/" },
-  { label: "PLACES Education", href: "/initiatives/places-education/" },
-  { label: "Kumu Connect", href: "/initiatives/kumu-connect/" },
-  { label: "AI for Hawaiʻi", href: "/initiatives/ai-for-hawaii/" },
-  { label: "Community & Workforce", href: "/initiatives/community-workforce/" },
+  { label: "Initiatives Overview", href: `${BASE}/initiatives/` },
+  { label: "PLACES Education", href: `${BASE}/initiatives/places-education/` },
+  { label: "Kumu Connect", href: `${BASE}/initiatives/kumu-connect/` },
+  { label: "AI for Hawaiʻi", href: `${BASE}/initiatives/ai-for-hawaii/` },
+  { label: "Community & Workforce", href: `${BASE}/initiatives/community-workforce/` },
 ];
 ---
 <Base title="Kumu Connect — Ulu Lāhui Foundation" description="Culturally grounded AI that helps Kaiapuni teachers with substitute coverage and culturally authentic lesson planning.">
@@ -51,7 +52,7 @@ const tabs = [
     <p style="font-size:14px; margin-top:18px;">
       Before the full system, a one-year co-design case study with 13 educators produced a System
       Usability Scale score of 87, rated Excellent. The technical model and architecture live on the
-      <a href="/research/kumu-connect-rd/" style="text-decoration:underline; text-decoration-style:dashed;">Kumu Connect R&amp;D research page</a>,
+      <a href={`${import.meta.env.BASE_URL}/research/kumu-connect-rd/`} style="text-decoration:underline; text-decoration-style:dashed;">Kumu Connect R&amp;D research page</a>,
       so this product page stays evergreen as the underlying model evolves.
     </p>
   </div>
