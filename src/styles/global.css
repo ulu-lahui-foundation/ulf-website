@@ -282,7 +282,7 @@ em { font-style: italic; }
 .page-gutter.gutter-l { justify-content: flex-end; border-right: none; }
 .page-gutter.gutter-r { justify-content: flex-start; border-left: none; }
 .page-gutter svg { height: 100%; width: auto; aspect-ratio: 1; object-fit: contain; flex-shrink: 0; }
-.page-frame-content { flex: 1 1 860px; max-width: 860px; min-width: 0; }
+.page-frame-content { flex: 1 1 860px; min-width: 0; }
 
 /* seams between states (Part 10) */
 .seam-thin  { width: 100vw; position: relative; left: 50%; margin-left: -50vw; height: 3px;  background: var(--shadow-transition); }
@@ -760,12 +760,12 @@ em { font-style: italic; }
   text-align: left;
   margin-bottom: 26px;
   padding: 24px 40px;
-  background: linear-gradient(155deg, var(--olena-light) 0%, var(--olena-light-deep) 100%);
-  box-shadow: inset -1.5px -1.5px 2px var(--olena-lo-on-light);
-  border: 1px solid var(--olena-edge-light);
+  background: linear-gradient(155deg, var(--alaea) 0%, var(--alaea-deep) 100%);
+  box-shadow: inset -1.5px -1.5px 2px var(--alaea-lo-on-vivid);
+  border: 1px solid var(--alaea-deep);
   border-radius: 0;
 }
-.band-label h2, .band-label h3 { color: var(--ink); }
-.band-label .eyebrow { color: var(--olena-dark); margin-bottom: 8px; }
-.band-label .lede { color: var(--ink); margin-top: 10px; }
+.band-label h2, .band-label h3 { color: #fff; }
+.band-label .eyebrow { color: var(--alaea-light); margin-bottom: 8px; }
+.band-label .lede { color: rgba(255,255,255,0.9); margin-top: 10px; }
 .card-stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
