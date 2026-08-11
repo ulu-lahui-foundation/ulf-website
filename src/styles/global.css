@@ -281,7 +281,7 @@ em { font-style: italic; }
 }
 .page-gutter.gutter-l { justify-content: flex-end; border-right: none; }
 .page-gutter.gutter-r { justify-content: flex-start; border-left: none; }
-.page-gutter img { height: 100%; width: auto; flex-shrink: 0; display: block; }
+.page-gutter img { height: 100%; width: auto; max-height: 566px; flex-shrink: 0; display: block; }
 .page-frame-content { flex: 1 1 860px; min-width: 0; }
 
 /* seams between states (Part 10) — only a stitched band casts a line,
@@ -299,7 +299,7 @@ em { font-style: italic; }
   margin-left: -50vw;
   line-height: 0;
 }
-.quilt-separator img { display: block; width: 100%; height: auto; }
+.quilt-separator img { display: block; width: 100%; max-width: 3396px; margin-inline: auto; height: auto; }
 
 /* body blocks inside a stitched frame: dashed seam outline in the block's
    own hue edge color (borders; fills come from the p-/q- classes) */
