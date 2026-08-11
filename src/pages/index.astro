@@ -39,6 +39,21 @@ const proof = [
   "University of Hawaiʻi at Mānoa",
   "Purple Maiʻa Foundation",
 ];
+
+// Stitched sections avoid light-orange / red / green fills:
+// light oranges and reds become vivid or blue/teal; text hues follow.
+const glanceTiles = stats.map((s) => {
+  const vivid: Record<string, [string, string]> = {
+    alaea: ["p-alaea", "text-white"],
+    moana: ["p-moana", "text-white"],
+    kai: ["p-kai", "text-white"],
+    olena: ["p-olena", "head-olena-dark"],
+  };
+  const v = vivid[s.tone];
+  return v
+    ? { num: s.num, label: s.label, cls: v[0], head: v[1] }
+    : { num: s.num, label: s.label, cls: "p-moana-l", head: "head-moana" };
+});
 ---
 <Base
   title="Ulu Lāhui Foundation"
@@ -103,7 +118,7 @@ const proof = [
   <!-- Initiatives — three loose patches on the table -->
   <div class="table">
     <div class="content-col">
-      <div class="band-label">
+      <div class="band-label bl-moana">
         <div class="eyebrow">Our initiatives</div>
         <h2 style="margin-top:8px;">Three ways we work</h2>
       </div>
@@ -126,14 +141,14 @@ const proof = [
 
   <!-- ULF at a glance — pieced stat row -->
   <StitchedBand leftHue="ulu-l" rightHue="alaea" flip>
-    <div class="band-label" style="text-align:left; margin-bottom:18px;">
+    <div class="band-label bl-kai" style="text-align:left; margin-bottom:0;">
       <div class="eyebrow">ULF at a glance</div>
     </div>
-    <div class="stat-bar">
-      {stats.map((s) => (
-        <div class={`block p-${s.tone === "olena" ? "olena-l" : `${s.tone}-l`}`}>
-          <div class="num" class:list={s.tone === "olena" ? "head-olena-dark" : s.tone === "ulu" ? "head-ulu-dark" : `head-${s.tone}`}>{s.num}</div>
-          <div class="lbl" class:list={s.tone === "olena" ? "head-olena-dark" : s.tone === "ulu" ? "head-ulu-dark" : `head-${s.tone}`}>{s.label}</div>
+    <div class="stat-bar" style="margin-top:-1px;">
+      {glanceTiles.map((t) => (
+        <div class={`block ${t.cls}`}>
+          <div class={`num ${t.head}`}>{t.num}</div>
+          <div class={`lbl ${t.head}`}>{t.label}</div>
         </div>
       ))}
     </div>
@@ -144,7 +159,7 @@ const proof = [
   <!-- Proof strip — trusted collaborators -->
   <div class="table">
     <div class="content-col">
-      <div class="band-label">
+      <div class="band-label bl-olena">
         <div class="eyebrow">Funders and collaborators</div>
         <h2 style="margin-top:8px;">The people behind the work</h2>
         <p class="lede" style="margin-top:10px; font-size:15px;">
@@ -161,10 +176,10 @@ const proof = [
 
   <!-- Featured research callout -->
   <StitchedBand leftHue="olena" rightHue="moana" flip>
-    <div class="callout p-lehua">
+    <div class="callout p-kai">
       <svg class="callout-bg" viewBox="0 0 200 200" style="color:white;"><use href="#uluQuiltA" class="leaf" /></svg>
       <div class="content">
-        <div class="eyebrow" style="color:var(--lehua-light);">Featured research</div>
+        <div class="eyebrow" style="color:var(--kai-light);">Featured research</div>
         <h3>Kumu Connect, built with kumu and evaluated by educators</h3>
         <p>
           36 educators across 3 Kaiapuni schools measured cultural accuracy at 4.20 out of 5 and

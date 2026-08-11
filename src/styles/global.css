@@ -163,12 +163,12 @@ em { font-style: italic; }
 
 /* ---- field header colors (Part 3 rule) --------------------
    vivid text on light fields; ʻōlena + ulu fall back to dark tint */
-.head-alaea { color: var(--alaea); }       .head-alaea-deep { color: var(--alaea-deep); }
-.head-moana { color: var(--moana); }       .head-moana-deep { color: var(--moana-deep); }
-.head-lehua { color: var(--lehua); }       .head-lehua-deep { color: var(--lehua-deep); }
-.head-kai   { color: var(--kai); }         .head-kai-deep   { color: var(--kai-deep); }
-.head-olena-dark { color: var(--olena-dark); }
-.head-ulu-dark   { color: var(--ulu-dark); }
+.head-alaea { color: var(--hd, var(--alaea)); }       .head-alaea-deep { color: var(--alaea-deep); }
+.head-moana { color: var(--hd, var(--moana)); }       .head-moana-deep { color: var(--moana-deep); }
+.head-lehua { color: var(--hd, var(--lehua)); }       .head-lehua-deep { color: var(--lehua-deep); }
+.head-kai   { color: var(--hd, var(--kai)); }         .head-kai-deep   { color: var(--kai-deep); }
+.head-olena-dark { color: var(--hd, var(--olena-dark)); }
+.head-ulu-dark   { color: var(--hd, var(--ulu-dark)); }
 
 /* ---- pieced fields: fill + bevel + seam in one class -------
    q-*  = quilted (4px radius, for single rounded containers)
@@ -284,9 +284,26 @@ em { font-style: italic; }
 .page-gutter svg { height: 100%; width: auto; aspect-ratio: 1; object-fit: contain; flex-shrink: 0; }
 .page-frame-content { flex: 1 1 860px; min-width: 0; }
 
-/* seams between states (Part 10) */
-.seam-thin  { width: 100vw; position: relative; left: 50%; margin-left: -50vw; height: 3px;  background: var(--shadow-transition); }
-.seam-thick { width: 100vw; position: relative; left: 50%; margin-left: -50vw; height: 16px; background: var(--shadow-transition); }
+/* seams between states (Part 10) — only a stitched band casts a line,
+   rendered as a soft drop shadow; patched sections get nothing */
+.seam-thin  { width: 100vw; position: relative; left: 50%; margin-left: -50vw; height: 0; }
+.seam-thick { width: 100vw; position: relative; left: 50%; margin-left: -50vw; height: 0; }
+.stitched + .seam-thin  { height: 10px; background: linear-gradient(180deg, var(--shadow-transition) 0%, transparent 100%); }
+.stitched + .seam-thick { height: 16px; background: linear-gradient(180deg, var(--shadow-transition) 0%, transparent 100%); }
+
+/* body blocks inside a stitched frame: dashed seam outline in the block's
+   own hue edge color (borders; fills come from the p-/q- classes) */
+.stitched .page-frame-content :is(.block, .callout, .hero-stat, .hero-email, [class*="p-alaea"], [class*="p-olena"], [class*="p-moana"], [class*="p-kai"], [class*="p-ulu"], [class*="p-lehua"]) {
+  outline: 1px dashed var(--edge, var(--kai-deep));
+  outline-offset: -5px;
+}
+
+/* inside stitched frames, light-orange / red / green light fills become
+   blues and teals (--hd recolors the matching head-* text classes) */
+.stitched .page-frame-content :is(.p-alaea-l, .q-alaea-l) { --hd: var(--moana); --edge: var(--moana-edge-light); --lo: var(--moana-lo-on-light); background: linear-gradient(155deg, var(--moana-light) 0%, var(--moana-light-deep) 100%); }
+.stitched .page-frame-content :is(.p-olena-l, .q-olena-l) { --hd: var(--kai);   --edge: var(--kai-edge-light);   --lo: var(--kai-lo-on-light);   background: linear-gradient(155deg, var(--kai-light) 0%, var(--kai-light-deep) 100%); }
+.stitched .page-frame-content :is(.p-lehua-l, .q-lehua-l) { --hd: var(--kai);   --edge: var(--kai-edge-light);   --lo: var(--kai-lo-on-light);   background: linear-gradient(155deg, var(--kai-light) 0%, var(--kai-light-deep) 100%); }
+.stitched .page-frame-content :is(.p-ulu-l,   .q-ulu-l)   { --hd: var(--moana); --edge: var(--moana-edge-light); --lo: var(--moana-lo-on-light); background: linear-gradient(155deg, var(--moana-light) 0%, var(--moana-light-deep) 100%); }
 
 /* scatter pieces behind a group */
 .scatter {
@@ -598,7 +615,6 @@ em { font-style: italic; }
   color: var(--ulu-dark);
   padding: 40px 0 26px;
   border-top: 1px solid var(--ulu-edge-light);
-  margin-top: 64px;
 }
 .footer-cols { display: grid; grid-template-columns: 1.8fr repeat(4, 1fr); gap: 28px; }
 .footer-brand { display: flex; align-items: center; gap: 8px; font-family: 'K2D', sans-serif; font-weight: 600; font-size: 16px; color: var(--ink); margin-bottom: 10px; }
@@ -757,15 +773,27 @@ em { font-style: italic; }
 /* ---- page section helpers ---------------------------------------- */
 .section-pad { padding: 64px 0; }
 .band-label {
+  --hd-fill: var(--alaea);
+  --hd-fill-deep: var(--alaea-deep);
+  --hd-edge: var(--alaea-deep);
+  --hd-lo: var(--alaea-lo-on-vivid);
+  --hd-light: var(--alaea-light);
+  --hd-ink: #fff;
+  --hd-lede: rgba(255,255,255,0.9);
   text-align: left;
   margin-bottom: 26px;
   padding: 24px 40px;
-  background: linear-gradient(155deg, var(--alaea) 0%, var(--alaea-deep) 100%);
-  box-shadow: inset -1.5px -1.5px 2px var(--alaea-lo-on-vivid);
-  border: 1px solid var(--alaea-deep);
+  background: linear-gradient(155deg, var(--hd-fill) 0%, var(--hd-fill-deep) 100%);
+  box-shadow: inset -1.5px -1.5px 2px var(--hd-lo);
+  border: 1px solid var(--hd-edge);
   border-radius: 0;
 }
-.band-label h2, .band-label h3 { color: #fff; }
-.band-label .eyebrow { color: var(--alaea-light); margin-bottom: 8px; }
-.band-label .lede { color: rgba(255,255,255,0.9); margin-top: 10px; }
+.band-label h2, .band-label h3 { color: var(--hd-ink); }
+.band-label .eyebrow { color: var(--hd-light); margin-bottom: 8px; }
+.band-label .lede { color: var(--hd-lede); margin-top: 10px; }
+.band-label.bl-moana { --hd-fill: var(--moana); --hd-fill-deep: var(--moana-deep); --hd-edge: var(--moana-deep); --hd-lo: var(--moana-lo-on-vivid); --hd-light: var(--moana-light); }
+.band-label.bl-kai   { --hd-fill: var(--kai);   --hd-fill-deep: var(--kai-deep);   --hd-edge: var(--kai-deep);   --hd-lo: var(--kai-lo-on-vivid);   --hd-light: var(--kai-light); }
+.band-label.bl-lehua { --hd-fill: var(--lehua); --hd-fill-deep: var(--lehua-deep); --hd-edge: var(--lehua-deep); --hd-lo: var(--lehua-lo-on-vivid); --hd-light: var(--lehua-light); }
+.band-label.bl-ulu   { --hd-fill: var(--ulu);   --hd-fill-deep: var(--ulu-deep);   --hd-edge: var(--ulu-deep);   --hd-lo: var(--ulu-lo-on-vivid);   --hd-light: var(--ulu-light);   --hd-ink: var(--ink); }
+.band-label.bl-olena { --hd-fill: var(--olena); --hd-fill-deep: var(--olena-deep); --hd-edge: var(--olena-deep); --hd-lo: var(--olena-lo-on-vivid); --hd-light: var(--olena-light); --hd-ink: var(--ink); --hd-lede: rgba(43,27,18,0.85); }
 .card-stack { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
