@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import { BASE } from "../../lib/base";
 import PageHead from "../../components/PageHead.astro";
 import StitchedBand from "../../components/StitchedBand.astro";
 import SectionTabs from "../../components/SectionTabs.astro";
@@ -334,7 +335,11 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
       <div class="piece-row">
         {staff.map((p) => (
           <div class={`block ${lightField[p.tone]}`} style="padding:30px 26px;">
-            <div class="avatar" style={`background:${toneBg[p.tone]}; color:${p.tone === "olena" || p.tone === "ulu" ? "var(--ink)" : "white"};`}>{p.initials}</div>
+            {p.photo ? (
+              <img class="avatar photo" src={`${BASE}/media/${p.photo}`} alt="" width="512" height="512" loading="lazy" />
+            ) : (
+              <div class="avatar" style={`background:${toneBg[p.tone]}; color:${p.tone === "olena" || p.tone === "ulu" ? "var(--ink)" : "white"};`}>{p.initials}</div>
+            )}
             <div class="pname" style="text-align:center; font-family:'K2D',sans-serif; font-weight:600; font-size:15px;" class:list={headCls[p.tone]}>{p.name}</div>
             <div class="lbl" style="text-align:center; color:var(--muted); margin:4px 0 10px;">{p.role}</div>
             <p style="font-size:12.5px; text-align:left;">{p.bio}</p>
@@ -362,7 +367,11 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
         <div class="card-stack" style="grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:24px;">
           {consultants.map((c, i) => (
             <div class={`patch ${lightField[c.tone]}`} style={`padding:24px 18px; text-align:center; ${i % 4 === 1 ? "transform:rotate(1deg);" : ""}`}>
-              <div class="avatar" style={`background:${toneBg[c.tone]}; color:${c.tone === "olena" || c.tone === "ulu" ? "var(--ink)" : "white"}; width:64px; height:64px; font-size:16px;`}>{c.initials}</div>
+              {c.photo ? (
+                <img class="avatar photo" src={`${BASE}/media/${c.photo}`} alt="" width="512" height="512" loading="lazy" style="width:64px; height:64px;" />
+              ) : (
+                <div class="avatar" style={`background:${toneBg[c.tone]}; color:${c.tone === "olena" || c.tone === "ulu" ? "var(--ink)" : "white"}; width:64px; height:64px; font-size:16px;`}>{c.initials}</div>
+              )}
               <div class="pname" style="font-size:13.5px;" class:list={headCls[c.tone]}>{c.name}</div>
               <div class="prole" style="margin-top:4px;">{c.role}</div>
               {c.bio && <p style="font-size:12px; margin-top:10px;">{c.bio}</p>}
