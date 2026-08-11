@@ -55,7 +55,7 @@ const programs = [
 
   {programs.map((p) => (
     <>
-      <StitchedBand leftHue={p.name === "Kumu Connect" ? "lehua" : "ulu"} rightHue="kai" flip={p.name === "AI for Hawaiʻi"}>
+      <StitchedBand leftHue={p.name === "Kumu Connect" ? "lehua" : "ulu"} rightHue="kai" pair={5}>
         <div class={`${p.hue} block`} style="padding:34px 38px;">
           <div class="eyebrow" class:list={p.head}>Program outcomes</div>
           <h2 class={p.head} style="margin-top:6px;">{p.name}</h2>

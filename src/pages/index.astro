@@ -2,6 +2,7 @@
 import { BASE } from "../lib/base";
 import Base from "../layouts/Base.astro";
 import StitchedBand from "../components/StitchedBand.astro";
+import QuiltSeparator from "../components/QuiltSeparator.astro";
 import { stats } from "../data/stats";
 
 const initiatives = [
@@ -84,7 +85,7 @@ const glanceTiles = stats.map((s) => {
   </section>
 
   <!-- Hero — the pieced "three containers" stitched layout -->
-  <StitchedBand leftHue="ulu" rightHue="kai" flip={false}>
+  <StitchedBand leftHue="ulu" rightHue="kai" pair={1}>
     <div class="hero-grid">
       <div class="pb p-alaea hero-main">
         <div class="eyebrow" style="color:var(--olena-light); margin-bottom:14px;">Ulu Lāhui Foundation</div>
@@ -113,7 +114,7 @@ const glanceTiles = stats.map((s) => {
     </div>
   </StitchedBand>
 
-  <div class="seam-thick"></div>
+  <QuiltSeparator n=1 />
 
   <!-- Initiatives — three loose patches on the table -->
   <div class="table">
@@ -137,10 +138,10 @@ const glanceTiles = stats.map((s) => {
     </div>
   </div>
 
-  <div class="seam-thin"></div>
+  <QuiltSeparator n=2 />
 
   <!-- ULF at a glance — pieced stat row -->
-  <StitchedBand leftHue="ulu-l" rightHue="alaea" flip>
+  <StitchedBand leftHue="ulu-l" rightHue="alaea" pair={2}>
     <div class="band-label bl-kai" style="text-align:left; margin-bottom:0;">
       <div class="eyebrow">ULF at a glance</div>
     </div>
@@ -154,7 +155,7 @@ const glanceTiles = stats.map((s) => {
     </div>
   </StitchedBand>
 
-  <div class="seam-thick"></div>
+  <QuiltSeparator n=3 />
 
   <!-- Proof strip — trusted collaborators -->
   <div class="table">
@@ -172,10 +173,10 @@ const glanceTiles = stats.map((s) => {
     </div>
   </div>
 
-  <div class="seam-thin"></div>
+  <QuiltSeparator n=4 />
 
   <!-- Featured research callout -->
-  <StitchedBand leftHue="olena" rightHue="moana" flip>
+  <StitchedBand leftHue="olena" rightHue="moana" pair={3}>
     <div class="callout p-kai">
       <svg class="callout-bg" viewBox="0 0 200 200" style="color:white;"><use href="#uluQuiltA" class="leaf" /></svg>
       <div class="content">
@@ -190,7 +191,7 @@ const glanceTiles = stats.map((s) => {
     </div>
   </StitchedBand>
 
-  <div class="seam-thick"></div>
+  <QuiltSeparator n=5 />
 
   <!-- Testimonial -->
   <div class="table">
@@ -207,10 +208,10 @@ const glanceTiles = stats.map((s) => {
     </div>
   </div>
 
-  <div class="seam-thin"></div>
+  <QuiltSeparator n=6 />
 
   <!-- Newsletter — stitched email band -->
-  <StitchedBand leftHue="kai" rightHue="lehua" flip>
+  <StitchedBand leftHue="kai" rightHue="lehua" pair={4}>
     <div class="p-kai-l" style="padding:32px 26px;">
       <div class="label" style="color:var(--kai-deep); margin-bottom:8px;">Monthly field notes</div>
       <h2 style="font-size:24px; margin-bottom:6px;">Hear what we are building and learning</h2>

@@ -23,7 +23,7 @@ const tabs = [
     <SectionTabs links={tabs} current="/partners/schools-communities/" />
   </div>
 
-  <StitchedBand leftHue="ulu" rightHue="moana" flip>
+  <StitchedBand leftHue="ulu" rightHue="moana" pair={2}>
     <div class="piece-row">
       {schoolsByIsland.map((is, i) => (
         <div class={`block pb ${i === 0 ? "p-ulu-l" : i === 1 ? "p-alaea-l" : "p-moana-l"}`}>

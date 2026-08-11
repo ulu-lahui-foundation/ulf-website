@@ -1,0 +1,12 @@
+---
+// Decorative full-width section separator — Quilt_FullWidth_N, rotated
+// through the six options (design guide Part 2a). Decorative only.
+interface Props {
+  n: number; // 1–6
+}
+const { n } = Astro.props;
+const num = ((n - 1) % 6 + 6) % 6 + 1;
+---
+<div class="quilt-separator">
+  <img src={`${import.meta.env.BASE_URL}/media/quilt/Quilt_FullWidth_${num}.avif`} alt="" width="1920" height="320" loading="lazy" />
+</div>

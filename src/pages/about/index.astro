@@ -113,7 +113,7 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
     <SectionTabs links={chips} />
   </div>
 
-  <StitchedBand leftHue="ulu" rightHue="alaea" flip>
+  <StitchedBand leftHue="ulu" rightHue="alaea" pair={3}>
     <div style="display:grid; grid-template-columns:1.5fr 1fr; gap:0;" class="about-pair">
       <div class="block pb p-moana-l">
         <div class="eyebrow" style="color:var(--moana);">Why we exist</div>
@@ -150,7 +150,7 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
       </div>
     </div>
 
-    <StitchedBand leftHue="moana" rightHue="kai" flip>
+    <StitchedBand leftHue="moana" rightHue="kai" pair={4}>
       <div class="piece-row">
         <div class="block pb p-moana-l">
           <div class="eyebrow" style="color:var(--moana);">Mission</div>
@@ -198,7 +198,7 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
 
     <div class="seam-thin"></div>
 
-    <StitchedBand leftHue="ulu-l" rightHue="lehua" flip>
+    <StitchedBand leftHue="ulu-l" rightHue="lehua" pair={5}>
       <div class="qb q-kai-l" style="padding:40px 44px;">
         <div class="container-narrow" style="padding:0;">
           <div class="eyebrow" style="color:var(--kai);">Why this mission exists</div>
@@ -261,7 +261,7 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
       </div>
     </div>
 
-    <StitchedBand leftHue="ulu" rightHue="olena" flip>
+    <StitchedBand leftHue="ulu" rightHue="olena" pair={6}>
       <div class="p-moana-l" style="padding:42px 44px;">
         <div style="max-width:68ch;">
           <div class="eyebrow" style="color:var(--moana);">The throughline</div>
@@ -297,7 +297,7 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
 
     <div class="seam-thin"></div>
 
-    <StitchedBand leftHue="moana-l" rightHue="kai" flip>
+    <StitchedBand leftHue="moana-l" rightHue="kai" pair={1}>
       <div class="qb q-olena" style="padding:40px 44px;">
         <div class="eyebrow" style="color:var(--olena-dark);">Where it is headed</div>
         <h2 style="color:var(--olena-dark); margin-top:6px;">From projects to programs</h2>
@@ -330,7 +330,7 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
       </div>
     </div>
 
-    <StitchedBand leftHue="moana" rightHue="alaea" flip>
+    <StitchedBand leftHue="moana" rightHue="alaea" pair={2}>
       <div class="piece-row">
         {staff.map((p) => (
           <div class={`block ${lightField[p.tone]}`} style="padding:30px 26px;">
@@ -393,7 +393,7 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
       </div>
     </div>
 
-    <StitchedBand leftHue="moana-l" rightHue="olena" flip>
+    <StitchedBand leftHue="moana-l" rightHue="olena" pair={3}>
       <div class="piece-row">
         {board.map((p) => (
           <div class={`block ${boardField[p.tone]}`} style="padding:30px 26px; align-items:center; text-align:center;">
@@ -438,7 +438,7 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
       </div>
     </div>
 
-    <StitchedBand leftHue="ulu" rightHue="lehua" flip>
+    <StitchedBand leftHue="ulu" rightHue="lehua" pair={4}>
       <div class="piece-row">
         <div class="block pb p-kai-l">
           <div class="eyebrow" style="color:var(--kai);">How we are governed</div>
@@ -481,7 +481,7 @@ const boardHead: Record<string, string> = { alaea: "head-alaea", moana: "head-mo
 
     <div class="seam-thin"></div>
 
-    <StitchedBand leftHue="kai-l" rightHue="olena" flip>
+    <StitchedBand leftHue="kai-l" rightHue="olena" pair={5}>
       <div class="qb q-moana-l" style="padding:40px 44px;">
         <div class="eyebrow" style="color:var(--moana);">Our stance on data</div>
         <h2 style="color:var(--moana); margin-top:6px;">Indigenous data sovereignty is a design requirement</h2>

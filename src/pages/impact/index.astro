@@ -22,7 +22,7 @@ const tabs = [
     <SectionTabs links={tabs} current="/impact/" />
   </div>
 
-  <StitchedBand leftHue="ulu-l" rightHue="alaea" flip>
+  <StitchedBand leftHue="ulu-l" rightHue="alaea" pair={1}>
     <div class="stat-bar">
       {stats.map((s) => (
         <div class={`block p-${s.tone === "olena" ? "olena-l" : `${s.tone}-l`}`}>
@@ -60,7 +60,7 @@ const tabs = [
 
   <div class="seam-thin"></div>
 
-  <StitchedBand leftHue="kai" rightHue="moana" flip>
+  <StitchedBand leftHue="kai" rightHue="moana" pair={2}>
     <div class="piece-row">
       <div class="block pb p-kai-l">
         <div class="eyebrow" style="color:var(--kai);">Where the work happens</div>

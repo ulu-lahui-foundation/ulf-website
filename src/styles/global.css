@@ -269,9 +269,9 @@ em { font-style: italic; }
 }
 .page-frame { display: flex; align-items: stretch; }
 .page-gutter {
-  flex: 1 1 var(--gutter-min);
+  flex: 0 1 auto;
   min-width: var(--gutter-min);
-  max-width: var(--gutter-max);
+  max-width: 320px;
   padding: var(--gutter-padding);
   position: relative;
   overflow: hidden;
@@ -281,7 +281,7 @@ em { font-style: italic; }
 }
 .page-gutter.gutter-l { justify-content: flex-end; border-right: none; }
 .page-gutter.gutter-r { justify-content: flex-start; border-left: none; }
-.page-gutter svg { height: 100%; width: auto; aspect-ratio: 1; object-fit: contain; flex-shrink: 0; }
+.page-gutter img { height: 100%; width: auto; flex-shrink: 0; display: block; }
 .page-frame-content { flex: 1 1 860px; min-width: 0; }
 
 /* seams between states (Part 10) — only a stitched band casts a line,
@@ -290,6 +290,16 @@ em { font-style: italic; }
 .seam-thick { width: 100vw; position: relative; left: 50%; margin-left: -50vw; height: 0; }
 .stitched + .seam-thin  { height: 10px; background: linear-gradient(180deg, var(--shadow-transition) 0%, transparent 100%); }
 .stitched + .seam-thick { height: 16px; background: linear-gradient(180deg, var(--shadow-transition) 0%, transparent 100%); }
+
+/* decorative full-width quilt separators (Part 2a) — natural ratio, no crop */
+.quilt-separator {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  line-height: 0;
+}
+.quilt-separator img { display: block; width: 100%; height: auto; }
 
 /* body blocks inside a stitched frame: dashed seam outline in the block's
    own hue edge color (borders; fills come from the p-/q- classes) */
