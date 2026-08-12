@@ -40,7 +40,7 @@ const items = [
   <PageHead
     eyebrow="News"
     title="News & announcements"
-    lede="Press releases and media coverage, presented as dated items rather than a scrolling feed."
+    lede="Announcements, press releases, and media coverage — with the details and documents behind each."
   />
   <div class="container" style="margin-top:6px;">
     <SectionTabs links={tabs} current="/news/" />
@@ -57,6 +57,7 @@ const items = [
               <div class="label" style={p.head}>{p.date}</div>
               <h3 class={p.head} style="margin-top:6px; font-size:17px;">{p.title}</h3>
               <p style="font-size:13px; margin-top:8px; max-width:34ch;" class:list={p.head}>{p.text}</p>
+              <span class="btn btn-tertiary" style="--tone:var(--alaea); padding-left:0; margin-top:14px;" class:list={p.head}>Read more</span>
             </div>
           </a>
         ))}

@@ -4,7 +4,8 @@ export const stats = [
   { num: "70+", label: "Educators trained", tone: "moana" },
   { num: "33+", label: "Schools served", tone: "kai" },
   { num: "6", label: "Complex areas", tone: "lehua" },
-  { num: "3+", label: "Islands and national Indigenous partnerships", tone: "olena" },
+  { num: "3+", label: "Islands reached", tone: "olena" },
+  { num: "4", label: "Initiatives in Hawaiʻi, Maui, Oʻahu, and Kauaʻi", tone: "olena" },
 ];
 
 export const confidenceGains = [
